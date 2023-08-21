@@ -11,7 +11,7 @@ abstract class Component {
     cont.className = "container";
     const logo = document.createElement("div");
     const logoImg = document.createElement("img");
-    logoImg.src = "../images/image (1).png";
+    logoImg.src = "./images/image (1).png";
     logoImg.alt = "AutoCar";
     logo.append(logoImg);
     cont.append(logo);

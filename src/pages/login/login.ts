@@ -46,6 +46,17 @@ class LoginPage extends Page  {
     pageButtons.append(pageButton);
     login.append(pageButtons);
 
+    const pageText = document.createElement("div");
+    pageText.className = "login__text";
+    let text = document.createElement("p");
+    text.className = "text_bold";
+    text.innerText = "Welcome back";
+    pageText.append(text);
+    text = document.createElement("p");
+    text.innerText = "We're so exited to see you again!";
+    pageText.append(text);
+    login.append(pageText);
+
     const loginEmail = document.createElement("div");
     loginEmail.className = "input";
     login.append(loginEmail);
@@ -62,13 +73,16 @@ class LoginPage extends Page  {
     
     cont.append(loginWrapper);
 
+    const loginSubmitWrapper = document.createElement("div");
+    loginSubmitWrapper.className = "login__submit_wrapper";
+    login.append(loginSubmitWrapper);
     const loginSubmit = document.createElement("button");
     loginSubmit.className = "login__submit";
     loginSubmit.type = "submit";
     loginSubmit.id = "login-submit";
     loginSubmit.textContent = "Log in";
 
-    login.append(loginSubmit);
+    loginSubmitWrapper.append(loginSubmit);
 
     this.container.append(cont);
 

@@ -8,6 +8,15 @@ class RegistrationPage extends Page {
   // constructor(id: string) {
   //   super(id);
   // }
+  private createPageButtons(href: string, text: string) {
+    const pageButton = document.createElement("div");
+    const loginBtn = document.createElement("a");
+    pageButton.className = "login__btn";
+    loginBtn.href = href;
+    loginBtn.innerText = text;
+    pageButton.append(loginBtn);
+    return pageButton;
+  }
 
   private renderLogin(className: string, type: string, id: string, placeholder: string) {
     const input = document.createElement("input");
@@ -26,6 +35,15 @@ class RegistrationPage extends Page {
     const login = document.createElement("form");
     login.className = "login";
     loginWrapper.append(login);
+
+    const pageButtons = document.createElement("div");
+    pageButtons.className = "login__btns";
+    let pageButton = this.createPageButtons("#login", "Log in");
+    pageButtons.append(pageButton);
+    pageButton = this.createPageButtons("#registration", "Sign up");
+    pageButtons.append(pageButton);
+    pageButton.classList.add("login__btn_active");
+    login.append(pageButtons);
 
     const loginEmail = document.createElement("div");
     loginEmail.className = "input";
