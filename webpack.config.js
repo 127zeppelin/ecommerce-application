@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -60,14 +60,18 @@ module.exports = ({ development }) => ({
   plugins: [
     ...esLintPlugin(development),
     new HtmlWebpackPlugin({
-      title: 'Hello world',
-      // template: './src/index.html',
+      title: 'AutoCar',
+      template: path.resolve(__dirname, './src/index.html'),
+      filename: 'index.html',
     }),
-    /* new CopyPlugin({
+    new CopyPlugin({
       patterns: [
-        { from: 'public' },
+        {
+          from: path.resolve(__dirname, 'src', 'images'),
+          to: 'images',
+        },
       ],
-    }), */
+    }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
   ],
