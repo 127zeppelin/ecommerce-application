@@ -10,7 +10,7 @@ class RegistrationPage extends Page {
   // }
 
   private renderLogin(className: string, type: string, id: string, placeholder: string) {
-    let input = document.createElement("input");
+    const input = document.createElement("input");
     input.className = className;
     input.type = type;
     input.id = id;

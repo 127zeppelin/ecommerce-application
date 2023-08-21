@@ -10,8 +10,8 @@ class LoginPage extends Page  {
   // }
 
   private createPageButtons(href: string, text: string) {
-    let pageButton = document.createElement("div");
-    let loginBtn = document.createElement("a");
+    const pageButton = document.createElement("div");
+    const loginBtn = document.createElement("a");
     pageButton.className = "login__btn";
     loginBtn.href = href;
     loginBtn.innerText = text;
@@ -20,7 +20,7 @@ class LoginPage extends Page  {
   }
 
   private renderLogin(className: string, type: string, id: string, placeholder: string) {
-    let input = document.createElement("input");
+    const input = document.createElement("input");
     input.className = className;
     input.type = type;
     input.id = id;
@@ -62,7 +62,7 @@ class LoginPage extends Page  {
     
     cont.append(loginWrapper);
 
-    let loginSubmit = document.createElement("button");
+    const loginSubmit = document.createElement("button");
     loginSubmit.className = "login__submit";
     loginSubmit.type = "submit";
     loginSubmit.id = "login-submit";

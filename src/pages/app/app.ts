@@ -9,9 +9,13 @@ import RegistrationPage from "../registration/registration";
 
 class App {
   private container: HTMLElement = document.body;
+
   private defaultPageId: string = "current-page";
+
   private initialPage: MainPage;
+
   private header: Header;
+
   private footer: Footer;
 
   renderNewPage(idPage: string) {
