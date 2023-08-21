@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: ‘Poppins’, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #14152e;
+  color: #fafafa;
+  position: relative;
+}
+
+.header,
+.footer {
+  background: #212338;
+  padding: 1rem;
+  height: 90px;
+}
+
+.header {
+  border-bottom: 1px solid #7D7E93;
+  margin-bottom: 55px;
+}
+
+.footer {
+  margin-top: 10%;
+  border-top: 1px solid #7D7E93;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+a {
+  color: #fafafa;
+}
+
+.login__wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.login {
+  width: 732px;
+  height: 791px;
+  background: #fafafa;
+  padding: 48px;
+  border-radius: 24px;
+}
+
+.input {
+  margin: 10px auto;
+}
+
+span,
+p {
+  color: #000000;
+}
+
+/* input {
+  margin: 10px;
+  border-radius: 5px;
+} */
+
+.login__btns {
+  background: #c3c3c3;
+  width: 604px;
+  height: 56px;
+  border-radius: 10px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 71px;
+}
+
+.login__btn a {
+  text-align: center;
+  width: 302px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  text-decoration: none;
+  height: 100%;
+}
+
+.login__btn_active {
+  background: #000;
+  border-radius: 10px 0 0 10px;
+  pointer-events: none;
+  cursor: default;
+}
+
+.login__btn_active a {
+  color: #fafafa;
+}
+
+.login__text {
+  text-align: center;
+  margin-bottom: 71px;
+}
+
+.login__text p {
+  font-size: 24px;
+}
+
+.login__text .text_bold {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.input {
+  width: 454px;
+  height: 64px;
+  margin-bottom: 31px;
+}
+
+.input__email,
+.input__password {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #c3c3c3;
+  padding: 5px;
+}
+
+.login__submit_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.login__submit {
+  width: 454px;
+  height: 64px;
+  border-radius: 40px;
+  background: #000;
+  color: #fafafa;
+  border: none;
+  margin-top: 31px;
+  cursor: pointer;
+}
