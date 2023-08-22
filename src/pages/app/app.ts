@@ -47,6 +47,7 @@ class App {
     window.addEventListener("hashchange", () => {
       const hash = window.location.hash.slice(1);
       this.renderNewPage(hash);
+      this.header.renderPageButtons(hash);
     })
   }
 
@@ -57,14 +58,14 @@ class App {
   }
 
   run() {
-    this.container.append(this.header.render());
-    this.container.append(this.footer.render());
-    let hash;
+    let hash: string;
     if (window.location.hash) {
       hash = window.location.hash.slice(1);
     } else {
       hash = "main";
     }
+    this.container.append(this.header.render());
+    this.container.append(this.footer.render());
     this.renderNewPage(hash);
     this.enableRouting();
   }

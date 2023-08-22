@@ -10,6 +10,7 @@ abstract class Component {
     const cont = document.createElement("div");
     cont.className = "container";
     const logo = document.createElement("div");
+    logo.className = "img_wrapper";
     const logoImg = document.createElement("img");
     logoImg.src = "./images/image (1).png";
     logoImg.alt = "AutoCar";

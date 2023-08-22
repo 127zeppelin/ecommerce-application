@@ -45,11 +45,20 @@ class RegistrationPage extends Page {
     pageButton.classList.add("login__btn_active");
     login.append(pageButtons);
 
+    const pageText = document.createElement("div");
+    pageText.className = "login__text";
+    const textPage = document.createElement("p");
+    textPage.className = "text_bold";
+    textPage.innerText = "Create an account";
+    pageText.append(textPage);
+    login.append(pageText);
+
     const loginEmail = document.createElement("div");
     loginEmail.className = "input";
     login.append(loginEmail);
 
     let input = this.renderLogin("input__email", "email", "username", "Email");
+    loginEmail.append(input);
     cont.append(loginWrapper);
 
     const loginPassword = document.createElement("div");
@@ -79,30 +88,11 @@ class RegistrationPage extends Page {
     input = this.renderLogin("input__info", "date", "date", "01.01.1970");
     loginInfo.append(input);
 
-    input = this.renderLogin("input__info", "radio", "gender", "male");
-    input.name = "gender";
-    input.value = "male";
-    loginInfo.append(input);
-
-    let text = document.createElement("span");
-    text.innerText = "Male";
-    loginInfo.append(text);
-
-    input = this.renderLogin("input__info", "radio", "gender", "male");
-    input.name = "gender";
-    input.value = "male";
-    loginInfo.append(input);
-
-    text = text = document.createElement("span");
-    text.innerText = "Female";
-    loginInfo.append(text);
-
-
     const loginShippingAdress = document.createElement("div");
     loginShippingAdress.className = "input";
     login.append(loginShippingAdress);
 
-    text = document.createElement("p");
+    let text = document.createElement("p");
     text.innerText = "Shipping adress";
     loginShippingAdress.append(text);
 
@@ -139,13 +129,16 @@ class RegistrationPage extends Page {
     input = this.renderLogin("input__adress", "text", "billing-country", "Counrtry");
     loginBillingAdress.append(input);
 
-    const loginBtn = document.createElement("button");
-    loginBtn.className = "login__btn";
-    loginBtn.type = "submit";
-    loginBtn.id = "login-submit";
-    loginBtn.textContent = "Sign up";
+    const loginSubmitWrapper = document.createElement("div");
+    loginSubmitWrapper.className = "login__submit_wrapper";
+    login.append(loginSubmitWrapper);
+    const loginSubmit = document.createElement("button");
+    loginSubmit.className = "login__submit";
+    loginSubmit.type = "submit";
+    loginSubmit.id = "login-submit";
+    loginSubmit.textContent = "Sign up";
 
-    login.append(loginBtn);
+    loginSubmitWrapper.append(loginSubmit);
 
     this.container.append(cont);
 
