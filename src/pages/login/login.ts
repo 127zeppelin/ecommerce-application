@@ -1,6 +1,8 @@
 import Page from "../../temlates/page";
+import { customerLogin } from "./customerlogin";
+import { tokenStore } from "../../components/app-components/api";
 
-class LoginPage extends Page  {
+class LoginPage extends Page {
   TextObject = {
     MainTitle: "Login Page",
   };
@@ -26,6 +28,33 @@ class LoginPage extends Page  {
     input.id = id;
     input.placeholder = placeholder;
     return input;
+  }
+
+  submitLoginForm(inputLogin: HTMLInputElement, inputPass: HTMLInputElement, loginSubmit: HTMLElement) {
+
+    // const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
+
+
+    loginSubmit.addEventListener('click', async (event) => {
+      event.preventDefault(); // Предотвращаем действие по умолчанию (например, отправку формы)
+
+      const inputLoginvalue: string = inputLogin.value;
+      const inputPassvalue: string = inputPass.value;
+
+      try {
+        await customerLogin(inputLoginvalue, inputPassvalue);
+        localStorage.setItem('access_token', tokenStore.token);
+        localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
+        localStorage.setItem('refresh_token', tokenStore.refreshToken ? tokenStore.refreshToken : '');
+        window.location.href = './#main'
+      } catch (error: any) {
+        //console.error('Error fetching project details:', error.message);
+
+        // if (resolveMessage instanceof HTMLElement) {
+        //   resolveMessage.innerText = error.message;
+        // }
+      }
+    })
   }
 
   render() {
@@ -61,16 +90,16 @@ class LoginPage extends Page  {
     loginEmail.className = "input";
     login.append(loginEmail);
 
-    let input = this.renderLogin("input__email", "email", "username", "Email");
-    loginEmail.append(input);
-    
+    const inputLogin = this.renderLogin("input__email", "email", "username", "Email");
+    loginEmail.append(inputLogin);
+
     const loginPassword = document.createElement("div");
     loginPassword.className = "input";
     login.append(loginPassword);
-    
-    input = this.renderLogin("input__password", "text", "password", "Password");
-    loginPassword.append(input);
-    
+
+    const inputPassword = this.renderLogin("input__password", "text", "password", "Password");
+    loginPassword.append(inputPassword);
+
     cont.append(loginWrapper);
 
     const loginSubmitWrapper = document.createElement("div");
@@ -85,7 +114,7 @@ class LoginPage extends Page  {
     loginSubmitWrapper.append(loginSubmit);
 
     this.container.append(cont);
-
+    this.submitLoginForm(inputLogin, inputPassword, loginSubmit)
     return this.container;
   }
 }

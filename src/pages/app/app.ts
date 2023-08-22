@@ -5,6 +5,9 @@ import Page from "../../temlates/page";
 import LoginPage from "../login/login";
 import MainPage from "../main/main";
 import RegistrationPage from "../registration/registration";
+import CustomerPage from "../user/user";
+import ErrorPage from "../error/error";
+import CarsPage from "../cars/cars";
 
 
 class App {
@@ -32,6 +35,12 @@ class App {
       page = new LoginPage(idPage);
     } else if (idPage === PageIds.REGISRATION_PAGE) {
       page = new RegistrationPage(idPage);
+    } else if (idPage === PageIds.CUSTOMER_PAGE) {
+      page = new CustomerPage(idPage);
+    } else if (idPage === PageIds.ERROR_PAGE) {
+      page = new ErrorPage(idPage);
+    } else if (idPage === PageIds.CARS_PAGE) {
+      page = new CarsPage(idPage);
     } else {
       //TO DO
     }

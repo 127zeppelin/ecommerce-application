@@ -32,6 +32,9 @@ class Header extends Component {
     } else if (hash === PageIds.LOGIN_PAGE || hash === PageIds.REGISRATION_PAGE) {
       const pageButton = this.createPageButtons("#main", "Main");
       pageButtons.append(pageButton);
+      const catalogButton = this.createPageButtons("#cars", "Cars");
+      pageButtons.append(catalogButton);
+      pageButtons.append(pageButton);
     }
     title.append(pageButtons);
     this.container.append(title);

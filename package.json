@@ -5,9 +5,14 @@
     "dev": "webpack serve --env development",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix --color",
-    "prepare": "husky install",
     "format": "prettier --write",
     "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint"
+    }
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.1",
@@ -40,6 +45,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^5.0.0",
     "@commercetools/sdk-client": "^3.0.0",
     "@commercetools/sdk-client-v2": "^2.2.0",
     "@commercetools/sdk-middleware-auth": "^7.0.1",
