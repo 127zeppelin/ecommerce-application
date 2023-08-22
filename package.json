@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.20.1",
     "@types/jest": "^29.5.3",
     "@types/node-fetch": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
@@ -39,6 +40,11 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^2.2.0"
+    "@commercetools/sdk-client": "^3.0.0",
+    "@commercetools/sdk-client-v2": "^2.2.0",
+    "@commercetools/sdk-middleware-auth": "^7.0.1",
+    "@commercetools/sdk-middleware-http": "^7.0.3",
+    "@commercetools/typescript-sdk": "^0.0.22",
+    "dotenv": "^16.3.1"
   }
 }
