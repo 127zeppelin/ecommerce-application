@@ -201,3 +201,55 @@ p {
   align-items: center;
   justify-content: center;
 }
+
+.default-adress_wrapper,
+.same-adress_wrapper {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.default-adress_wrapper input,
+.same-adress_wrapper input {
+  display: none;
+}
+ 
+.label__adress {
+  color: #000;
+}
+ 
+.label__adress:before {
+  content: " ";
+  color: #b36af0;
+  display: inline-block;
+  font-size: 24px;
+  margin-right: 15px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  background: #FFF;
+  border: 1px solid #e3e3e3;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+ 
+.default-adress_wrapper input:checked + .label__adress:before,
+.same-adress_wrapper input:checked + .label__adress:before {
+  content: "x";
+}
+
+.billing-adress_wrapper,
+.shipping-adress_wrapper {
+  border: 1px dashed #c6c6c6;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.same-adress_wrapper label {
+  font-weight: bold;
+}
+
+.billing-adress_inactive {
+  display: none;
+}
