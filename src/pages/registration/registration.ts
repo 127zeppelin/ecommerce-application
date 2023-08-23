@@ -27,6 +27,12 @@ class RegistrationPage extends Page {
     return input;
   }
 
+  private createCity(value: string, inputCity: HTMLDataListElement) {
+    let city = document.createElement("option");
+    city.value = value;
+    inputCity.append(city);
+  }
+
   render() {
     const cont = document.createElement("div");
     cont.className = "container";
@@ -75,27 +81,31 @@ class RegistrationPage extends Page {
     input = this.renderLogin("input__name", "text", "name", "Name");
     loginName.append(input);
 
-    const loginSurame = document.createElement("div");
-    loginSurame.className = "input";
-    login.append(loginSurame);
-
     input = this.renderLogin("input__name", "text", "surname", "Surname");
-    loginSurame.append(input);
+    loginName.append(input);
 
     const loginInfo = document.createElement("div");
     loginInfo.className = "input";
     login.append(loginInfo);
 
+    let text = document.createElement("p");
+    text.className = "input__text_date";
+    text.innerText = "Date of birth:";
+    loginInfo.append(text);
+
     input = this.renderLogin("input__info", "date", "date", "01.01.1970");
     loginInfo.append(input);
 
+    text = document.createElement("p");
+    text.className = "text_bold";
+    text.innerText = "Shipping adress";
+    login.append(text);
+
     const loginShippingAdress = document.createElement("div");
     loginShippingAdress.className = "input";
+    loginShippingAdress.classList.add("input__adress_wrapper");
     login.append(loginShippingAdress);
 
-    let text = document.createElement("p");
-    text.innerText = "Shipping adress";
-    loginShippingAdress.append(text);
 
     input = this.renderLogin("input__adress", "text", "shipping-street", "Street");
     loginShippingAdress.append(input);
@@ -106,17 +116,34 @@ class RegistrationPage extends Page {
     input = this.renderLogin("input__adress", "text", "shipping-code", "Postal code");
     loginShippingAdress.append(input);
 
-    input = this.renderLogin("input__adress", "text", "shipping-country", "Counrtry");
+    input = document.createElement("input");
+    input.className = "input__adress";
+    input.setAttribute("list","country");
+    input.id = "shipping-country";
+    input.placeholder = "Country";
+
     loginShippingAdress.append(input);
+
+    let inputCountry = document.createElement("datalist");
+    inputCountry.id = "country";
+
+    this.createCity("Belarus", inputCountry);
+    this.createCity("Germany", inputCountry);
+    this.createCity("Poland", inputCountry);
+    this.createCity("Austria", inputCountry);
+    this.createCity("Canada", inputCountry);
+
+    loginShippingAdress.append(inputCountry);
+
+    text = document.createElement("p");
+    text.className = "text_bold";
+    text.innerText = "Billing adress";
+    login.append(text);
 
     const loginBillingAdress = document.createElement("div");
     loginBillingAdress.className = "input";
+    loginBillingAdress.classList.add("input__adress_wrapper");
     login.append(loginBillingAdress);
-
-    text = document.createElement("p");
-    text.innerText = "Billing adress";
-    loginBillingAdress.append(text);
-
 
     input = this.renderLogin("input__adress", "text", "billing-street", "Street");
     loginBillingAdress.append(input);
@@ -127,8 +154,24 @@ class RegistrationPage extends Page {
     input = this.renderLogin("input__adress", "text", "billing-code", "Postal code");
     loginBillingAdress.append(input);
 
-    input = this.renderLogin("input__adress", "text", "billing-country", "Counrtry");
+    input = document.createElement("input");
+    input.className = "input__adress";
+    input.setAttribute("list","country");
+    input.id = "shipping-country";
+    input.placeholder = "Country";
+
     loginBillingAdress.append(input);
+
+    inputCountry = document.createElement("datalist");
+    inputCountry.id = "country";
+
+    this.createCity("Belarus", inputCountry);
+    this.createCity("Germany", inputCountry);
+    this.createCity("Poland", inputCountry);
+    this.createCity("Austria", inputCountry);
+    this.createCity("Canada", inputCountry);
+
+    loginShippingAdress.append(inputCountry);
 
     const loginSubmitWrapper = document.createElement("div");
     loginSubmitWrapper.className = "login__submit_wrapper";

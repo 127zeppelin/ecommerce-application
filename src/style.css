@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   font-size: 16px;
@@ -17,6 +18,8 @@ body {
   background: #212338;
   padding: 1rem;
   height: 90px;
+  display: flex;
+  align-items: center;
 }
 
 .header {
@@ -36,8 +39,8 @@ body {
   max-width: 1200px;
 }
 
-.pade-title {
-  font-size: 200px;
+.header .container {
+  width: 1200px;
 }
 
 a {
@@ -45,9 +48,7 @@ a {
 }
 
 .login__wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  margin: 0 auto;
 }
 
 .login {
@@ -66,11 +67,6 @@ span,
 p {
   color: #000000;
 }
-
-/* input {
-  margin: 10px;
-  border-radius: 5px;
-} */
 
 .login__btns {
   background: #c3c3c3;
@@ -120,15 +116,30 @@ p {
   font-weight: 700;
 }
 
+.text_bold {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .input {
   width: 454px;
   height: 64px;
   margin-bottom: 31px;
+  display: flex;
+  gap: 10px;
+}
+
+.input__adress_wrapper {
+  display: grid;
+  grid-template-columns: 222px 222px;
 }
 
 .input__email,
 .input__password,
-.input__name {
+.input__name,
+.input__info,
+.input__adress {
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -154,31 +165,39 @@ p {
 
 .menu_wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.menu__btn {
-  background: #c3c3c3;
-  border-radius: 70%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  margin: 10px;
-  cursor: pointer;
+  gap: 10px;
 }
 
 .menu__btn button {
-  font-size: 20px;
-  text-decoration: none;
-  color: #000000;
-  border: none;
-  background-color: transparent;
+  background: #b46af063;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98px;
+  height: 40px;
+  border: 2px solid #b36af0;
+
+}
+
+.menu__btn button {
+  font-size: 16px;
+  color: #fafafa;
   cursor: pointer;
 }
 
 .img_wrapper {
   display: flex;
   align-items: center;
+}
+
+.pade-title {
+  font-size: 100px;
+}
+
+.input__text_date {
+  display: flex;
+  width: 130px;
+  align-items: center;
+  justify-content: center;
 }
