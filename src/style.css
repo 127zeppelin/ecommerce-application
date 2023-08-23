@@ -36,6 +36,10 @@ body {
   max-width: 1200px;
 }
 
+.pade-title {
+  font-size: 200px;
+}
+
 a {
   color: #fafafa;
 }
@@ -162,12 +166,16 @@ p {
   justify-content: center;
   padding: 10px;
   margin: 10px;
+  cursor: pointer;
 }
 
-.menu__btn a {
+.menu__btn button {
   font-size: 20px;
   text-decoration: none;
   color: #000000;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .img_wrapper {

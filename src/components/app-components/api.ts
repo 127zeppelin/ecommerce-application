@@ -5,13 +5,14 @@ import {
   HttpMiddlewareOptions,
 } from "@commercetools/sdk-client-v2"
 
+const fetch = require('node-fetch');
 const {
   createClient,
   createHttpClient,
   createAuthForClientCredentialsFlow,
-} = require('@commercetools/sdk-client-v2')
-const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
-const fetch = require('node-fetch');
+} = require('@commercetools/sdk-client-v2');
+const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk');
+
 
 export const projectKey = "rs-school-project";
 

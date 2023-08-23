@@ -1,5 +1,6 @@
-import { PageIds } from "../../Enums/PageIds";
 import Component from "../../temlates/components";
+import { logoutAndRedirect , isTheUserLoggedIn } from "../../pages/login/istheuserlogged";
+
 
 class Header extends Component {
   // constructor(tagName: string, className: string) {
@@ -8,34 +9,53 @@ class Header extends Component {
 
   private createPageButtons(href: string, text: string) {
     const pageButton = document.createElement("div");
-    const loginBtn = document.createElement("a");
+    const loginBtn = document.createElement("button");
     pageButton.className = "menu__btn";
-    loginBtn.href = href;
+    loginBtn.addEventListener('click', () => { window.location.href = href; });
     loginBtn.innerText = text;
+    loginBtn.setAttribute('id', `btn-${href.slice(1)}`);
     pageButton.append(loginBtn);
     return pageButton;
   }
-
+  // eslint-disable-next-line
   renderPageButtons(hash: string) {
     const currentHeader = document.querySelector(".header .container");
     if (currentHeader) {
       currentHeader.remove();
     }
+    
     const title = this.createContainer();
     const pageButtons = document.createElement("div");
     pageButtons.className = "menu_wrapper";
-    if (hash === PageIds.MAIN_PAGE || !hash) {
-      let pageButton = this.createPageButtons("#login", "Log in");
-      pageButtons.append(pageButton);
-      pageButton = this.createPageButtons("#registration", "Sign up");
-      pageButtons.append(pageButton);
-    } else if (hash === PageIds.LOGIN_PAGE || hash === PageIds.REGISRATION_PAGE) {
-      const pageButton = this.createPageButtons("#main", "Main");
-      pageButtons.append(pageButton);
-      const catalogButton = this.createPageButtons("#cars", "Cars");
-      pageButtons.append(catalogButton);
-      pageButtons.append(pageButton);
+
+
+    const mainPageButton: HTMLElement = this.createPageButtons("#main", "Main");
+    pageButtons.append(mainPageButton);
+
+    const carsButton = this.createPageButtons("#cars", "Cars");
+    pageButtons.append(carsButton);
+
+    const loginPageButton = this.createPageButtons("#login", "Log in");
+    if (!isTheUserLoggedIn()) {
+      pageButtons.append(loginPageButton);
     }
+
+    const registrPageButton = this.createPageButtons("#registration", "Sign up");
+    if (!isTheUserLoggedIn()) {
+      pageButtons.append(registrPageButton);
+    }
+
+    const userPageButton = this.createPageButtons("#user", "User Page");
+    if (isTheUserLoggedIn()) {
+      pageButtons.append(userPageButton);
+    }
+
+    const logautButton = this.createPageButtons("#main", "Logout");
+    if (isTheUserLoggedIn()) {
+      logautButton.addEventListener('click', logoutAndRedirect);
+      pageButtons.append(logautButton);
+    }
+
     title.append(pageButtons);
     this.container.append(title);
   }

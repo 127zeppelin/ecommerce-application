@@ -8,8 +8,12 @@ class CustomerPage extends Page{
   // }
 
   render() {
+    const containerOuter = document.createElement("div");
+    containerOuter.className = "container";
+    this.container.append(containerOuter);
     const title = this.createHeaderTitle("User Page");
-    this.container.append(title);
+    title.className = 'pade-title';
+    containerOuter.append(title);
     return this.container;
   }
 }

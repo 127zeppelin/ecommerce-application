@@ -16,8 +16,12 @@ class ErrorPage extends Page {
   }
 */
   render() {
-    const title = this.createHeaderTitle('404'/*this.TextObject[this.errorType]*/);
-    this.container.append(title);
+    const containerOuter = document.createElement("div");
+    containerOuter.className = "container";
+    this.container.append(containerOuter);
+    const title = this.createHeaderTitle("404");
+    title.className = 'pade-title';
+    containerOuter.append(title);
     return this.container;
   }
 }
