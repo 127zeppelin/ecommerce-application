@@ -67,6 +67,11 @@ p {
   color: #000000;
 }
 
+.validation-message {
+  position: absolute;
+  padding-top: 5px;
+}
+
 /* input {
   margin: 10px;
   border-radius: 5px;
@@ -124,6 +129,7 @@ p {
   width: 454px;
   height: 64px;
   margin-bottom: 31px;
+  position: relative;
 }
 
 .input__email,
@@ -181,4 +187,33 @@ p {
 .img_wrapper {
   display: flex;
   align-items: center;
+}
+
+.resolve {
+  position: fixed;
+  top: calc(50% - 100px);
+  right: calc((100% - 350px)/2);
+  width: 350px;
+  height: 200px;
+  background: red;
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+}
+
+.resolve.successfully {
+  background: green;
+  color: white;
+}
+
+.btn-show-pass {
+  position: absolute;
+  right: 15px;
+  margin-top: 25px;
+  border: none;
+  background-color: transparent;
 }
