@@ -1,6 +1,8 @@
 import Page from "../../temlates/page";
 import { customerLogin } from "./customerlogin";
 import { tokenStore } from "../../components/app-components/api";
+import { handleEmailInputChange, handlePasswordInputChange } from "../../components/app-components/validationinput";
+import { showPasword } from "../../components/app-components/showpasword";
 
 class LoginPage extends Page {
   TextObject = {
@@ -30,14 +32,34 @@ class LoginPage extends Page {
     return input;
   }
 
-  submitLoginForm(inputLogin: HTMLInputElement, inputPass: HTMLInputElement, loginSubmit: HTMLElement) {
+  submitLoginForm(inputLogin: HTMLInputElement, inputPass: HTMLInputElement, loginSubmit: HTMLButtonElement) {
+    const invalidInputMessageEmail: HTMLDivElement = document.createElement('div');
+    invalidInputMessageEmail.classList.add('validation-message');
+    inputLogin.insertAdjacentElement('afterend', invalidInputMessageEmail);
+    let resultEmail = false;
 
-    // const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
+    const invalidInputMessagePass: HTMLDivElement = document.createElement('div');
+    invalidInputMessagePass.classList.add('validation-message');
+    inputPass.insertAdjacentElement('afterend', invalidInputMessagePass);
+    let resultPassword = false;
+    const checkResultValidation = (email: boolean, password: boolean) => {
+      if (email && password) { loginSubmit.disabled = false; }
+    }
 
+    inputLogin.addEventListener('input', (event) => {
+      const inputTargetElement: HTMLInputElement = event.target as HTMLInputElement;
+      resultEmail = handleEmailInputChange(inputTargetElement, invalidInputMessageEmail);
+      checkResultValidation(resultEmail, resultPassword);
+    });
+
+    inputPass.addEventListener('input', (event) => {
+      const inputTargetElement: HTMLInputElement = event.target as HTMLInputElement;
+      resultPassword = handlePasswordInputChange(inputTargetElement, invalidInputMessagePass);
+      checkResultValidation(resultEmail, resultPassword);
+    });
 
     loginSubmit.addEventListener('click', async (event) => {
-      event.preventDefault(); // Предотвращаем действие по умолчанию (например, отправку формы)
-
+      event.preventDefault();
       const inputLoginvalue: string = inputLogin.value;
       const inputPassvalue: string = inputPass.value;
 
@@ -46,13 +68,28 @@ class LoginPage extends Page {
         localStorage.setItem('access_token', tokenStore.token);
         localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
         localStorage.setItem('refresh_token', tokenStore.refreshToken ? tokenStore.refreshToken : '');
-        window.location.href = './#main'
+        const BODY: HTMLElement | null = document.querySelector('body');
+        const resolveMessage: HTMLElement = document.createElement('div');
+        resolveMessage.classList.add('resolve', 'successfully');
+        if (resolveMessage instanceof HTMLElement && BODY instanceof HTMLElement) {
+          resolveMessage.innerText = 'Logged in successfully';
+          BODY.append(resolveMessage);
+          setTimeout(() => {
+            resolveMessage.remove();
+          }, 2000);
+          window.location.href = './#main'
+        }
       } catch (error: any) {
-        //console.error('Error fetching project details:', error.message);
-
-        // if (resolveMessage instanceof HTMLElement) {
-        //   resolveMessage.innerText = error.message;
-        // }
+        const BODY: HTMLElement | null = document.querySelector('body');
+        const resolveMessage: HTMLElement = document.createElement('div');
+        resolveMessage.classList.add('resolve');
+        if (resolveMessage instanceof HTMLElement && BODY instanceof HTMLElement) {
+          resolveMessage.innerText = error.message;
+          BODY.append(resolveMessage);
+          setTimeout(() => {
+            resolveMessage.remove();
+          }, 2000);
+        }
       }
     })
   }
@@ -97,8 +134,9 @@ class LoginPage extends Page {
     loginPassword.className = "input";
     login.append(loginPassword);
 
-    const inputPassword = this.renderLogin("input__password", "text", "password", "Password");
+    const inputPassword = this.renderLogin("input__password", "password", "password", "Password");
     loginPassword.append(inputPassword);
+    showPasword(inputPassword);
 
     cont.append(loginWrapper);
 
@@ -109,6 +147,7 @@ class LoginPage extends Page {
     loginSubmit.className = "login__submit";
     loginSubmit.type = "submit";
     loginSubmit.id = "login-submit";
+    loginSubmit.disabled = true;
     loginSubmit.textContent = "Log in";
 
     loginSubmitWrapper.append(loginSubmit);
