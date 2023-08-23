@@ -126,13 +126,6 @@ p {
   width: 454px;
   height: 64px;
   margin-bottom: 31px;
-  display: flex;
-  gap: 10px;
-}
-
-.input__adress_wrapper {
-  display: grid;
-  grid-template-columns: 222px 222px;
 }
 
 .input__email,
