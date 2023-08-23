@@ -1,6 +1,7 @@
 import Page from "../../temlates/page";
 
-class MainPage extends Page{
+class CarsPage extends Page{
+  
 
   // constructor(id: string) {
   //   super(id);
@@ -10,11 +11,11 @@ class MainPage extends Page{
     const containerOuter = document.createElement("div");
     containerOuter.className = "container";
     this.container.append(containerOuter);
-    const title = this.createHeaderTitle("Main");
+    const title = this.createHeaderTitle("Our Cars");
     title.className = 'pade-title';
     containerOuter.append(title);
     return this.container;
   }
 }
 
-export default MainPage;
+export default CarsPage;

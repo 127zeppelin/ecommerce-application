@@ -75,11 +75,12 @@ class RegistrationPage extends Page {
     input = this.renderLogin("input__name", "text", "name", "Name");
     loginName.append(input);
 
-    input = this.renderLogin("input__name", "text", "surname", "Surname");
-    loginName.append(input);
+    const loginSurame = document.createElement("div");
+    loginSurame.className = "input";
+    login.append(loginSurame);
 
-    // let input = this.renderLogin("input__name", "text", "surname", "Surname");
-    // loginName.append(input);
+    input = this.renderLogin("input__name", "text", "surname", "Surname");
+    loginSurame.append(input);
 
     const loginInfo = document.createElement("div");
     loginInfo.className = "input";
