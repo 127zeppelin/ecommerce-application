@@ -1,4 +1,6 @@
 import Page from "../../temlates/page";
+import { customerRegistr } from "./customerregistration";
+import { tokenStore } from "../../components/app-components/api";
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -27,9 +29,10 @@ class RegistrationPage extends Page {
     return input;
   }
 
-  private createCity(value: string, inputCity: HTMLDataListElement) {
+  private createCity(value: string, inputCity: HTMLDataListElement, elemText: string) {
     let city = document.createElement("option");
     city.value = value;
+    city.innerText = elemText;
     inputCity.append(city);
   }
 
@@ -61,6 +64,90 @@ class RegistrationPage extends Page {
     // check.addEventListener("click", () => {
     //     same.classList.toggle("billing-adress_inactive");
     // })
+  }
+  
+  submitRegistrForm(
+      registrLogin: HTMLInputElement,
+      registrPass: HTMLInputElement,
+      registrName: HTMLInputElement,
+      registrSurname: HTMLInputElement,
+      registrDateOfBirth: HTMLInputElement,
+      registrShipingCountry: HTMLInputElement,
+      registrShipingStreet: HTMLInputElement,
+      registrShipingPostalCode: HTMLInputElement,
+      registrShipingCity: HTMLInputElement,
+      registrBillingCountry: HTMLInputElement,
+      registrBillingStreet: HTMLInputElement,
+      registrBillingPostalCode: HTMLInputElement,
+      registrBillingCity: HTMLInputElement,
+      registrSubmit: HTMLElement, 
+      oneAdress: boolean
+      ) {
+    const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
+  
+    if (registrLogin && registrPass && registrName && registrSurname &&
+      registrDateOfBirth && registrShipingCountry && registrShipingStreet && registrShipingCity &&
+      registrShipingPostalCode && registrBillingCountry && registrBillingStreet && registrBillingCity &&
+      registrBillingPostalCode && registrSubmit
+    ) {
+      registrSubmit.addEventListener('click', async (event) => {
+        event.preventDefault();
+        
+        const registrLoginValue: string = registrLogin.value;
+        const registrPassValue: string = registrPass.value;
+        const registrNameValue: string = registrName.value;
+        const registrSurnameValue: string = registrSurname.value;
+        const registrDateOfBirthValue: Date = new Date(registrDateOfBirth.value);
+        const registrShipingCountryValue: string = registrShipingCountry.value;
+        const registrShipingStreetValue: string = registrShipingStreet.value;
+        const registrShipingCityValue: string = registrShipingCity.value;
+        const registrShipingPostalCodeValue: string = registrShipingPostalCode.value;
+        const registrBillingCountryValue: string = registrBillingCountry.value;
+        const registrBillingStreetValue: string = registrBillingStreet.value;
+        const registrBillingCityValue: string = registrBillingCity.value;
+        const registrBillingPostalCodeValue: string = registrBillingPostalCode.value;
+  
+        function formatDateToISODateOnly(date: Date): string {
+          const year = date.getFullYear();
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const day = date.getDate().toString().padStart(2, '0');
+          
+          return `${year}-${month}-${day}`;
+        }
+        
+        const isoFormattedDate: string = formatDateToISODateOnly(registrDateOfBirthValue);
+  
+        try {
+          await customerRegistr(
+            registrLoginValue,
+            registrPassValue,
+            registrNameValue,
+            registrSurnameValue,
+            isoFormattedDate,
+            registrShipingStreetValue,
+            registrShipingPostalCodeValue,
+            registrShipingCityValue,
+            registrShipingCountryValue,
+            registrBillingCountryValue,
+            registrBillingStreetValue,
+            registrBillingCityValue,
+            registrBillingPostalCodeValue,
+            oneAdress
+          );
+          localStorage.setItem('access_token', tokenStore.token);
+          localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
+          localStorage.setItem('refresh_token', tokenStore.refreshToken ? tokenStore.refreshToken : '');
+          console.log(tokenStore.token);
+          window.location.href = './#main'
+        } catch (error: any) {
+          console.error('Error fetching project details:', error.message);
+  
+          if (resolveMessage instanceof HTMLElement) {
+            resolveMessage.innerText = error.message;
+          }
+        }
+      })
+    }
   }
 
   render() {
@@ -94,30 +181,30 @@ class RegistrationPage extends Page {
     loginEmailContainer.className = "input";
     login.append(loginEmailContainer);
 
-    let input = this.renderLogin("input__email", "email", "username", "Email");
-    loginEmailContainer.append(input);
+    const inputLogin = this.renderLogin("input__email", "email", "username", "Email");
+    loginEmailContainer.append(inputLogin);
     
 
     const paswordInputContainer = document.createElement("div");
     paswordInputContainer.className = "input";
     login.append(paswordInputContainer);
 
-    input = this.renderLogin("input__password", "text", "password", "Password");
-    paswordInputContainer.append(input);
+    const inputPass = this.renderLogin("input__password", "text", "password", "Password");
+    paswordInputContainer.append(inputPass);
 
     const inputNameContainer = document.createElement("div");
     inputNameContainer.className = "input";
     login.append(inputNameContainer);
 
-    input = this.renderLogin("input__name", "text", "name", "Name");
-    inputNameContainer.append(input);
+    const inputName = this.renderLogin("input__name", "text", "name", "Name");
+    inputNameContainer.append(inputName);
 
     const surnameInputContainer = document.createElement("div");
     surnameInputContainer.className = "input";
     login.append(surnameInputContainer);
 
-    input = this.renderLogin("input__name", "text", "surname", "Surname");
-    surnameInputContainer.append(input);
+    const inputSurname = this.renderLogin("input__name", "text", "surname", "Surname");
+    surnameInputContainer.append(inputSurname);
 
     const inputDateOfBirthContainer = document.createElement("div");
     inputDateOfBirthContainer.className = "input";
@@ -128,8 +215,8 @@ class RegistrationPage extends Page {
     inputDateOfBirthLabel.innerText = "Date of birth:";
     inputDateOfBirthContainer.append(inputDateOfBirthLabel);
 
-    input = this.renderLogin("input__info", "date", "date", "01.01.1970");
-    inputDateOfBirthContainer.append(input);
+    const inputDateOfBirth = this.renderLogin("input__info", "date", "date", "01.01.1970");
+    inputDateOfBirthContainer.append(inputDateOfBirth);
 
     const shippingAdressWrapper = document.createElement("div");
     shippingAdressWrapper.className = "shipping-adress_wrapper";
@@ -146,8 +233,8 @@ class RegistrationPage extends Page {
     shippingAdressWrapper.append(inputShipingStreetContainer);
 
 
-    input = this.renderLogin("input__adress", "text", "shipping-street", "Street");
-    inputShipingStreetContainer.append(input);
+    const inputShipingStreet = this.renderLogin("input__adress", "text", "shipping-street", "Street");
+    inputShipingStreetContainer.append(inputShipingStreet);
 
 
     const inputCityShippingContainer = document.createElement("div");
@@ -155,36 +242,36 @@ class RegistrationPage extends Page {
     inputCityShippingContainer.classList.add("input__adress_wrapper");
     shippingAdressWrapper.append(inputCityShippingContainer);
 
-    input = this.renderLogin("input__adress", "text", "shipping-city", "City");
-    inputCityShippingContainer.append(input);
+    const inputShippingCity = this.renderLogin("input__adress", "text", "shipping-city", "City");
+    inputCityShippingContainer.append(inputShippingCity);
 
-    const inputZipShippingContainer = document.createElement("div");
-    inputZipShippingContainer.className = "input";
-    shippingAdressWrapper.append(inputZipShippingContainer);
+    const inputShippingCodeContainer = document.createElement("div");
+    inputShippingCodeContainer.className = "input";
+    shippingAdressWrapper.append(inputShippingCodeContainer);
 
-    input = this.renderLogin("input__adress", "text", "shipping-code", "Postal code");
-    inputZipShippingContainer.append(input);
+    const inputShipingCode = this.renderLogin("input__adress", "text", "shipping-code", "Postal code");
+    inputShippingCodeContainer.append(inputShipingCode);
 
     const inputCountryShippingContainer = document.createElement("div");
     inputCountryShippingContainer.className = "input";
     shippingAdressWrapper.append(inputCountryShippingContainer);
 
-    input = document.createElement("input");
-    input.className = "input__adress";
-    input.setAttribute("list","country");
-    input.id = "shipping-country";
-    input.placeholder = "Country";
+    const inputShippingCountry = document.createElement("input");
+    inputShippingCountry.className = "input__adress";
+    inputShippingCountry.setAttribute("list","country");
+    inputShippingCountry.id = "shipping-country";
+    inputShippingCountry.placeholder = "Country";
 
-    inputCountryShippingContainer.append(input);
+    inputCountryShippingContainer.append(inputShippingCountry);
 
     let inputCountry = document.createElement("datalist");
     inputCountry.id = "country";
 
-    this.createCity("Belarus", inputCountry);
-    this.createCity("Germany", inputCountry);
-    this.createCity("Poland", inputCountry);
-    this.createCity("Austria", inputCountry);
-    this.createCity("Canada", inputCountry);
+    this.createCity("BY", inputCountry, 'Belarus');
+    this.createCity("DE", inputCountry, 'Germany');
+    this.createCity("PL", inputCountry, 'Poland');
+    this.createCity("AT", inputCountry, 'Austria');
+    this.createCity("CA", inputCountry, 'Canada');
 
     inputCountryShippingContainer.append(inputCountry);
 
@@ -239,43 +326,44 @@ class RegistrationPage extends Page {
     inputBillingStreetContainer.classList.add("input__adress_wrapper");
     billingAdressWrapper.append(inputBillingStreetContainer);
 
-    input = this.renderLogin("input__adress", "text", "billing-street", "Street");
-    inputBillingStreetContainer.append(input);
+    const inputBillingStreet = this.renderLogin("input__adress", "text", "billing-street", "Street");
+    inputBillingStreetContainer.append(inputBillingStreet);
 
     const inputBillingCityContainer = document.createElement("div");
     inputBillingCityContainer.className = "input";
     billingAdressWrapper.append(inputBillingCityContainer);
 
-    input = this.renderLogin("input__adress", "text", "billing-city", "City");
-    inputBillingCityContainer.append(input);
+    const inputBillingCity = this.renderLogin("input__adress", "text", "billing-city", "City");
+    inputBillingCityContainer.append(inputBillingCity);
 
     const inputBillingZipContainer = document.createElement("div");
     inputBillingZipContainer.className = "input";
     billingAdressWrapper.append(inputBillingZipContainer);
 
-    input = this.renderLogin("input__adress", "text", "billing-code", "Postal code");
-    inputBillingZipContainer.append(input);
+    const inputBillingCode = this.renderLogin("input__adress", "text", "billing-code", "Postal code");
+    inputBillingZipContainer.append(inputBillingCode);
 
     const inputBillingCountryContainer = document.createElement("div");
     inputBillingCountryContainer.className = "input";
     billingAdressWrapper.append(inputBillingCountryContainer);
 
-    input = document.createElement("input");
-    input.className = "input__adress";
-    input.setAttribute("list","country");
-    input.id = "billing-country";
-    input.placeholder = "Country";
+    const inputBillingCountry = document.createElement("input");
+    inputBillingCountry.className = "input__adress";
+    inputBillingCountry.setAttribute("list","country");
+    inputBillingCountry.id = "billing-country";
+    inputBillingCountry.placeholder = "Country";
 
-    inputBillingCountryContainer.append(input);
+    inputBillingCountryContainer.append(inputBillingCountry);
 
     inputCountry = document.createElement("datalist");
     inputCountry.id = "country";
 
-    this.createCity("Belarus", inputCountry);
-    this.createCity("Germany", inputCountry);
-    this.createCity("Poland", inputCountry);
-    this.createCity("Austria", inputCountry);
-    this.createCity("Canada", inputCountry);
+    this.createCity("BY", inputCountry, 'Belarus');
+    this.createCity("DE", inputCountry, 'Germany');
+    this.createCity("PL", inputCountry, 'Poland');
+    this.createCity("AT", inputCountry, 'Austria');
+    this.createCity("CA", inputCountry, 'Canada');
+
 
     inputBillingCountryContainer.append(inputCountry);
     
@@ -287,13 +375,30 @@ class RegistrationPage extends Page {
     const loginSubmitWrapper = document.createElement("div");
     loginSubmitWrapper.className = "login__submit_wrapper";
     login.append(loginSubmitWrapper);
-    const loginSubmit = document.createElement("button");
-    loginSubmit.className = "login__submit";
-    loginSubmit.type = "submit";
-    loginSubmit.id = "login-submit";
-    loginSubmit.textContent = "Sign up";
+    const registrSubmit = document.createElement("button");
+    registrSubmit.className = "login__submit";
+    registrSubmit.type = "submit";
+    registrSubmit.id = "login-submit";
+    registrSubmit.textContent = "Sign up";
 
-    loginSubmitWrapper.append(loginSubmit);
+    this.submitRegistrForm(
+      inputLogin,
+      inputPass,
+      inputName,
+      inputSurname,
+      inputDateOfBirth,
+      inputShippingCountry,
+      inputShipingStreet,
+      inputShipingCode,
+      inputShippingCity,
+      inputBillingCountry,
+      inputBillingStreet,
+      inputBillingCode,
+      inputBillingCity,
+      registrSubmit, 
+      onlyOneAdress)
+
+    loginSubmitWrapper.append(registrSubmit);
 
     this.container.append(cont);
 
