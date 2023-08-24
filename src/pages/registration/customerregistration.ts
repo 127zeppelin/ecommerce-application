@@ -11,11 +11,11 @@ export const customerRegistr = (
   postalCode: string,
   city: string,
   country: string,
-  streetNameBill: string,
+  /*streetNameBill: string,
   postalCodeBill: string,
   cityBill: string,
   countryBill: string,
-  oneAdress: boolean
+  oneAdress: boolean*/
 ) => {
   return apiRoot
     .withProjectKey({ projectKey })
@@ -103,12 +103,12 @@ export function submitRegistrForm(
           registrShipingStreetValue,
           registrShipingPostalCodeValue,
           registrShipingCityValue,
-          registrShipingCountryValue,
+          registrShipingCountryValue/*,
           registrBillingCountryValue,
           registrBillingStreetValue,
           registrBillingCityValue,
           registrBillingPostalCodeValue,
-          oneAdress
+          oneAdress*/
         );
         localStorage.setItem('access_token', tokenStore.token);
         localStorage.setItem('expiration_time', String(tokenStore.expirationTime));

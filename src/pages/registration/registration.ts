@@ -67,22 +67,22 @@ class RegistrationPage extends Page {
   }
   
   submitRegistrForm(
-      registrLogin: HTMLInputElement,
-      registrPass: HTMLInputElement,
-      registrName: HTMLInputElement,
-      registrSurname: HTMLInputElement,
-      registrDateOfBirth: HTMLInputElement,
-      registrShipingCountry: HTMLInputElement,
-      registrShipingStreet: HTMLInputElement,
-      registrShipingPostalCode: HTMLInputElement,
-      registrShipingCity: HTMLInputElement,
-      registrBillingCountry: HTMLInputElement,
-      registrBillingStreet: HTMLInputElement,
-      registrBillingPostalCode: HTMLInputElement,
-      registrBillingCity: HTMLInputElement,
-      registrSubmit: HTMLElement, 
-      oneAdress: boolean
-      ) {
+    registrLogin: HTMLInputElement,
+    registrPass: HTMLInputElement,
+    registrName: HTMLInputElement,
+    registrSurname: HTMLInputElement,
+    registrDateOfBirth: HTMLInputElement,
+    registrShipingCountry: HTMLInputElement,
+    registrShipingStreet: HTMLInputElement,
+    registrShipingPostalCode: HTMLInputElement,
+    registrShipingCity: HTMLInputElement,
+    registrBillingCountry: HTMLInputElement,
+    registrBillingStreet: HTMLInputElement,
+    registrBillingPostalCode: HTMLInputElement,
+    registrBillingCity: HTMLInputElement,
+    registrSubmit: HTMLElement, 
+    oneAdress: boolean
+    ) {
     const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
   
     if (registrLogin && registrPass && registrName && registrSurname &&
@@ -127,12 +127,12 @@ class RegistrationPage extends Page {
             registrShipingStreetValue,
             registrShipingPostalCodeValue,
             registrShipingCityValue,
-            registrShipingCountryValue,
+            registrShipingCountryValue/*,
             registrBillingCountryValue,
             registrBillingStreetValue,
             registrBillingCityValue,
             registrBillingPostalCodeValue,
-            oneAdress
+            oneAdress*/
           );
           localStorage.setItem('access_token', tokenStore.token);
           localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
