@@ -1,6 +1,12 @@
 import Page from "../../temlates/page";
 import { customerRegistr } from "./customerregistration";
 import { tokenStore } from "../../components/app-components/api";
+import { showPasword } from "../../components/app-components/showpasword";
+import {
+  checkResultValidation,
+  handleEmailInputChange,
+  handlePasswordInputChange
+} from "../../components/app-components/validationinput";
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -80,18 +86,38 @@ class RegistrationPage extends Page {
     registrBillingStreet: HTMLInputElement,
     registrBillingPostalCode: HTMLInputElement,
     registrBillingCity: HTMLInputElement,
-    registrSubmit: HTMLElement,
+    registrSubmit: HTMLButtonElement,
     onlyOneAdress: HTMLElement,
     billingAdressWrapper: HTMLElement
-
   ) {
-    const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
+    // const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
+
+    const invalidInputMessageEmail: HTMLDivElement = document.createElement('div');
+    invalidInputMessageEmail.classList.add('validation-message');
+    registrLogin.insertAdjacentElement('afterend', invalidInputMessageEmail);
+    let resultEmail: boolean = false;
+
+    const invalidInputMessagePass: HTMLDivElement = document.createElement('div');
+    invalidInputMessagePass.classList.add('validation-message');
+    registrPass.insertAdjacentElement('afterend', invalidInputMessagePass);
+    let resultPassword: boolean = false;
+
+    registrLogin.addEventListener('input', (event) => {
+      const inputTargetElement: HTMLInputElement = event.target as HTMLInputElement;
+      resultEmail = handleEmailInputChange(inputTargetElement, invalidInputMessageEmail);
+      checkResultValidation(resultEmail, resultPassword, registrSubmit);
+    });
+
+    registrPass.addEventListener('input', (event) => {
+      const inputTargetElement: HTMLInputElement = event.target as HTMLInputElement;
+      resultPassword = handlePasswordInputChange(inputTargetElement, invalidInputMessagePass);
+      checkResultValidation(resultEmail, resultPassword, registrSubmit);
+    });
 
     let onlyOneAdressValue: boolean = false;
     onlyOneAdress.addEventListener('click', function () {
       billingAdressWrapper.classList.toggle('hidden');
       onlyOneAdressValue = !onlyOneAdressValue;
-      console.log(onlyOneAdressValue);
       return onlyOneAdressValue
     });
 
@@ -102,7 +128,7 @@ class RegistrationPage extends Page {
     ) {
       registrSubmit.addEventListener('click', async (event) => {
         event.preventDefault();
-       
+
         const registrLoginValue: string = registrLogin.value;
         const registrPassValue: string = registrPass.value;
         const registrNameValue: string = registrName.value;
@@ -116,7 +142,6 @@ class RegistrationPage extends Page {
         const registrBillingStreetValue: string = registrBillingStreet.value;
         const registrBillingCityValue: string = registrBillingCity.value;
         const registrBillingPostalCodeValue: string = registrBillingPostalCode.value;
-         console.log(registrBillingCountryValue);
         function formatDateToISODateOnly(date: Date): string {
           const year = date.getFullYear();
           const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -125,7 +150,7 @@ class RegistrationPage extends Page {
           return `${year}-${month}-${day}`;
         }
         const isoFormattedDate: string = formatDateToISODateOnly(registrDateOfBirthValue);
-        console.log(isoFormattedDate);
+
         try {
           await customerRegistr(
             registrLoginValue,
@@ -146,13 +171,27 @@ class RegistrationPage extends Page {
           localStorage.setItem('access_token', tokenStore.token);
           localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
           localStorage.setItem('refresh_token', tokenStore.refreshToken ? tokenStore.refreshToken : '');
-          //console.log(tokenStore.token);
-          window.location.href = './#main'
+          const BODY: HTMLElement | null = document.querySelector('body');
+          const resolveMessage: HTMLElement = document.createElement('div');
+          resolveMessage.classList.add('resolve', 'successfully');
+          if (resolveMessage instanceof HTMLElement && BODY instanceof HTMLElement) {
+            resolveMessage.innerText = 'Registration in successfully';
+            BODY.append(resolveMessage);
+            setTimeout(() => {
+              resolveMessage.remove();
+            }, 2000);
+            window.location.href = './#main'
+          }
         } catch (error: any) {
-          //console.error('Error fetching project details:', error.message);
-
-          if (resolveMessage instanceof HTMLElement) {
+          const BODY: HTMLElement | null = document.querySelector('body');
+          const resolveMessage: HTMLElement = document.createElement('div');
+          resolveMessage.classList.add('resolve');
+          if (resolveMessage instanceof HTMLElement && BODY instanceof HTMLElement) {
             resolveMessage.innerText = error.message;
+            BODY.append(resolveMessage);
+            setTimeout(() => {
+              resolveMessage.remove();
+            }, 2000);
           }
         }
       })
@@ -198,8 +237,9 @@ class RegistrationPage extends Page {
     paswordInputContainer.className = "input";
     login.append(paswordInputContainer);
 
-    const inputPass = this.renderLogin("input__password", "text", "password", "Password");
+    const inputPass = this.renderLogin("input__password", "password", "password", "Password");
     paswordInputContainer.append(inputPass);
+    showPasword(inputPass);
 
     const inputNameContainer = document.createElement("div");
     inputNameContainer.className = "input";
@@ -375,6 +415,7 @@ class RegistrationPage extends Page {
     registrSubmit.className = "login__submit";
     registrSubmit.type = "submit";
     registrSubmit.id = "login-submit";
+    registrSubmit.disabled = true;
     registrSubmit.textContent = "Sign up";
 
     this.submitRegistrForm(
