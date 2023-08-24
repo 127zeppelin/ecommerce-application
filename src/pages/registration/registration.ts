@@ -65,7 +65,7 @@ class RegistrationPage extends Page {
     //     same.classList.toggle("billing-adress_inactive");
     // })
   }
-  
+
   submitRegistrForm(
     registrLogin: HTMLInputElement,
     registrPass: HTMLInputElement,
@@ -75,24 +75,25 @@ class RegistrationPage extends Page {
     registrShipingCountry: HTMLInputElement,
     registrShipingStreet: HTMLInputElement,
     registrShipingPostalCode: HTMLInputElement,
-    registrShipingCity: HTMLInputElement,
+    registrShipingCity: HTMLInputElement,/*
     registrBillingCountry: HTMLInputElement,
     registrBillingStreet: HTMLInputElement,
     registrBillingPostalCode: HTMLInputElement,
-    registrBillingCity: HTMLInputElement,
-    registrSubmit: HTMLElement, 
-    oneAdress: boolean
-    ) {
+    registrBillingCity: HTMLInputElement,*/
+    registrSubmit: HTMLElement
+    /*oneAdress: boolean */
+
+  ) {
     const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
-  
+
     if (registrLogin && registrPass && registrName && registrSurname &&
       registrDateOfBirth && registrShipingCountry && registrShipingStreet && registrShipingCity &&
-      registrShipingPostalCode && registrBillingCountry && registrBillingStreet && registrBillingCity &&
-      registrBillingPostalCode && registrSubmit
+      registrShipingPostalCode && /*registrBillingCountry && registrBillingStreet && registrBillingCity &&
+      registrBillingPostalCode && */registrSubmit
     ) {
       registrSubmit.addEventListener('click', async (event) => {
         event.preventDefault();
-        
+
         const registrLoginValue: string = registrLogin.value;
         const registrPassValue: string = registrPass.value;
         const registrNameValue: string = registrName.value;
@@ -102,21 +103,21 @@ class RegistrationPage extends Page {
         const registrShipingStreetValue: string = registrShipingStreet.value;
         const registrShipingCityValue: string = registrShipingCity.value;
         const registrShipingPostalCodeValue: string = registrShipingPostalCode.value;
-        const registrBillingCountryValue: string = registrBillingCountry.value;
-        const registrBillingStreetValue: string = registrBillingStreet.value;
-        const registrBillingCityValue: string = registrBillingCity.value;
-        const registrBillingPostalCodeValue: string = registrBillingPostalCode.value;
-  
+        /* const registrBillingCountryValue: string = registrBillingCountry.value;
+         const registrBillingStreetValue: string = registrBillingStreet.value;
+         const registrBillingCityValue: string = registrBillingCity.value;
+         const registrBillingPostalCodeValue: string = registrBillingPostalCode.value;*/
+
         function formatDateToISODateOnly(date: Date): string {
           const year = date.getFullYear();
           const month = (date.getMonth() + 1).toString().padStart(2, '0');
           const day = date.getDate().toString().padStart(2, '0');
-          
+
           return `${year}-${month}-${day}`;
         }
-        
+
         const isoFormattedDate: string = formatDateToISODateOnly(registrDateOfBirthValue);
-  
+
         try {
           await customerRegistr(
             registrLoginValue,
@@ -137,11 +138,11 @@ class RegistrationPage extends Page {
           localStorage.setItem('access_token', tokenStore.token);
           localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
           localStorage.setItem('refresh_token', tokenStore.refreshToken ? tokenStore.refreshToken : '');
-          console.log(tokenStore.token);
+          //console.log(tokenStore.token);
           window.location.href = './#main'
         } catch (error: any) {
-          console.error('Error fetching project details:', error.message);
-  
+          //console.error('Error fetching project details:', error.message);
+
           if (resolveMessage instanceof HTMLElement) {
             resolveMessage.innerText = error.message;
           }
@@ -183,7 +184,7 @@ class RegistrationPage extends Page {
 
     const inputLogin = this.renderLogin("input__email", "email", "username", "Email");
     loginEmailContainer.append(inputLogin);
-    
+
 
     const paswordInputContainer = document.createElement("div");
     paswordInputContainer.className = "input";
@@ -258,7 +259,7 @@ class RegistrationPage extends Page {
 
     const inputShippingCountry = document.createElement("input");
     inputShippingCountry.className = "input__adress";
-    inputShippingCountry.setAttribute("list","country");
+    inputShippingCountry.setAttribute("list", "country");
     inputShippingCountry.id = "shipping-country";
     inputShippingCountry.placeholder = "Country";
 
@@ -292,7 +293,7 @@ class RegistrationPage extends Page {
     label.htmlFor = "same-adress";
     label.className = "label__adress";
     label.appendChild(document.createTextNode("Use the same address for billing and shipping"));
-    
+
 
     sameAdressWrapper.appendChild(sameAdress);
     sameAdressWrapper.appendChild(label);
@@ -303,15 +304,15 @@ class RegistrationPage extends Page {
     let billingAdressWrapper = document.createElement("div");
     billingAdressWrapper.className = "billing-adress_wrapper";
 
-    
+
     let onlyOneAdress: boolean = false;
-    label.addEventListener('click', function() {
+    label.addEventListener('click', function () {
       billingAdressWrapper.classList.toggle('hidden');
-      if(!onlyOneAdress){
+      if (!onlyOneAdress) {
         onlyOneAdress = true;
-      }else{onlyOneAdress = false;}
+      } else { onlyOneAdress = false; }
     });
-    
+
     login.append(billingAdressWrapper);
 
 
@@ -349,7 +350,7 @@ class RegistrationPage extends Page {
 
     const inputBillingCountry = document.createElement("input");
     inputBillingCountry.className = "input__adress";
-    inputBillingCountry.setAttribute("list","country");
+    inputBillingCountry.setAttribute("list", "country");
     inputBillingCountry.id = "billing-country";
     inputBillingCountry.placeholder = "Country";
 
@@ -366,7 +367,7 @@ class RegistrationPage extends Page {
 
 
     inputBillingCountryContainer.append(inputCountry);
-    
+
     billingAdressWrapper.append(inputBillingCountryContainer);
 
     this.createDefaultAdress("default-billing-adress", billingAdressWrapper);
@@ -391,12 +392,12 @@ class RegistrationPage extends Page {
       inputShipingStreet,
       inputShipingCode,
       inputShippingCity,
-      inputBillingCountry,
+      /*inputBillingCountry,
       inputBillingStreet,
       inputBillingCode,
-      inputBillingCity,
-      registrSubmit, 
-      onlyOneAdress)
+      inputBillingCity,*/
+      registrSubmit,
+      /*onlyOneAdress*/)
 
     loginSubmitWrapper.append(registrSubmit);
 
