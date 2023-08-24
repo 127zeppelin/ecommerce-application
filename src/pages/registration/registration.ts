@@ -29,11 +29,11 @@ class RegistrationPage extends Page {
     return input;
   }
 
-  private createCity(value: string, inputCity: HTMLDataListElement, elemText: string) {
-    let city = document.createElement("option");
-    city.value = value;
-    city.innerText = elemText;
-    inputCity.append(city);
+  private createCountry(value: string, inputCountry: HTMLDataListElement, elemText: string) {
+    const country = document.createElement("option");
+    country.value = value;
+    country.innerText = elemText;
+    inputCountry.append(country);
   }
 
   private createDefaultAdress(id: string, AdressWrapper: HTMLElement) {
@@ -75,25 +75,34 @@ class RegistrationPage extends Page {
     registrShipingCountry: HTMLInputElement,
     registrShipingStreet: HTMLInputElement,
     registrShipingPostalCode: HTMLInputElement,
-    registrShipingCity: HTMLInputElement,/*
+    registrShipingCity: HTMLInputElement,
     registrBillingCountry: HTMLInputElement,
     registrBillingStreet: HTMLInputElement,
     registrBillingPostalCode: HTMLInputElement,
-    registrBillingCity: HTMLInputElement,*/
-    registrSubmit: HTMLElement
-    /*oneAdress: boolean */
+    registrBillingCity: HTMLInputElement,
+    registrSubmit: HTMLElement,
+    onlyOneAdress: HTMLElement,
+    billingAdressWrapper: HTMLElement
 
   ) {
     const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
 
+    let onlyOneAdressValue: boolean = false;
+    onlyOneAdress.addEventListener('click', function () {
+      billingAdressWrapper.classList.toggle('hidden');
+      onlyOneAdressValue = !onlyOneAdressValue;
+      console.log(onlyOneAdressValue);
+      return onlyOneAdressValue
+    });
+
     if (registrLogin && registrPass && registrName && registrSurname &&
       registrDateOfBirth && registrShipingCountry && registrShipingStreet && registrShipingCity &&
-      registrShipingPostalCode && /*registrBillingCountry && registrBillingStreet && registrBillingCity &&
-      registrBillingPostalCode && */registrSubmit
+      registrShipingPostalCode && registrBillingCountry && registrBillingStreet && registrBillingCity &&
+      registrBillingPostalCode && registrSubmit
     ) {
       registrSubmit.addEventListener('click', async (event) => {
         event.preventDefault();
-
+       
         const registrLoginValue: string = registrLogin.value;
         const registrPassValue: string = registrPass.value;
         const registrNameValue: string = registrName.value;
@@ -103,11 +112,11 @@ class RegistrationPage extends Page {
         const registrShipingStreetValue: string = registrShipingStreet.value;
         const registrShipingCityValue: string = registrShipingCity.value;
         const registrShipingPostalCodeValue: string = registrShipingPostalCode.value;
-        /* const registrBillingCountryValue: string = registrBillingCountry.value;
-         const registrBillingStreetValue: string = registrBillingStreet.value;
-         const registrBillingCityValue: string = registrBillingCity.value;
-         const registrBillingPostalCodeValue: string = registrBillingPostalCode.value;*/
-
+        const registrBillingCountryValue: string = registrBillingCountry.value;
+        const registrBillingStreetValue: string = registrBillingStreet.value;
+        const registrBillingCityValue: string = registrBillingCity.value;
+        const registrBillingPostalCodeValue: string = registrBillingPostalCode.value;
+         console.log(registrBillingCountryValue);
         function formatDateToISODateOnly(date: Date): string {
           const year = date.getFullYear();
           const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -115,9 +124,8 @@ class RegistrationPage extends Page {
 
           return `${year}-${month}-${day}`;
         }
-
         const isoFormattedDate: string = formatDateToISODateOnly(registrDateOfBirthValue);
-
+        console.log(isoFormattedDate);
         try {
           await customerRegistr(
             registrLoginValue,
@@ -128,12 +136,12 @@ class RegistrationPage extends Page {
             registrShipingStreetValue,
             registrShipingPostalCodeValue,
             registrShipingCityValue,
-            registrShipingCountryValue/*,
-            registrBillingCountryValue,
+            registrShipingCountryValue,
             registrBillingStreetValue,
-            registrBillingCityValue,
             registrBillingPostalCodeValue,
-            oneAdress*/
+            registrBillingCityValue,
+            registrBillingCountryValue,
+            onlyOneAdressValue
           );
           localStorage.setItem('access_token', tokenStore.token);
           localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
@@ -265,16 +273,16 @@ class RegistrationPage extends Page {
 
     inputCountryShippingContainer.append(inputShippingCountry);
 
-    let inputCountry = document.createElement("datalist");
-    inputCountry.id = "country";
+    const inputCountryShip: HTMLDataListElement = document.createElement("datalist");
+    inputCountryShip.id = "country";
 
-    this.createCity("BY", inputCountry, 'Belarus');
-    this.createCity("DE", inputCountry, 'Germany');
-    this.createCity("PL", inputCountry, 'Poland');
-    this.createCity("AT", inputCountry, 'Austria');
-    this.createCity("CA", inputCountry, 'Canada');
+    this.createCountry("DE", inputCountryShip, 'Germany');
+    this.createCountry("PL", inputCountryShip, 'Poland');
+    this.createCountry("BY", inputCountryShip, 'Belarus');
+    this.createCountry("AT", inputCountryShip, 'Austria');
+    this.createCountry("CA", inputCountryShip, 'Canada');
 
-    inputCountryShippingContainer.append(inputCountry);
+    inputCountryShippingContainer.append(inputCountryShip);
 
     this.createDefaultAdress("default-shipping-adress", shippingAdressWrapper);
 
@@ -289,33 +297,21 @@ class RegistrationPage extends Page {
     sameAdress.value = "value";
     sameAdress.id = "same-adress";
 
-    const label = document.createElement("label")
-    label.htmlFor = "same-adress";
-    label.className = "label__adress";
-    label.appendChild(document.createTextNode("Use the same address for billing and shipping"));
+    const labelOnlyAdres = document.createElement("label")
+    labelOnlyAdres.htmlFor = "same-adress";
+    labelOnlyAdres.className = "label__adress";
+    labelOnlyAdres.appendChild(document.createTextNode("Use the same address for billing and shipping"));
 
 
     sameAdressWrapper.appendChild(sameAdress);
-    sameAdressWrapper.appendChild(label);
+    sameAdressWrapper.appendChild(labelOnlyAdres);
 
     login.appendChild(sameAdressWrapper);
-
 
     let billingAdressWrapper = document.createElement("div");
     billingAdressWrapper.className = "billing-adress_wrapper";
 
-
-    let onlyOneAdress: boolean = false;
-    label.addEventListener('click', function () {
-      billingAdressWrapper.classList.toggle('hidden');
-      if (!onlyOneAdress) {
-        onlyOneAdress = true;
-      } else { onlyOneAdress = false; }
-    });
-
     login.append(billingAdressWrapper);
-
-
 
     const billingAdressTitle = document.createElement("p");
     billingAdressTitle.className = "text_bold";
@@ -356,17 +352,16 @@ class RegistrationPage extends Page {
 
     inputBillingCountryContainer.append(inputBillingCountry);
 
-    inputCountry = document.createElement("datalist");
-    inputCountry.id = "country";
+    const inputCountryBil: HTMLDataListElement = document.createElement("datalist");
+    inputCountryBil.id = "country";
 
-    this.createCity("BY", inputCountry, 'Belarus');
-    this.createCity("DE", inputCountry, 'Germany');
-    this.createCity("PL", inputCountry, 'Poland');
-    this.createCity("AT", inputCountry, 'Austria');
-    this.createCity("CA", inputCountry, 'Canada');
+    this.createCountry("BY", inputCountryBil, 'Belarus');
+    this.createCountry("DE", inputCountryBil, 'Germany');
+    this.createCountry("PL", inputCountryBil, 'Poland');
+    this.createCountry("AT", inputCountryBil, 'Austria');
+    this.createCountry("CA", inputCountryBil, 'Canada');
 
-
-    inputBillingCountryContainer.append(inputCountry);
+    inputBillingCountryContainer.append(inputCountryBil);
 
     billingAdressWrapper.append(inputBillingCountryContainer);
 
@@ -392,12 +387,13 @@ class RegistrationPage extends Page {
       inputShipingStreet,
       inputShipingCode,
       inputShippingCity,
-      /*inputBillingCountry,
+      inputBillingCountry,
       inputBillingStreet,
       inputBillingCode,
-      inputBillingCity,*/
+      inputBillingCity,
       registrSubmit,
-      /*onlyOneAdress*/)
+      labelOnlyAdres,
+      billingAdressWrapper)
 
     loginSubmitWrapper.append(registrSubmit);
 
