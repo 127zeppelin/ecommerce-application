@@ -80,3 +80,7 @@ export function handlePasswordInputChange(
 
 
 
+
+export const checkResultValidation = (email: boolean, password: boolean, button: HTMLButtonElement) => {
+  if (email && password) { button.disabled = false; }
+}

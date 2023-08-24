@@ -1,4 +1,4 @@
-import { apiRoot, projectKey, tokenStore } from "../../components/app-components/api";
+import { apiRoot, projectKey } from "../../components/app-components/api";
 
 
 export const customerRegistr = (
@@ -18,7 +18,6 @@ export const customerRegistr = (
   oneAdress: boolean
 ) => {
   if (oneAdress) {
-    console.log('Адресс один');
     return apiRoot
       .withProjectKey({ projectKey })
       .me()
@@ -41,7 +40,6 @@ export const customerRegistr = (
       })
       .execute();
   } else if (!oneAdress) {
-    console.log('Адресс не один');
     return apiRoot
       .withProjectKey({ projectKey })
       .me()
