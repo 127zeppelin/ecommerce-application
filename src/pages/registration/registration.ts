@@ -1,21 +1,22 @@
 import Page from "../../temlates/page";
-import { customerRegistr } from "./customerregistration";
+import { customerRegistr , setAddressOptions } from "./customerregistration";
 import { tokenStore } from "../../components/app-components/api";
 import { showPasword } from "../../components/app-components/showpasword";
 import {
   checkResultValidation,
   handleEmailInputChange,
-  handlePasswordInputChange
+  handlePasswordInputChange,
 } from "../../components/app-components/validationinput";
+import { BODY, RESOLVE_MESSAGE } from "../../components/app-components/constants";
+
+
 
 class RegistrationPage extends Page {
   TextObject = {
     MainTitle: "Registration Page",
   };
 
-  // constructor(id: string) {
-  //   super(id);
-  // }
+  
   private createPageButtons(href: string, text: string) {
     const pageButton = document.createElement("div");
     const loginBtn = document.createElement("a");
@@ -42,7 +43,7 @@ class RegistrationPage extends Page {
     inputCountry.append(country);
   }
 
-  private createDefaultAdress(id: string, AdressWrapper: HTMLElement) {
+  private createDefaultAdress(id: string, AdressWrapper: HTMLElement): HTMLElement {
     let defaultAdressWrapper = document.createElement('div');
     defaultAdressWrapper.className = "default-adress_wrapper";
 
@@ -61,17 +62,9 @@ class RegistrationPage extends Page {
     defaultAdressWrapper.appendChild(label);
 
     AdressWrapper.appendChild(defaultAdressWrapper);
+    return label
   }
-
-  private checkSameAdress() {
-    // let check = document.querySelector(".same")!;
-    // let same = document.querySelector(".billing-adress_wrapper")!;
-
-    // check.addEventListener("click", () => {
-    //     same.classList.toggle("billing-adress_inactive");
-    // })
-  }
-
+  
   submitRegistrForm(
     registrLogin: HTMLInputElement,
     registrPass: HTMLInputElement,
@@ -88,9 +81,10 @@ class RegistrationPage extends Page {
     registrBillingCity: HTMLInputElement,
     registrSubmit: HTMLButtonElement,
     onlyOneAdress: HTMLElement,
-    billingAdressWrapper: HTMLElement
+    billingAdressWrapper: HTMLElement,
+    checkDefaultShipingAddress: HTMLElement,
+    checkDefaultBillingAddress: HTMLElement
   ) {
-    // const resolveMessage: HTMLElement | null = document.querySelector('.resolve');
 
     const invalidInputMessageEmail: HTMLDivElement = document.createElement('div');
     invalidInputMessageEmail.classList.add('validation-message');
@@ -119,6 +113,19 @@ class RegistrationPage extends Page {
       billingAdressWrapper.classList.toggle('hidden');
       onlyOneAdressValue = !onlyOneAdressValue;
       return onlyOneAdressValue
+    });
+
+    let defaultShipingAddressValue: boolean = false;
+    checkDefaultShipingAddress.addEventListener('click', function () {
+      defaultShipingAddressValue = !defaultShipingAddressValue;
+      console.log(defaultShipingAddressValue);
+      return defaultShipingAddressValue
+    });
+
+    let defaultBillingAddressValue: boolean = false;
+    checkDefaultBillingAddress.addEventListener('click', function () {
+      defaultBillingAddressValue = !defaultBillingAddressValue;
+      return defaultBillingAddressValue
     });
 
     if (registrLogin && registrPass && registrName && registrSurname &&
@@ -150,9 +157,9 @@ class RegistrationPage extends Page {
           return `${year}-${month}-${day}`;
         }
         const isoFormattedDate: string = formatDateToISODateOnly(registrDateOfBirthValue);
-
+        
         try {
-          await customerRegistr(
+          const resultRegistr = await customerRegistr(
             registrLoginValue,
             registrPassValue,
             registrNameValue,
@@ -168,30 +175,47 @@ class RegistrationPage extends Page {
             registrBillingCountryValue,
             onlyOneAdressValue
           );
+
+          const apiResponse = resultRegistr;
+          const customerId: string = apiResponse.body.customer.id;
+          const customerIdVersion: number = apiResponse.body.customer.version;
+          const shipingAddressId: string = apiResponse.body.customer.addresses[0].id;
+          const billingAddressId: string = onlyOneAdressValue ? apiResponse.body.customer.addresses[0].id:
+                                                                apiResponse.body.customer.addresses[1].id;
+
+          await setAddressOptions(
+            customerId, 
+            customerIdVersion, 
+            shipingAddressId, 
+            billingAddressId,
+            defaultShipingAddressValue,
+            defaultBillingAddressValue,
+            onlyOneAdressValue
+            );
+
           localStorage.setItem('access_token', tokenStore.token);
           localStorage.setItem('expiration_time', String(tokenStore.expirationTime));
           localStorage.setItem('refresh_token', tokenStore.refreshToken ? tokenStore.refreshToken : '');
           const BODY: HTMLElement | null = document.querySelector('body');
           const resolveMessage: HTMLElement = document.createElement('div');
           resolveMessage.classList.add('resolve', 'successfully');
+
           if (resolveMessage instanceof HTMLElement && BODY instanceof HTMLElement) {
             resolveMessage.innerText = 'Registration in successfully';
             BODY.append(resolveMessage);
             setTimeout(() => {
               resolveMessage.remove();
-            }, 2000);
+            }, 5000);
             window.location.href = './#main'
           }
         } catch (error: any) {
-          const BODY: HTMLElement | null = document.querySelector('body');
-          const resolveMessage: HTMLElement = document.createElement('div');
-          resolveMessage.classList.add('resolve');
-          if (resolveMessage instanceof HTMLElement && BODY instanceof HTMLElement) {
-            resolveMessage.innerText = error.message;
-            BODY.append(resolveMessage);
+          RESOLVE_MESSAGE.classList.add('resolve');
+          if (RESOLVE_MESSAGE instanceof HTMLElement && BODY instanceof HTMLElement) {
+            RESOLVE_MESSAGE.innerText = error.message;
+            BODY.append(RESOLVE_MESSAGE);
             setTimeout(() => {
-              resolveMessage.remove();
-            }, 2000);
+              RESOLVE_MESSAGE.remove();
+            }, 5000);
           }
         }
       })
@@ -324,7 +348,7 @@ class RegistrationPage extends Page {
 
     inputCountryShippingContainer.append(inputCountryShip);
 
-    this.createDefaultAdress("default-shipping-adress", shippingAdressWrapper);
+    const labelDefaultShipingAddress = this.createDefaultAdress("default-shipping-adress", shippingAdressWrapper);
 
 
     let sameAdressWrapper = document.createElement('div');
@@ -405,7 +429,8 @@ class RegistrationPage extends Page {
 
     billingAdressWrapper.append(inputBillingCountryContainer);
 
-    this.createDefaultAdress("default-billing-adress", billingAdressWrapper);
+    
+    const labelDefaultBillingAddress = this.createDefaultAdress("default-billing-adress", billingAdressWrapper);
 
 
     const loginSubmitWrapper = document.createElement("div");
@@ -413,11 +438,10 @@ class RegistrationPage extends Page {
     login.append(loginSubmitWrapper);
     const registrSubmit = document.createElement("button");
     registrSubmit.className = "login__submit";
-    registrSubmit.type = "submit";
+    registrSubmit.type = 'button';
     registrSubmit.id = "login-submit";
     registrSubmit.disabled = true;
     registrSubmit.textContent = "Sign up";
-
     this.submitRegistrForm(
       inputLogin,
       inputPass,
@@ -434,13 +458,14 @@ class RegistrationPage extends Page {
       inputBillingCity,
       registrSubmit,
       labelOnlyAdres,
-      billingAdressWrapper)
+      billingAdressWrapper,
+      labelDefaultShipingAddress,
+      labelDefaultBillingAddress
+      )
 
     loginSubmitWrapper.append(registrSubmit);
 
     this.container.append(cont);
-
-    this.checkSameAdress();
 
     return this.container;
   }
