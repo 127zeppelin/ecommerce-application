@@ -104,19 +104,15 @@ class RegistrationPage extends Page {
     registrLogin.insertAdjacentElement('afterend', invalidInputMessageEmail);
     let resultEmail: boolean = false;
 
-    const invalidInputMessagePass: HTMLDivElement =
-      document.createElement('div');
+    const invalidInputMessagePass: HTMLDivElement = document.createElement('div');
     invalidInputMessagePass.classList.add('validation-message');
     registrPass.insertAdjacentElement('afterend', invalidInputMessagePass);
     let resultPassword: boolean = false;
 
     registrLogin.addEventListener('input', (event) => {
       const inputTargetElement: HTMLInputElement =
-        event.target as HTMLInputElement;
-      resultEmail = handleEmailInputChange(
-        inputTargetElement,
-        invalidInputMessageEmail,
-      );
+      event.target as HTMLInputElement;
+      resultEmail = handleEmailInputChange(inputTargetElement, invalidInputMessageEmail);
       checkResultValidation(resultEmail, resultPassword, registrSubmit);
     });
 
@@ -140,7 +136,6 @@ class RegistrationPage extends Page {
     let defaultShipingAddressValue: boolean = false;
     checkDefaultShipingAddress.addEventListener('click', function () {
       defaultShipingAddressValue = !defaultShipingAddressValue;
-      console.log(defaultShipingAddressValue);
       return defaultShipingAddressValue;
     });
 
@@ -271,7 +266,6 @@ class RegistrationPage extends Page {
             'refresh_token',
             tokenStore.refreshToken ? tokenStore.refreshToken : '',
           );
-          const BODY: HTMLElement | null = document.querySelector('body');
           const resolveMessage: HTMLElement = document.createElement('div');
           resolveMessage.classList.add('resolve', 'successfully');
 

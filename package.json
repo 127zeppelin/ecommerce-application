@@ -51,6 +51,7 @@
     "@commercetools/sdk-client-v2": "^2.2.0",
     "@commercetools/sdk-middleware-auth": "^7.0.1",
     "@commercetools/sdk-middleware-http": "^7.0.4",
-    "@commercetools/typescript-sdk": "^0.0.22"
+    "@commercetools/typescript-sdk": "^0.0.22",
+    "node-fetch": "^3.3.2"
   }
 }
