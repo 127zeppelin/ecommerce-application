@@ -1,5 +1,4 @@
-import Component from "../../temlates/components";
-
+import Component from '../../temlates/components'
 
 class Footer extends Component {
   // constructor(tagName: string, className: string) {
@@ -17,11 +16,11 @@ class Footer extends Component {
   }
 
   render() {
-    const title = this.createContainer();
-    this.container.append(title);
-    this.renderFooter();
-    return this.container;
+    const title = this.createContainer()
+    this.container.append(title)
+    this.renderFooter()
+    return this.container
   }
 }
 
-export default Footer;
+export default Footer

@@ -76,7 +76,7 @@ class LoginPage extends Page {
           BODY.append(resolveMessage);
           setTimeout(() => {
             resolveMessage.remove();
-          }, 2000);
+          }, 4000);
           window.location.href = './#main'
         }
       } catch (error: any) {
@@ -88,7 +88,7 @@ class LoginPage extends Page {
           BODY.append(resolveMessage);
           setTimeout(() => {
             resolveMessage.remove();
-          }, 2000);
+          }, 4000);
         }
       }
     })
