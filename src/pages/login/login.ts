@@ -1,8 +1,8 @@
 import Page from "../../temlates/page";
 import { customerLogin } from "./customerlogin";
-import { tokenStore } from "../../components/app-components/api";
-import { handleEmailInputChange, handlePasswordInputChange } from "../../components/app-components/validationinput";
-import { showPasword } from "../../components/app-components/showpasword";
+import { tokenStore } from "../../components/api";
+import { handleEmailInputChange, handlePasswordInputChange } from "../../components/validationinput";
+import { showPasword } from "../../components/showpasword";
 
 class LoginPage extends Page {
   TextObject = {

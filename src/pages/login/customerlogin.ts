@@ -1,5 +1,4 @@
-import { apiRoot, projectKey } from '../../components/app-components/api'
-
+import { apiRoot, projectKey } from '../../components/api'
 
 export const customerLogin = (email: string, password: string) => {
   return apiRoot

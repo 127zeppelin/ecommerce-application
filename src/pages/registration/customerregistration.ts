@@ -1,5 +1,5 @@
-import { apiRoot, projectKey } from '../../components/app-components/api'
-import { RequestBody } from '../../components/app-components/types'
+import { apiRoot, projectKey } from '../../components/api'
+import { RequestBody } from '../../components/types'
 
 export const customerRegistr = (
   email: string,
@@ -104,10 +104,8 @@ export const setAddressOptions = (
   }
 
   const setOnlyOneAddress = onlyAdress
-    ? {action: 'addBillingAddressId',
-      addressId: addressIdShiping}
-    : {action: 'addBillingAddressId',
-      addressId: addressIdBilling}
+    ? { action: 'addBillingAddressId', addressId: addressIdShiping }
+    : { action: 'addBillingAddressId', addressId: addressIdBilling }
 
   requestBody.body.actions.push(setOnlyOneAddress)
 

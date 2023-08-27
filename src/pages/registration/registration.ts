@@ -1,17 +1,17 @@
 import Page from '../../temlates/page';
 import { customerRegistr, setAddressOptions } from './customerregistration';
-import { tokenStore } from '../../components/app-components/api';
-import { showPasword } from '../../components/app-components/showpasword';
+import { tokenStore } from '../../components/api';
+import { showPasword } from '../../components/showpasword';
 import {
   checkResultValidation,
   handleEmailInputChange,
   handlePasswordInputChange,
   checkResultValidationRestration,
-} from '../../components/app-components/validationinput';
+} from '../../components/validationinput';
 import {
   BODY,
   RESOLVE_MESSAGE,
-} from '../../components/app-components/constants';
+} from '../../components/constants';
 
 class RegistrationPage extends Page {
   TextObject = {
