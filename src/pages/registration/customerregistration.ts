@@ -1,5 +1,6 @@
-import { apiRoot, projectKey } from "../../components/app-components/api";
-import { RequestBody } from "../../components/app-components/types";
+import { apiRoot, projectKey } from '../../components/app-components/api'
+import { RequestBody } from '../../components/app-components/types'
+
 
 export const customerRegistr = (
   email: string,
@@ -29,16 +30,17 @@ export const customerRegistr = (
           firstName: firstName,
           lastName: lastName,
           dateOfBirth: dateOfBirth,
-          addresses: [{
-            streetName: streetName,
-            postalCode: postalCode,
-            city: city,
-            country: country
-          }
-          ]
-        }
+          addresses: [
+            {
+              streetName: streetName,
+              postalCode: postalCode,
+              city: city,
+              country: country,
+            },
+          ],
+        },
       })
-      .execute();
+      .execute()
   } else if (!oneAdress) {
     return apiRoot
       .withProjectKey({ projectKey })
@@ -51,27 +53,26 @@ export const customerRegistr = (
           firstName: firstName,
           lastName: lastName,
           dateOfBirth: dateOfBirth,
-          addresses: [{
-            streetName: streetName,
-            postalCode: postalCode,
-            city: city,
-            country: country
-          },
-          {
-            streetName: streetNameBill,
-            postalCode: postalCodeBill,
-            city: cityBill,
-            country: countryBill
-          }
-          ]
-        }
+          addresses: [
+            {
+              streetName: streetName,
+              postalCode: postalCode,
+              city: city,
+              country: country,
+            },
+            {
+              streetName: streetNameBill,
+              postalCode: postalCodeBill,
+              city: cityBill,
+              country: countryBill,
+            },
+          ],
+        },
       })
-      .execute();
+      .execute()
   }
   return apiRoot
 }
-
-
 
 export const setAddressOptions = (
   customerId: string,
@@ -82,7 +83,6 @@ export const setAddressOptions = (
   checkDefaultBillingAddress: boolean,
   onlyAdress: boolean
 ) => {
-  
   let requestBody: RequestBody = {
     body: {
       version: version,
@@ -90,37 +90,39 @@ export const setAddressOptions = (
         {
           action: 'addShippingAddressId',
           addressId: addressIdShiping,
-        }
+        },
       ],
     },
   }
 
   const setDefaultShippingAddress = {
     action: 'setDefaultShippingAddress',
-    addressId: addressIdShiping
+    addressId: addressIdShiping,
   }
   const setDefaultBillingAddress = {
     action: 'setDefaultBillingAddress',
-    addressId: addressIdBilling
+    addressId: addressIdBilling,
   }
-  
-  const setOnlyOneAddress = onlyAdress ? {
-    action: 'addBillingAddressId',
-    addressId: addressIdShiping
-  } : {
-    action: 'addBillingAddressId',
-    addressId: addressIdBilling
-  };
 
-  requestBody.body.actions.push(setOnlyOneAddress);
+  const setOnlyOneAddress = onlyAdress
+    ? {
+        action: 'addBillingAddressId',
+        addressId: addressIdShiping,
+      }
+    : {
+        action: 'addBillingAddressId',
+        addressId: addressIdBilling,
+      }
 
-    if (checkDefaultShippingAddress) {
-      requestBody.body.actions.push(setDefaultShippingAddress);
-    } 
+  requestBody.body.actions.push(setOnlyOneAddress)
 
-    if (checkDefaultBillingAddress) {
-      requestBody.body.actions.push(setDefaultBillingAddress);
-    } 
+  if (checkDefaultShippingAddress) {
+    requestBody.body.actions.push(setDefaultShippingAddress)
+  }
+
+  if (checkDefaultBillingAddress) {
+    requestBody.body.actions.push(setDefaultBillingAddress)
+  }
 
   return apiRoot
     .withProjectKey({ projectKey })

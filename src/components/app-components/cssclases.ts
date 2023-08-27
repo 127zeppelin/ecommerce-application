@@ -3,5 +3,5 @@ export const cssClases = {
   loginBtn: 'login-page-link',
   myProfile: 'my-profile-link',
   logautBtn: 'logaut-btn',
-  emptyField: 'empty-field'
+  emptyField: 'empty-field',
 }
