@@ -1,4 +1,4 @@
-import { PageIds } from "../../Enums/PageIds";
+import { pageList } from "../pagelist";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import Page from "../../temlates/page";
@@ -29,17 +29,17 @@ class App {
     }
     let page: Page | null = null;
 
-    if (idPage === PageIds.MAIN_PAGE) {
+    if (idPage === pageList.MAIN_PAGE) {
       page = new MainPage(idPage);
-    } else if (idPage === PageIds.LOGIN_PAGE) {
+    } else if (idPage === pageList.LOGIN_PAGE) {
       page = new LoginPage(idPage);
-    } else if (idPage === PageIds.REGISRATION_PAGE) {
+    } else if (idPage === pageList.REGISRATION_PAGE) {
       page = new RegistrationPage(idPage);
-    } else if (idPage === PageIds.CUSTOMER_PAGE) {
+    } else if (idPage === pageList.CUSTOMER_PAGE) {
       page = new CustomerPage(idPage);
-    } else if (idPage === PageIds.ERROR_PAGE) {
+    } else if (idPage === pageList.ERROR_PAGE) {
       page = new ErrorPage(idPage);
-    } else if (idPage === PageIds.CARS_PAGE) {
+    } else if (idPage === pageList.CARS_PAGE) {
       page = new CarsPage(idPage);
     } else {
       //TO DO

@@ -1,6 +1,5 @@
 import { TokenStore } from '@commercetools/sdk-client-v2'
-import { pageList } from '../../Enums/PageIds'
-
+import { pageList } from '../pagelist' 
 export const logoutAndRedirect = () => {
   localStorage.clear()
   window.location.href = '#main'
@@ -34,7 +33,7 @@ export const isTheUserLoggedIn = (): boolean => {
     if (!hash) {
       window.location.href = '#main'
     }
-    if (!Object.values(pageList).includes(hash)) {
+    if (!Object.values(pageList).includes(hash)) { 
       window.location.href = `/#${pageList.ERROR_PAGE}`
     }
   }
