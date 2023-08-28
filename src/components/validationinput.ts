@@ -1,4 +1,4 @@
-import { cssClases } from './cssclases'
+import { CSS_CLASSES } from "../constants/cssclases" 
 
 export const validationFunctions = {
   email: function (email: string) {
@@ -130,9 +130,9 @@ export const checkResultValidationRestration = (
     if (counter < numberOfFieldsToCheck) {
       const fieldValue = element.value
       if (fieldValue === '') {
-        element.classList.add(cssClases.emptyField)
+        element.classList.add(CSS_CLASSES.emptyField)
         element.addEventListener('input', () => {
-          element.classList.remove(cssClases.emptyField)
+          element.classList.remove(CSS_CLASSES.emptyField)
         })
         testPassed = false
       }
