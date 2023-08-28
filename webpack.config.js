@@ -4,6 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin'); 
+const Dotenv = require('dotenv-webpack');
 
 
 const devServer = (isDev) => !isDev ? {} : {
@@ -64,6 +65,14 @@ module.exports = ({ development }) => ({
       title: 'AutoCar',
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
+    }),
+    new Dotenv({
+      path: './.env',
+      safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      allowEmptyValues: false, // allow empty variables (e.g. `FOO=`) (treat it as empty string, rather than missing)
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: false, // hide any errors
+      defaults: false, // load '.env.defaults' as the default values if empty.
     }),
     new CopyPlugin({
       patterns: [
