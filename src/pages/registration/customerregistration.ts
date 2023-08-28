@@ -1,4 +1,5 @@
-import { apiRoot, projectKey } from '../../components/api'
+import { apiRoot } from '../../components/api'
+import { PROJECT_KEY } from '../../constants/api-constants'
 import { RequestBody } from '../../components/types'
 
 export const customerRegistr = (
@@ -19,7 +20,7 @@ export const customerRegistr = (
 ) => {
   if (oneAdress) {
     return apiRoot
-      .withProjectKey({ projectKey })
+      .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
       .post({
@@ -42,7 +43,7 @@ export const customerRegistr = (
       .execute()
   } else if (!oneAdress) {
     return apiRoot
-      .withProjectKey({ projectKey })
+      .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
       .post({
@@ -118,7 +119,7 @@ export const setAddressOptions = (
   }
 
   return apiRoot
-    .withProjectKey({ projectKey })
+    .withProjectKey({ projectKey: PROJECT_KEY })
     .customers()
     .withId({ ID: customerId })
     .post(requestBody)

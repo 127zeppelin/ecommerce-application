@@ -4,8 +4,7 @@ import {
   AuthMiddlewareOptions,
   HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2'
-
-
+import { PROJECT_KEY } from '../constants/api-constants'
 const fetch = require('node-fetch')
 const {
   createClient,
@@ -13,8 +12,6 @@ const {
   createAuthForClientCredentialsFlow,
 } = require('@commercetools/sdk-client-v2')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
-
-export const projectKey = process.env.CTP_PROJECT_KEY
 
 export let tokenStore: TokenStore
 export const tokenCache: TokenCache = {
@@ -30,7 +27,7 @@ export const getClient = () => {
   const authMiddleware: AuthMiddlewareOptions =
     createAuthForClientCredentialsFlow({
       host: process.env.CTP_AUTH_URL,
-      projectKey: projectKey,
+      projectKey: PROJECT_KEY,
       credentials: {
         clientId: process.env.CTP_CLIENT_ID,
         clientSecret: process.env.CTP_CLIENT_SECRET,
