@@ -1,6 +1,5 @@
 import { TokenStore } from '@commercetools/sdk-client-v2'
-import { pageList } from '../../Enums/PageIds'
-
+import { pageList } from '../pagelist'
 export const logoutAndRedirect = () => {
   localStorage.clear()
   window.location.href = '#main'

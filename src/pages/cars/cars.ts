@@ -1,16 +1,16 @@
 import Page from '../../temlates/page'
+import { createHtmlElement } from '../../utils/createelement'
+import { CSS_CLASSES } from '../../constants/cssclases'
 
 class CarsPage extends Page {
-  // constructor(id: string) {
-  //   super(id);
-  // }
-
   render() {
-    const containerOuter = document.createElement('div')
-    containerOuter.className = 'container'
+    const containerOuter = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.cont],
+    })
     this.container.append(containerOuter)
     const title = this.createHeaderTitle('Our Cars')
-    title.className = 'pade-title'
+    title.className = CSS_CLASSES.pageTitle
     containerOuter.append(title)
     return this.container
   }

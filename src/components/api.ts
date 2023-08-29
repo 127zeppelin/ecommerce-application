@@ -4,8 +4,7 @@ import {
   AuthMiddlewareOptions,
   HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2'
-
-
+import { PROJECT_KEY } from '../constants/api-constants'
 const fetch = require('node-fetch')
 const {
   createClient,
@@ -13,9 +12,6 @@ const {
   createAuthForClientCredentialsFlow,
 } = require('@commercetools/sdk-client-v2')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
-
-export const projectKey = 'rs-school-project';
-
 
 export let tokenStore: TokenStore
 export const tokenCache: TokenCache = {
@@ -30,17 +26,17 @@ export const tokenCache: TokenCache = {
 export const getClient = () => {
   const authMiddleware: AuthMiddlewareOptions =
     createAuthForClientCredentialsFlow({
-      host: 'https://auth.europe-west1.gcp.commercetools.com',
-      projectKey: projectKey,
+      host: process.env.CTP_AUTH_URL,
+      projectKey: PROJECT_KEY,
       credentials: {
-        clientId: 'p7DHGpoZFDtV4FGQBjB6uP47',
-        clientSecret: 'mcvm1UxDfWioQdwtB3E4vysmzcBdLKhV',
+        clientId: process.env.CTP_CLIENT_ID,
+        clientSecret: process.env.CTP_CLIENT_SECRET,
       },
       fetch,
       tokenCache: tokenCache,
     })
   const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
-    host: 'https://api.europe-west1.gcp.commercetools.com',
+    host: process.env.CTP_API_URL,
     fetch,
   })
 

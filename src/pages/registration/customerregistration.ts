@@ -1,5 +1,6 @@
-import { apiRoot, projectKey } from '../../components/app-components/api'
-import { RequestBody } from '../../components/app-components/types'
+import { apiRoot } from '../../components/api'
+import { PROJECT_KEY } from '../../constants/api-constants'
+import { RequestBody } from '../../types/types'
 
 export const customerRegistr = (
   email: string,
@@ -19,7 +20,7 @@ export const customerRegistr = (
 ) => {
   if (oneAdress) {
     return apiRoot
-      .withProjectKey({ projectKey })
+      .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
       .post({
@@ -42,7 +43,7 @@ export const customerRegistr = (
       .execute()
   } else if (!oneAdress) {
     return apiRoot
-      .withProjectKey({ projectKey })
+      .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
       .post({
@@ -104,10 +105,8 @@ export const setAddressOptions = (
   }
 
   const setOnlyOneAddress = onlyAdress
-    ? {action: 'addBillingAddressId',
-      addressId: addressIdShiping}
-    : {action: 'addBillingAddressId',
-      addressId: addressIdBilling}
+    ? { action: 'addBillingAddressId', addressId: addressIdShiping }
+    : { action: 'addBillingAddressId', addressId: addressIdBilling }
 
   requestBody.body.actions.push(setOnlyOneAddress)
 
@@ -120,7 +119,7 @@ export const setAddressOptions = (
   }
 
   return apiRoot
-    .withProjectKey({ projectKey })
+    .withProjectKey({ projectKey: PROJECT_KEY })
     .customers()
     .withId({ ID: customerId })
     .post(requestBody)

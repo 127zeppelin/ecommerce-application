@@ -1,83 +1,82 @@
-import { PageIds } from "../../Enums/PageIds";
-import Footer from "../../components/footer/footer";
-import Header from "../../components/header/header";
-import Page from "../../temlates/page";
-import LoginPage from "../login/login";
-import MainPage from "../main/main";
-import RegistrationPage from "../registration/registration";
-import CustomerPage from "../user/user";
-import ErrorPage from "../error/error";
-import CarsPage from "../cars/cars";
-
+import { pageList } from '../pagelist'
+import Footer from '../../components/footer/footer'
+import Header from '../../components/header/header'
+import Page from '../../temlates/page'
+import LoginPage from '../login/login'
+import MainPage from '../main/main'
+import RegistrationPage from '../registration/registration'
+import CustomerPage from '../user/user'
+import ErrorPage from '../error/error'
+import CarsPage from '../cars/cars'
 
 class App {
-  private container: HTMLElement = document.body;
+  private container: HTMLElement = document.body
 
-  private defaultPageId: string = "current-page";
+  private defaultPageId: string = 'current-page'
 
-  private initialPage: MainPage;
+  private initialPage: MainPage
 
-  private header: Header;
+  private header: Header
 
-  private footer: Footer;
+  private footer: Footer
 
   renderNewPage(idPage: string) {
-    const currentPageHTML = document.querySelector(`#${this.defaultPageId}`);
-    const footer = document.querySelector(".footer");
+    const currentPageHTML = document.querySelector(`#${this.defaultPageId}`)
+    const footer = document.querySelector('.footer')
     if (currentPageHTML) {
-      currentPageHTML.remove();
+      currentPageHTML.remove()
     }
-    let page: Page | null = null;
+    let page: Page | null = null
 
-    if (idPage === PageIds.MAIN_PAGE) {
-      page = new MainPage(idPage);
-    } else if (idPage === PageIds.LOGIN_PAGE) {
-      page = new LoginPage(idPage);
-    } else if (idPage === PageIds.REGISRATION_PAGE) {
-      page = new RegistrationPage(idPage);
-    } else if (idPage === PageIds.CUSTOMER_PAGE) {
-      page = new CustomerPage(idPage);
-    } else if (idPage === PageIds.ERROR_PAGE) {
-      page = new ErrorPage(idPage);
-    } else if (idPage === PageIds.CARS_PAGE) {
-      page = new CarsPage(idPage);
+    if (idPage === pageList.MAIN_PAGE) {
+      page = new MainPage(idPage)
+    } else if (idPage === pageList.LOGIN_PAGE) {
+      page = new LoginPage(idPage)
+    } else if (idPage === pageList.REGISRATION_PAGE) {
+      page = new RegistrationPage(idPage)
+    } else if (idPage === pageList.CUSTOMER_PAGE) {
+      page = new CustomerPage(idPage)
+    } else if (idPage === pageList.ERROR_PAGE) {
+      page = new ErrorPage(idPage)
+    } else if (idPage === pageList.CARS_PAGE) {
+      page = new CarsPage(idPage)
     } else {
       //TO DO
     }
 
     if (page) {
-      const pageContext = page.render();
-      pageContext.id = this.defaultPageId;
-      this.container.insertBefore(pageContext, footer);
+      const pageContext = page.render()
+      pageContext.id = this.defaultPageId
+      this.container.insertBefore(pageContext, footer)
     }
   }
 
   private enableRouting() {
-    window.addEventListener("hashchange", () => {
-      const hash = window.location.hash.slice(1);
-      this.renderNewPage(hash);
-      this.header.renderPageButtons(hash);
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.slice(1)
+      this.renderNewPage(hash)
+      this.header.renderPageButtons(hash)
     })
   }
 
   constructor() {
-    this.initialPage = new MainPage("main");
-    this.header = new Header("header", "header");
-    this.footer = new Footer("footer", "footer");
+    this.initialPage = new MainPage('main')
+    this.header = new Header('header', 'header')
+    this.footer = new Footer('footer', 'footer')
   }
 
   run() {
-    let hash: string;
+    let hash: string
     if (window.location.hash) {
-      hash = window.location.hash.slice(1);
+      hash = window.location.hash.slice(1)
     } else {
-      hash = "main";
+      hash = 'main'
     }
-    this.container.append(this.header.render());
-    this.container.append(this.footer.render());
-    this.renderNewPage(hash);
-    this.enableRouting();
+    this.container.append(this.header.render())
+    this.container.append(this.footer.render())
+    this.renderNewPage(hash)
+    this.enableRouting()
   }
 }
 
-export default App;
+export default App

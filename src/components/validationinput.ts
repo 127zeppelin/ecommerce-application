@@ -1,11 +1,11 @@
-import { cssClases } from './cssclases'
+import { CSS_CLASSES } from '../constants/cssclases'
 
 export const validationFunctions = {
   email: function (email: string) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailPattern.test(email)
   },
-  password: function (password: string): { isValid: boolean, message: string } {
+  password: function (password: string): { isValid: boolean; message: string } {
     let message = ''
 
     if (password.length < 8) {
@@ -44,17 +44,17 @@ export const validationFunctions = {
 
 export function handleEmailInputChange(
   targetInputElement: HTMLInputElement,
-  invalidInputMessageEmail: HTMLDivElement
+  invalidInputMessageEmail: HTMLElement
 ): boolean {
   const isValid = validationFunctions.email(targetInputElement.value)
   if (isValid) {
-    targetInputElement.classList.remove('invalid-input')
-    targetInputElement.classList.add('valid-input')
+    targetInputElement.classList.remove(CSS_CLASSES.invalidInput)
+    targetInputElement.classList.add(CSS_CLASSES.validInput)
     invalidInputMessageEmail.innerHTML = '<span>Valid Email</span>'
     return true
   } else {
-    targetInputElement.classList.remove('valid-input')
-    targetInputElement.classList.add('invalid-input')
+    targetInputElement.classList.remove(CSS_CLASSES.validInput)
+    targetInputElement.classList.add(CSS_CLASSES.invalidInput)
     invalidInputMessageEmail.innerHTML = '<span>This is not an email</span>'
     return false
   }
@@ -62,19 +62,19 @@ export function handleEmailInputChange(
 
 export function handlePasswordInputChange(
   targetInputElement: HTMLInputElement,
-  invalidInputMessagePass: HTMLDivElement
+  invalidInputMessagePass: HTMLElement
 ): boolean {
   const result = validationFunctions.password(targetInputElement.value)
 
   if (result.isValid) {
-    targetInputElement.classList.remove('invalid-input')
-    targetInputElement.classList.add('valid-input')
+    targetInputElement.classList.remove(CSS_CLASSES.invalidInput)
+    targetInputElement.classList.add(CSS_CLASSES.validInput)
     invalidInputMessagePass.innerHTML = '<span>Valid Pass</span>'
     return true
   } else {
     const errorMessage = result.message // Получаем сообщение из объекта result
-    targetInputElement.classList.remove('valid-input')
-    targetInputElement.classList.add('invalid-input')
+    targetInputElement.classList.remove(CSS_CLASSES.validInput)
+    targetInputElement.classList.add(CSS_CLASSES.invalidInput)
     invalidInputMessagePass.innerHTML = `<span>${errorMessage}</span>` // Выводим сообщение об ошибке
     return false
   }
@@ -130,9 +130,9 @@ export const checkResultValidationRestration = (
     if (counter < numberOfFieldsToCheck) {
       const fieldValue = element.value
       if (fieldValue === '') {
-        element.classList.add(cssClases.emptyField)
+        element.classList.add(CSS_CLASSES.emptyField)
         element.addEventListener('input', () => {
-          element.classList.remove(cssClases.emptyField)
+          element.classList.remove(CSS_CLASSES.emptyField)
         })
         testPassed = false
       }
