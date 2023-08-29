@@ -1,8 +1,8 @@
 export const pageList = {
-  MAIN_PAGE: "main",
-  LOGIN_PAGE: "login",
-  REGISRATION_PAGE: "registration",
-  CUSTOMER_PAGE: "user",
-  ERROR_PAGE: "error",
-  CARS_PAGE: "cars"
+  MAIN_PAGE: 'main',
+  LOGIN_PAGE: 'login',
+  REGISRATION_PAGE: 'registration',
+  CUSTOMER_PAGE: 'user',
+  ERROR_PAGE: 'error',
+  CARS_PAGE: 'cars',
 }

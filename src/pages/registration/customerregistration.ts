@@ -1,6 +1,6 @@
 import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
-import { RequestBody } from '../../components/types'
+import { RequestBody } from '../../types/types'
 
 export const customerRegistr = (
   email: string,
