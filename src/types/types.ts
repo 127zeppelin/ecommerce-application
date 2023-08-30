@@ -20,75 +20,74 @@ export interface ElementOptions {
   altAtribute?: string
 }
 
-
 export interface Car {
-  id: string;
-  version: number;
-  versionModifiedAt: string;
-  lastMessageSequenceNumber: number;
-  createdAt: string;
-  lastModifiedAt: string;
+  id: string
+  version: number
+  versionModifiedAt: string
+  lastMessageSequenceNumber: number
+  createdAt: string
+  lastModifiedAt: string
   lastModifiedBy: {
-    isPlatformClient: boolean;
+    isPlatformClient: boolean
     user: {
-      typeId: string;
-      id: string;
-    };
-  };
+      typeId: string
+      id: string
+    }
+  }
   createdBy: {
-    isPlatformClient: boolean;
+    isPlatformClient: boolean
     user: {
-      typeId: string;
-      id: string;
-    };
-  };
+      typeId: string
+      id: string
+    }
+  }
   productType: {
-    typeId: string;
-    id: string;
-  };
+    typeId: string
+    id: string
+  }
   masterData: {
-    current: MasterData;
-    staged: MasterData;
-    published: boolean;
-    hasStagedChanges: boolean;
-  };
-  key: string;
-  priceMode: string;
-  lastVariantId: number;
+    current: MasterData
+    staged: MasterData
+    published: boolean
+    hasStagedChanges: boolean
+  }
+  key: string
+  priceMode: string
+  lastVariantId: number
 }
 
 export interface MasterData {
   name: {
-    "en-US": string;
-  };
+    'en-US': string
+  }
   description: {
-    "en-US": string;
-  };
+    'en-US': string
+  }
   categories: {
-    typeId: string;
-    id: string;
-  }[];
+    typeId: string
+    id: string
+  }[]
   masterVariant: {
     images: [
       {
-        url:string
-      }
+        url: string
+      },
     ]
     attributes: [
       {
         name: string
         value: any
-      }
+      },
     ]
   }
 }
 
 export interface CarResponse {
-  body:{
-  limit: number;
-  offset: number;
-  count: number;
-  total: number;
-  results: Car[];
+  body: {
+    limit: number
+    offset: number
+    count: number
+    total: number
+    results: Car[]
   }
 }

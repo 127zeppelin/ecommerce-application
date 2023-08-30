@@ -8,12 +8,12 @@ export const createHtmlElement = ({
   nameElement,
   valueElement,
   srcAtribute,
-  altAtribute
+  altAtribute,
 }: ElementOptions):
-  | HTMLElement
-  | HTMLButtonElement
-  | HTMLInputElement
-  | HTMLDivElement => {
+HTMLElement
+| HTMLButtonElement
+| HTMLInputElement
+| HTMLDivElement => {
   const element = document.createElement(tagName)
   cssClass.forEach((className) => {
     element.classList.add(className)
