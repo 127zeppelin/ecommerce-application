@@ -7,6 +7,8 @@ export const createHtmlElement = ({
   typeElement,
   nameElement,
   valueElement,
+  srcAtribute,
+  altAtribute
 }: ElementOptions):
   | HTMLElement
   | HTMLButtonElement
@@ -30,6 +32,12 @@ export const createHtmlElement = ({
   }
   if (valueElement && element instanceof HTMLInputElement) {
     element.value = valueElement
+  }
+  if (srcAtribute) {
+    element.setAttribute('src', srcAtribute)
+  }
+  if (altAtribute) {
+    element.setAttribute('alt', altAtribute)
   }
   return element
 }

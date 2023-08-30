@@ -16,25 +16,79 @@ export interface ElementOptions {
   typeElement?: string
   nameElement?: string
   valueElement?: string
+  srcAtribute?: string
+  altAtribute?: string
 }
-/*
-export interface RegistrFormOptions {
-  registrLogin: HTMLInputElement;
-  registrPass: HTMLInputElement;
-  registrName: HTMLInputElement;
-  registrSurname: HTMLInputElement;
-  registrDateOfBirth: HTMLInputElement;
-  registrShipingCountry: HTMLInputElement;
-  registrShipingStreet: HTMLInputElement;
-  registrShipingPostalCode: HTMLInputElement;
-  registrShipingCity: HTMLInputElement;
-  registrBillingCountry: HTMLInputElement;
-  registrBillingStreet: HTMLInputElement;
-  registrBillingPostalCode: HTMLInputElement;
-  registrBillingCity: HTMLInputElement;
-  registrSubmit: HTMLButtonElement;
-  onlyOneAdress: HTMLElement;
-  billingAdressWrapper: HTMLElement;
-  checkDefaultShipingAddress: HTMLElement;
-  checkDefaultBillingAddress: HTMLElement;
-}*/
+
+
+export interface Car {
+  id: string;
+  version: number;
+  versionModifiedAt: string;
+  lastMessageSequenceNumber: number;
+  createdAt: string;
+  lastModifiedAt: string;
+  lastModifiedBy: {
+    isPlatformClient: boolean;
+    user: {
+      typeId: string;
+      id: string;
+    };
+  };
+  createdBy: {
+    isPlatformClient: boolean;
+    user: {
+      typeId: string;
+      id: string;
+    };
+  };
+  productType: {
+    typeId: string;
+    id: string;
+  };
+  masterData: {
+    current: MasterData;
+    staged: MasterData;
+    published: boolean;
+    hasStagedChanges: boolean;
+  };
+  key: string;
+  priceMode: string;
+  lastVariantId: number;
+}
+
+export interface MasterData {
+  name: {
+    "en-US": string;
+  };
+  description: {
+    "en-US": string;
+  };
+  categories: {
+    typeId: string;
+    id: string;
+  }[];
+  masterVariant: {
+    images: [
+      {
+        url:string
+      }
+    ]
+    attributes: [
+      {
+        name: string
+        value: any
+      }
+    ]
+  }
+}
+
+export interface CarResponse {
+  body:{
+  limit: number;
+  offset: number;
+  count: number;
+  total: number;
+  results: Car[];
+  }
+}

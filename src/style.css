@@ -45,6 +45,13 @@ body {
   margin: 0 auto;
   max-width: 1200px;
 }
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1200px;
+}
 
 .header .container {
   width: 1200px;
@@ -304,6 +311,14 @@ p {
 .empty-field, 
 .invalid-input{
   border: 2px solid red;
+}
+/*Page Catalog*/
+.cards-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.cards-container img{
+  max-width: 100%;
 }
 
 @media screen and (max-width: 800px) {
