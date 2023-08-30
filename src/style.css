@@ -1,0 +1,453 @@
+html {
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: ‘Poppins’, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #14152e;
+  color: #fafafa;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.header,
+.footer {
+  background: #212338;
+  padding: 1rem;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  border-bottom: 1px solid #7D7E93;
+  margin-bottom: 55px;
+}
+
+.footer {
+  margin-top: 10%;
+  border-top: 1px solid #7D7E93;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.header .container {
+  width: 1200px;
+}
+
+a {
+  color: #fafafa;
+}
+
+.login__wrapper {
+  margin: 0 auto;
+}
+
+.login {
+  width: 732px;
+  min-height: 791px;
+  background: #fafafa;
+  padding: 48px;
+  border-radius: 24px;
+}
+
+.input {
+  margin: 10px auto;
+}
+
+span,
+p {
+  color: #000000;
+}
+
+.login__btns {
+  background: #c3c3c3;
+  width: 604px;
+  height: 56px;
+  border-radius: 10px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 71px;
+}
+
+.login__btn a {
+  text-align: center;
+  width: 302px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  text-decoration: none;
+  height: 100%;
+}
+
+.login__btn_active {
+  background: #000;
+  border-radius: 10px;
+  pointer-events: none;
+  cursor: default;
+}
+
+.login__btn_active a {
+  color: #fafafa;
+}
+
+.login__text {
+  text-align: center;
+  margin-bottom: 71px;
+}
+
+.login__text p {
+  font-size: 24px;
+}
+
+.login__text .text_bold {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.text_bold {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  width: 454px;
+  height: 64px;
+  margin-bottom: 31px;
+  position: relative;
+}
+
+ .input__email,
+  .input__password, 
+  .input__name, 
+  .input__surname,
+  .input_date, 
+  .input_ship_street,
+  .input_ship_city,
+  .input_ship_code,
+  .input_country_ship,
+  .input_bill_street,
+  .input_bill_city,
+  .input_bill_code,
+  .input_bill_country {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #c3c3c3;
+  padding: 5px;
+}
+
+.login__submit_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.login__submit {
+  width: 454px;
+  height: 64px;
+  border-radius: 40px;
+  background: #000;
+  color: #fafafa;
+  border: none;
+  margin-top: 31px;
+  cursor: pointer;
+}
+
+.menu_wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.menu__btn button {
+  background: #b46af063;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98px;
+  height: 40px;
+  border: 2px solid #b36af0;
+
+}
+
+.menu__btn button {
+  font-size: 16px;
+  color: #fafafa;
+  cursor: pointer;
+}
+
+.img_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.pade-title {
+  font-size: 100px;
+}
+
+.input__text_date {
+  display: flex;
+  width: 130px;
+  align-items: center;
+  justify-content: center;
+}
+
+.default-adress_wrapper,
+.same-adress_wrapper {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.default-adress_wrapper input,
+.same-adress_wrapper input {
+  display: none;
+}
+ 
+.label__adress {
+  color: #000;
+}
+ 
+.label__adress:before {
+  content: " ";
+  color: #b36af0;
+  display: inline-block;
+  font-size: 24px;
+  margin-right: 15px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  background: #FFF;
+  border: 1px solid #e3e3e3;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+ 
+.default-adress_wrapper input:checked + .label__adress:before,
+.same-adress_wrapper input:checked + .label__adress:before {
+  content: "x";
+}
+
+.billing-adress_wrapper,
+.shipping-adress_wrapper {
+  border: 1px dashed #c6c6c6;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.billing-adress_wrapper.hidden{
+  display: none;
+}
+
+.same-adress_wrapper label {
+  font-weight: bold;
+}
+
+.billing-adress_inactive {
+  display: none;
+}
+
+.btn-show-pass {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+  border: none;
+  background-color: transparent;
+}
+
+.resolve {
+  position: fixed;
+  top: calc(50% - 100px);
+  right: calc((100% - 350px)/2);
+  width: 350px;
+  height: 200px;
+  background: red;
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+}
+
+.resolve.successfully {
+  background: green;
+  color: white;
+}
+
+.validation-message {
+  position: absolute;
+  padding-top: 5px;
+}
+
+.empty-field, 
+.invalid-input{
+  border: 2px solid red;
+}
+
+@media screen and (max-width: 800px) {
+  .login {
+    width: 500px;
+    padding: 48px 10px 10px 10px;
+  }
+
+  .login__btns {
+    width: 404px;
+  }
+
+  .login__btn a {
+    width: 202px;
+  }
+
+  .input {
+    width: 404px;
+  }
+
+  .input__email,
+  .input__password, 
+  .input__name, 
+  .input__surname,
+  .input_date, 
+  .input_ship_street,
+  .input_ship_city,
+  .input_ship_code,
+  .input_country_ship,
+  .input_bill_street,
+  .input_bill_city,
+  .input_bill_code,
+  .input_bill_country {
+    width: 404px;
+  }
+
+  .billing-adress_wrapper, 
+  .shipping-adress_wrapper {
+    margin: 0;
+    padding: 10px 0 10px 0;
+  }
+
+  .same-adress_wrapper {
+    padding: 10px;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+ 
+  .menu__btn button { 
+    width: 60px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+ 
+  .login {
+    width: 400px;
+    padding: 48px 10px 10px 10px;
+  }
+
+  .login__btns {
+    width: 304px;
+  }
+
+  .login__btn a {
+    width: 152px;
+  }
+
+  .input {
+    width: 304px;
+  }
+
+  .input__email,
+  .input__password, 
+  .input__name, 
+  .input__info, 
+  .input__adress {
+    width: 304px;
+  }
+
+  .login__text .text_bold {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .login__text p {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+
+  .header {
+    background: #212338;
+    padding: 1rem;
+    height: 110px;
+  }
+
+  .menu__btn button { 
+    font-size: 14px;
+  }
+
+  .menu_wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 10px;
+}
+
+  .login {
+    width: 310px;
+    padding: 48px 10px 10px 10px;
+    min-height: 638px;
+  }
+
+  .login__btns {
+    width: 250px;
+  }
+
+  .login__btn a {
+    width: 125px;
+  }
+
+  .input {
+    width: 250px;
+  }
+
+  .input__email,
+  .input__password, 
+  .input__name, 
+  .input__info, 
+  .input__adress {
+    width: 250px;
+  }
+
+  .login__text .text_bold {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .login__text p {
+    font-size: 16px;
+  }
+
+
+}
