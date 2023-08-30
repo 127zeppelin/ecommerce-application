@@ -3,6 +3,7 @@ export const createHtmlElement = ({
   tagName,
   cssClass,
   elementText,
+  elementHtml,
   elementId,
   typeElement,
   nameElement,
@@ -20,6 +21,9 @@ HTMLElement
   })
   if (elementText) {
     element.innerText = elementText
+  }
+  if (elementHtml) {
+    element.innerHTML = elementHtml
   }
   if (elementId) {
     element.setAttribute('id', elementId)

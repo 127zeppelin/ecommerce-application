@@ -184,7 +184,7 @@ p {
   gap: 10px;
 }
 
-.menu__btn button {
+.menu__btn a {
   background: #b46af063;
   border-radius: 8px;
   display: flex;
@@ -193,10 +193,10 @@ p {
   width: 98px;
   height: 40px;
   border: 2px solid #b36af0;
-
+  text-decoration: none;
 }
 
-.menu__btn button {
+.menu__btn a {
   font-size: 16px;
   color: #fafafa;
   cursor: pointer;
@@ -369,7 +369,7 @@ p {
 
 @media screen and (max-width: 600px) {
  
-  .menu__btn button { 
+  .menu__btn a { 
     width: 60px;
   }
 }
@@ -419,7 +419,7 @@ p {
     height: 110px;
   }
 
-  .menu__btn button { 
+  .menu__btn a { 
     font-size: 14px;
   }
 

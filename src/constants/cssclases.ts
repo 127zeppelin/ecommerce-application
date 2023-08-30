@@ -48,4 +48,6 @@ export const CSS_CLASSES: Record<string, string> = {
   carCharacterCont: 'card-characters-cont',
   carAtributeContainer: 'car-atributr-container',
   carAtributeImg: 'atribute-img',
+  carCardPrice: 'card-car-price',
+  moreInfoBtn: 'more-link'
 }

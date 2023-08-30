@@ -12,6 +12,7 @@ export interface ElementOptions {
   tagName: string
   cssClass: string[]
   elementText?: string
+  elementHtml?: string
   elementId?: string
   typeElement?: string
   nameElement?: string
@@ -71,6 +72,13 @@ export interface MasterData {
     images: [
       {
         url: string
+      },
+    ],
+    prices: [
+      {
+        value: {
+          centAmount: number
+        }
       },
     ]
     attributes: [
