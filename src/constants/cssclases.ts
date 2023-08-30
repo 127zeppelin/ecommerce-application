@@ -39,4 +39,13 @@ export const CSS_CLASSES: Record<string, string> = {
   registrSubmitBtn: 'login__submit',
   checkDefaultShipAddr: 'default-shipping-adress',
   checkDefaultBillAddr: 'default-billing-adress',
+  cardsContainer: 'cards-container',
+  carCard: 'car-card',
+  carCardTitle: 'card-title',
+  titleCont: 'title-container',
+  carCardTb: 'card-tb-img',
+  mainContainer: 'main-container',
+  carCharacterCont: 'card-characters-cont',
+  carAtributeContainer: 'car-atributr-container',
+  carAtributeImg: 'atribute-img',
 }

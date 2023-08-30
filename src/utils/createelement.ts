@@ -7,11 +7,13 @@ export const createHtmlElement = ({
   typeElement,
   nameElement,
   valueElement,
+  srcAtribute,
+  altAtribute,
 }: ElementOptions):
-  | HTMLElement
-  | HTMLButtonElement
-  | HTMLInputElement
-  | HTMLDivElement => {
+HTMLElement
+| HTMLButtonElement
+| HTMLInputElement
+| HTMLDivElement => {
   const element = document.createElement(tagName)
   cssClass.forEach((className) => {
     element.classList.add(className)
@@ -30,6 +32,12 @@ export const createHtmlElement = ({
   }
   if (valueElement && element instanceof HTMLInputElement) {
     element.value = valueElement
+  }
+  if (srcAtribute) {
+    element.setAttribute('src', srcAtribute)
+  }
+  if (altAtribute) {
+    element.setAttribute('alt', altAtribute)
   }
   return element
 }
