@@ -3,7 +3,7 @@ import { PROJECT_KEY } from '../../constants/api-constants'
 import { Car } from '../../types/types'
 import { createHtmlElement } from '../../utils/createelement'
 import { CSS_CLASSES } from '../../constants/cssclases'
-
+import { pageList } from '../pagelist'
 
 export const getCars = () => {
   return apiRoot
@@ -108,9 +108,14 @@ export const createCarsList = (
     carCardContainer.append(сarСharacteristicsCont)
 
     const moreInfoLink = createHtmlElement({
-      tagName: 'a',
+      tagName: 'button',
       cssClass: [CSS_CLASSES.moreInfoBtn],
       elementText: 'Details',
+      dataCarAtribute: carData.key,
+    })
+    moreInfoLink.addEventListener('click', ()=>{
+      pageList.CUR_CAR = carData.key,
+      window.location.href = `#${pageList.CUR_CAR}`;
     })
     carCardContainer.append(moreInfoLink)
     carCharacterBlock(carData, сarСharacteristicsCont)

@@ -19,6 +19,7 @@ export interface ElementOptions {
   valueElement?: string
   srcAtribute?: string
   altAtribute?: string
+  dataCarAtribute?: string
 }
 
 export interface Car {
@@ -59,6 +60,9 @@ export interface Car {
 
 export interface MasterData {
   name: {
+    'en-US': string
+  }
+  slug: {
     'en-US': string
   }
   description: {

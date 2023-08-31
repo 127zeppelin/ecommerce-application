@@ -10,6 +10,7 @@ export const createHtmlElement = ({
   valueElement,
   srcAtribute,
   altAtribute,
+  dataCarAtribute
 }: ElementOptions):
 HTMLElement
 | HTMLButtonElement
@@ -42,6 +43,9 @@ HTMLElement
   }
   if (altAtribute) {
     element.setAttribute('alt', altAtribute)
+  }
+  if (dataCarAtribute) {
+    element.setAttribute('data-car', dataCarAtribute)
   }
   return element
 }

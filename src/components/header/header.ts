@@ -1,4 +1,5 @@
 import Component from '../../temlates/components'
+import { CSS_CLASSES } from '../../constants/cssclases';
 import {
   logoutAndRedirect,
   isTheUserLoggedIn,
@@ -12,7 +13,7 @@ class Header extends Component {
   private createPageButtons(href: string, text: string) {
     const pageButton = document.createElement('div');
     const menuBtn = document.createElement('a');
-    pageButton.className = 'menu__btn';
+    pageButton.className = CSS_CLASSES.menuBtn;
     menuBtn.setAttribute('href', href)
     // menuBtn.addEventListener('click', () => {
     //   window.location.href = href
