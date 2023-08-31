@@ -114,7 +114,7 @@ export const createCarsList = (
       dataCarAtribute: carData.key,
     })
     moreInfoLink.addEventListener('click', ()=>{
-      pageList.CUR_CAR = carData.key,
+      pageList.CUR_CAR = carData.key;
       window.location.href = `#${pageList.CUR_CAR}`;
     })
     carCardContainer.append(moreInfoLink)

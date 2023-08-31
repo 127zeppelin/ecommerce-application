@@ -1,9 +1,8 @@
 import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { createHtmlElement } from '../../utils/createelement'
-import { getCar } from './getcar'
-import { pageList } from '../pagelist'
-import { createCarPage } from './getcar'
+import { getCar, createCarPage } from './getcar'
+
 
 class CarPage extends Page {
   /*
@@ -12,23 +11,23 @@ class CarPage extends Page {
     this.errorType = errorType;
   }
 */
- getHashValue(){
-  const hashValue = window.location.hash.substring(1); 
-  return hashValue
- }
+  getHashValue() {
+    const hashValue = window.location.hash.substring(1);
+    return hashValue
+  }
 
   async getcarquery(containerMain: HTMLElement) {
     const hash = this.getHashValue();
     try {
-
       const loadCarResult = await getCar(hash);
       const carData = loadCarResult.body
       createCarPage(carData, containerMain)
-      console.log(carData)
     } catch (error: any) {
+      // eslint-disable-next-line
       console.log(error)
     }
   }
+
   render() {
     const containerMain = createHtmlElement({
       tagName: 'main',

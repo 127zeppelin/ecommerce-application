@@ -11,6 +11,7 @@ class CarsPage extends Page {
       const carsArr: Car[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
+      // eslint-disable-next-line
       console.log(error)
     }
   }
