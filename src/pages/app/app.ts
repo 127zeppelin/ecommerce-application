@@ -21,7 +21,13 @@ class App {
 
   private footer: Footer
 
-  renderNewPage(idPage: string) {
+  handleInitialHash() {
+    const initialHash = window.location.hash.slice(1); // Извлекаем хэш из URL
+    this.renderNewPage(initialHash); // Вызываем метод для перерисовки страницы
+    this.header.renderPageButtons(initialHash); // Обновляем кнопки в хедере
+  }
+
+  renderNewPage(idPage: string) {  
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`)
     const footer = document.querySelector('.footer')
     if (currentPageHTML) {
