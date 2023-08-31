@@ -3,12 +3,14 @@ export const createHtmlElement = ({
   tagName,
   cssClass,
   elementText,
+  elementHtml,
   elementId,
   typeElement,
   nameElement,
   valueElement,
   srcAtribute,
   altAtribute,
+  dataCarAtribute
 }: ElementOptions):
 HTMLElement
 | HTMLButtonElement
@@ -20,6 +22,9 @@ HTMLElement
   })
   if (elementText) {
     element.innerText = elementText
+  }
+  if (elementHtml) {
+    element.innerHTML = elementHtml
   }
   if (elementId) {
     element.setAttribute('id', elementId)
@@ -38,6 +43,9 @@ HTMLElement
   }
   if (altAtribute) {
     element.setAttribute('alt', altAtribute)
+  }
+  if (dataCarAtribute) {
+    element.setAttribute('data-car', dataCarAtribute)
   }
   return element
 }

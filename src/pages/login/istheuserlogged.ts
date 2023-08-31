@@ -33,9 +33,9 @@ export const isTheUserLoggedIn = (): boolean => {
     if (!hash) {
       window.location.href = '#main'
     }
-    if (!Object.values(pageList).includes(hash)) {
-      window.location.href = `/#${pageList.ERROR_PAGE}`
-    }
+     if (!Object.values(pageList).includes(hash)) {
+       window.location.href = `/#${pageList.ERROR_PAGE}`
+     }
   }
   window.addEventListener('hashchange', handleHashChange)
   return UserLoggedIn

@@ -12,12 +12,14 @@ export interface ElementOptions {
   tagName: string
   cssClass: string[]
   elementText?: string
+  elementHtml?: string
   elementId?: string
   typeElement?: string
   nameElement?: string
   valueElement?: string
   srcAtribute?: string
   altAtribute?: string
+  dataCarAtribute?: string
 }
 
 export interface Car {
@@ -60,6 +62,9 @@ export interface MasterData {
   name: {
     'en-US': string
   }
+  slug: {
+    'en-US': string
+  }
   description: {
     'en-US': string
   }
@@ -71,6 +76,13 @@ export interface MasterData {
     images: [
       {
         url: string
+      },
+    ],
+    prices: [
+      {
+        value: {
+          centAmount: number
+        }
       },
     ]
     attributes: [

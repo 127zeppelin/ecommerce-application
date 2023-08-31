@@ -8,6 +8,7 @@ import RegistrationPage from '../registration/registration'
 import CustomerPage from '../user/user'
 import ErrorPage from '../error/error'
 import CarsPage from '../cars/cars'
+import CarPage from '../car/car'
 
 class App {
   private container: HTMLElement = document.body
@@ -36,12 +37,12 @@ class App {
       page = new RegistrationPage(idPage)
     } else if (idPage === pageList.CUSTOMER_PAGE) {
       page = new CustomerPage(idPage)
+    }  else if (idPage === pageList.CARS_PAGE) {
+      page = new CarsPage(idPage)
+    } else if (idPage === pageList.CUR_CAR) {
+      page = new CarPage(idPage)
     } else if (idPage === pageList.ERROR_PAGE) {
       page = new ErrorPage(idPage)
-    } else if (idPage === pageList.CARS_PAGE) {
-      page = new CarsPage(idPage)
-    } else {
-      //TO DO
     }
 
     if (page) {

@@ -3,7 +3,7 @@ import { PROJECT_KEY } from '../../constants/api-constants'
 import { Car } from '../../types/types'
 import { createHtmlElement } from '../../utils/createelement'
 import { CSS_CLASSES } from '../../constants/cssclases'
-
+import { pageList } from '../pagelist'
 
 export const getCars = () => {
   return apiRoot
@@ -16,7 +16,7 @@ export const getCars = () => {
 const carCharacterBlock = (carData: Car, atributesContainer: HTMLElement) => {
   const arrayAtributs = carData.masterData.current.masterVariant.attributes
   for (const attribute of arrayAtributs) {
-    // Ваш од для обрабкотки каждого атрибута здесь
+
     const attributeName = attribute.name
     const attributeValue = attribute.value
     if (
@@ -49,6 +49,13 @@ const carCharacterBlock = (carData: Car, atributesContainer: HTMLElement) => {
       })
       atributeContainer.append(atributeValue)
 
+      const atributeValueAfter = createHtmlElement({
+        tagName: 'span',
+        cssClass: [CSS_CLASSES.carCharacterCont],
+        elementText: attributeName === 'engine-power' ? 'HP': attributeName === 'max-speed' ? 'Km/h': '',
+      })
+      atributeContainer.append(atributeValueAfter)
+
       atributesContainer.append(atributeContainer)
     }
   }
@@ -73,7 +80,19 @@ export const createCarsList = (
       altAtribute: carData.masterData.current.name['en-US'],
     })
     carCardContainer.append(carTbImg)
-
+    
+    const carPrice = carData.masterData.current.masterVariant.prices[0].value.centAmount / 100;
+    const formattedPrice = carPrice.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
+    const carPriceBlock = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.carCardPrice],
+      elementHtml: `<span>${formattedPrice} </span><span>per day</span>`,
+    })
+    carCardContainer.append(carPriceBlock)
+    
     const carTitle = createHtmlElement({
       tagName: 'h2',
       cssClass: [CSS_CLASSES.carCardTitle],
@@ -85,7 +104,20 @@ export const createCarsList = (
       tagName: 'div',
       cssClass: [CSS_CLASSES.carCharacterCont],
     })
+
     carCardContainer.append(сarСharacteristicsCont)
+
+    const moreInfoLink = createHtmlElement({
+      tagName: 'button',
+      cssClass: [CSS_CLASSES.moreInfoBtn],
+      elementText: 'Details',
+      dataCarAtribute: carData.key,
+    })
+    moreInfoLink.addEventListener('click', ()=>{
+      pageList.CUR_CAR = carData.key,
+      window.location.href = `#${pageList.CUR_CAR}`;
+    })
+    carCardContainer.append(moreInfoLink)
     carCharacterBlock(carData, сarСharacteristicsCont)
   }
   return carsCardContainer
