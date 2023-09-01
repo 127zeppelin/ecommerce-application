@@ -82,6 +82,13 @@ export interface MasterData {
       {
         value: {
           centAmount: number
+          currencyCode: string
+        },
+        discounted: {
+          value: {
+            centAmount: number
+            currencyCode: string
+          },  
         }
       },
     ]

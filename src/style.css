@@ -45,6 +45,7 @@ body {
   margin: 0 auto;
   max-width: 1200px;
 }
+
 .main-container {
   display: flex;
   justify-content: space-between;
@@ -143,19 +144,19 @@ p {
   position: relative;
 }
 
- .input__email,
-  .input__password, 
-  .input__name, 
-  .input__surname,
-  .input_date, 
-  .input_ship_street,
-  .input_ship_city,
-  .input_ship_code,
-  .input_country_ship,
-  .input_bill_street,
-  .input_bill_city,
-  .input_bill_code,
-  .input_bill_country {
+.input__email,
+.input__password,
+.input__name,
+.input__surname,
+.input_date,
+.input_ship_street,
+.input_ship_city,
+.input_ship_code,
+.input_country_ship,
+.input_bill_street,
+.input_bill_city,
+.input_bill_code,
+.input_bill_country {
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -229,11 +230,11 @@ p {
 .same-adress_wrapper input {
   display: none;
 }
- 
+
 .label__adress {
   color: #000;
 }
- 
+
 .label__adress:before {
   content: " ";
   color: #b36af0;
@@ -248,9 +249,9 @@ p {
   vertical-align: middle;
   border-radius: 100%;
 }
- 
-.default-adress_wrapper input:checked + .label__adress:before,
-.same-adress_wrapper input:checked + .label__adress:before {
+
+.default-adress_wrapper input:checked+.label__adress:before,
+.same-adress_wrapper input:checked+.label__adress:before {
   content: "x";
 }
 
@@ -262,7 +263,7 @@ p {
   padding: 10px;
 }
 
-.billing-adress_wrapper.hidden{
+.billing-adress_wrapper.hidden {
   display: none;
 }
 
@@ -308,19 +309,31 @@ p {
   padding-top: 5px;
 }
 
-.empty-field, 
-.invalid-input{
+.empty-field,
+.invalid-input {
   border: 2px solid red;
 }
+
 /*Page Catalog*/
-.cards-container{
+.cards-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-.cards-container img{
+
+.cards-container img {
   max-width: 100%;
 }
 
+.car-card {
+  color: white;
+}
+
+.car-card span {
+  color: white;
+}
+.card-car-price.not-active{
+  text-decoration: line-through;
+}
 @media screen and (max-width: 800px) {
   .login {
     width: 500px;
@@ -340,10 +353,10 @@ p {
   }
 
   .input__email,
-  .input__password, 
-  .input__name, 
+  .input__password,
+  .input__name,
   .input__surname,
-  .input_date, 
+  .input_date,
   .input_ship_street,
   .input_ship_city,
   .input_ship_code,
@@ -355,7 +368,7 @@ p {
     width: 404px;
   }
 
-  .billing-adress_wrapper, 
+  .billing-adress_wrapper,
   .shipping-adress_wrapper {
     margin: 0;
     padding: 10px 0 10px 0;
@@ -368,14 +381,14 @@ p {
 }
 
 @media screen and (max-width: 600px) {
- 
-  .menu__btn a { 
+
+  .menu__btn a {
     width: 60px;
   }
 }
 
 @media screen and (max-width: 560px) {
- 
+
   .login {
     width: 400px;
     padding: 48px 10px 10px 10px;
@@ -394,9 +407,9 @@ p {
   }
 
   .input__email,
-  .input__password, 
-  .input__name, 
-  .input__info, 
+  .input__password,
+  .input__name,
+  .input__info,
   .input__adress {
     width: 304px;
   }
@@ -419,7 +432,7 @@ p {
     height: 110px;
   }
 
-  .menu__btn a { 
+  .menu__btn a {
     font-size: 14px;
   }
 
@@ -427,7 +440,7 @@ p {
     display: grid;
     grid-template-columns: 50% 50%;
     padding: 10px;
-}
+  }
 
   .login {
     width: 310px;
@@ -448,9 +461,9 @@ p {
   }
 
   .input__email,
-  .input__password, 
-  .input__name, 
-  .input__info, 
+  .input__password,
+  .input__name,
+  .input__info,
   .input__adress {
     width: 250px;
   }
