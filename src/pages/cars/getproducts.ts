@@ -4,6 +4,7 @@ import { Car } from '../../types/types'
 import { createHtmlElement } from '../../utils/createelement'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { pageList } from '../pagelist'
+import { installOfTheCurrentPrice } from '../../utils/price'
 
 export const getCars = () => {
   return apiRoot
@@ -81,16 +82,7 @@ export const createCarsList = (
     })
     carCardContainer.append(carTbImg)
     
-    const carPrice = carData.masterData.current.masterVariant.prices[0].value.centAmount / 100;
-    const formattedPrice = carPrice.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    });
-    const carPriceBlock = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.carCardPrice],
-      elementHtml: `<span>${formattedPrice} </span><span>per day</span>`,
-    })
+    const carPriceBlock = installOfTheCurrentPrice(carData)
     carCardContainer.append(carPriceBlock)
     
     const carTitle = createHtmlElement({
