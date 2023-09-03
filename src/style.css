@@ -328,10 +328,19 @@ p {
   color: #000;
 }
 
+.card-car-price span{
+  color: #64aedd;
+}
+
 .card-car-price.not-active{
   text-decoration: line-through;
   color: rgb(253, 0, 0);
 }
+
+.card-car-price.not-active span {
+  color: rgb(253, 0, 0);
+}
+
 
 .cards-container {
   display: flex;
@@ -416,6 +425,12 @@ p {
   display: flex;
   justify-content: center;
   gap: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.car-card-price span {
+  color: orange;
 }
 
 @media screen and (max-width: 800px) {

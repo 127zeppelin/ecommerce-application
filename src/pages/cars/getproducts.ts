@@ -82,8 +82,6 @@ export const createCarsList = (
     })
     carCardContainer.append(carTbImg)
     
-    const carPriceBlock = installOfTheCurrentPrice(carData)
-    carCardContainer.append(carPriceBlock)
     
     const carTitle = createHtmlElement({
       tagName: 'h2',
@@ -91,14 +89,17 @@ export const createCarsList = (
       elementText: carData.masterData.current.name['en-US'],
     })
     carCardContainer.append(carTitle)
-
+    
     const сarСharacteristicsCont = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.carCharacterCont],
     })
-
+    
     carCardContainer.append(сarСharacteristicsCont)
-
+    
+    const carPriceBlock = installOfTheCurrentPrice(carData);
+    carCardContainer.append(carPriceBlock);
+    
     const moreInfoLink = createHtmlElement({
       tagName: 'button',
       cssClass: [CSS_CLASSES.moreInfoBtn],
