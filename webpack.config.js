@@ -58,6 +58,9 @@ module.exports = ({ development }) => ({
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    fallback: {
+      "querystring": require.resolve("querystring-es3")
+    }
   },
   plugins: [
     ...esLintPlugin(development),

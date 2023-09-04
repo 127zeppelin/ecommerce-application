@@ -2,6 +2,7 @@ import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { createHtmlElement } from '../../utils/createelement'
 import { getCar, createCarPage } from './getcar'
+import { Product } from '@commercetools/platform-sdk/dist/declarations/src'  
 
 
 class CarPage extends Page {
@@ -20,7 +21,7 @@ class CarPage extends Page {
     const hash = this.getHashValue();
     try {
       const loadCarResult = await getCar(hash);
-      const carData = loadCarResult.body
+      const carData: Product = loadCarResult.body
       createCarPage(carData, containerMain)
     } catch (error: any) {
       // eslint-disable-next-line

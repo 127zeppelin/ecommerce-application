@@ -1,8 +1,15 @@
 import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 import { RequestBody } from '../../types/types'
+import {
+  CustomerUpdateAction,
+  CustomerSetDefaultShippingAddressAction,
+  CustomerSetDefaultBillingAddressAction,
+  ClientResponse,
+  CustomerSignInResult
+} from '@commercetools/platform-sdk/dist/declarations/src'
 
-export const customerRegistr = (
+export const customerRegistr = async (
   email: string,
   password: string,
   firstName: string,
@@ -17,9 +24,9 @@ export const customerRegistr = (
   cityBill: string,
   countryBill: string,
   oneAdress: boolean
-) => {
-  if (oneAdress) {
-    return apiRoot
+): Promise<ClientResponse<CustomerSignInResult>> => {
+  const request = oneAdress
+    ? apiRoot
       .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
@@ -40,9 +47,7 @@ export const customerRegistr = (
           ],
         },
       })
-      .execute()
-  } else if (!oneAdress) {
-    return apiRoot
+    : apiRoot
       .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
@@ -68,11 +73,11 @@ export const customerRegistr = (
             },
           ],
         },
-      })
-      .execute()
-  }
-  return apiRoot
-}
+      });
+
+  const response = await request.execute();
+  return response;
+};
 
 export const setAddressOptions = (
   customerId: string,
@@ -95,16 +100,16 @@ export const setAddressOptions = (
     },
   }
 
-  const setDefaultShippingAddress = {
+  const setDefaultShippingAddress: CustomerSetDefaultShippingAddressAction = {
     action: 'setDefaultShippingAddress',
     addressId: addressIdShiping,
   }
-  const setDefaultBillingAddress = {
+  const setDefaultBillingAddress: CustomerSetDefaultBillingAddressAction = {
     action: 'setDefaultBillingAddress',
     addressId: addressIdBilling,
   }
 
-  const setOnlyOneAddress = onlyAdress
+  const setOnlyOneAddress: CustomerUpdateAction = onlyAdress
     ? { action: 'addBillingAddressId', addressId: addressIdShiping }
     : { action: 'addBillingAddressId', addressId: addressIdBilling }
 

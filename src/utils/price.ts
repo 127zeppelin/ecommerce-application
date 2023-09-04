@@ -1,19 +1,20 @@
 import { CSS_CLASSES } from "../constants/cssclases";
-import { Car } from "../types/types";
+// import { Car } from "../types/types";
 import { createHtmlElement } from "./createelement";
+import { Product, Price } from '@commercetools/platform-sdk/dist/declarations/src';
 
 
 
-export const installOfTheCurrentPrice = (carData: Car) => {
+export const installOfTheCurrentPrice = (carData: Product) => {
 
   const carPriceBlock = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.carCardPriceBlock],
   })
 
-  const carPrice: number | undefined | null =
-    carData.masterData.current.masterVariant.prices[0]?.value?.centAmount / 100;
-  if (carPrice) {
+  const carPriceArr: Price[] | undefined = carData.masterData.current.masterVariant.prices
+  if (carPriceArr) {
+    const carPrice: number | undefined = carPriceArr[0]?.value?.centAmount / 100;
     const formattedPrice = carPrice.toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD'
@@ -26,8 +27,7 @@ export const installOfTheCurrentPrice = (carData: Car) => {
     })
     carPriceBlock.append(carPriceDefaultBlock)
 
-    const carPriceDiscountCents: number | undefined =
-      carData.masterData.current.masterVariant.prices[0].discounted?.value?.centAmount;
+    const carPriceDiscountCents: number | undefined = carPriceArr[0]?.discounted?.value?.centAmount;
     if (carPriceDiscountCents !== undefined) {
       const carPriceDiscount = carPriceDiscountCents / 100;
       const formattedPriceDiscount = carPriceDiscount.toLocaleString('en-US', {
