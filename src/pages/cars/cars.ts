@@ -2,13 +2,14 @@ import Page from '../../temlates/page'
 import { createHtmlElement } from '../../utils/createelement'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { getCars, createCarsList } from './getproducts'
-import { Car, CarResponse } from '../../types/types'
+// import { Car, CarResponse } from '../../types/types'
+import { Product } from '@commercetools/platform-sdk/dist/declarations/src' 
 
 class CarsPage extends Page {
   async loadCarsWithoutCategory(carsCardContainer: HTMLElement) {
     try {
-      const loadCarsResult: CarResponse = await getCars()
-      const carsArr: Car[] = loadCarsResult.body.results
+      const loadCarsResult  = await getCars()
+      const carsArr: Product[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
       // eslint-disable-next-line
@@ -28,7 +29,7 @@ class CarsPage extends Page {
     })
     containerMain.append(titleContainer)
 
-    const title = this.createHeaderTitle('Our Cars')
+    const title = this.createHeaderTitle('Rent Our Cars')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
 
