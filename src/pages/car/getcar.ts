@@ -20,7 +20,7 @@ export const createCarPage = (
 ): HTMLElement => {
   const carTitle = createHtmlElement({
     tagName: 'h1',
-    cssClass: [CSS_CLASSES.carCard],
+    cssClass: [CSS_CLASSES.carPageTitle],
     elementText: carData.masterData.current.name['en-US']
   })
   carContainer.append(carTitle);
