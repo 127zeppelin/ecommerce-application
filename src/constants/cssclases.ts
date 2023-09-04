@@ -53,5 +53,6 @@ export const CSS_CLASSES: Record<string, string> = {
   carCardPriceLabel: 'card-car-price-label',
   moreInfoBtn: 'more-link',
   menuBtn: 'menu__btn',
-  notAnActivePrice: 'not-active'
+  notAnActivePrice: 'not-active',
+  carPageTitle: 'car-page-title'
 }
