@@ -76,6 +76,7 @@ export const createCarsList = (
     })
     carsCardContainer.append(oneCarCardContainer);
 
+
     const productImages: Image[] | undefined = carData.masterData.current.masterVariant.images
     if (productImages !== undefined) {
       const carTbImg = createHtmlElement({
@@ -89,16 +90,19 @@ export const createCarsList = (
     const carPriceBlock = installOfTheCurrentPrice(carData)
     childElementsCarCard.push(carPriceBlock)
 
+
     const carTitle = createHtmlElement({
       tagName: 'h2',
       cssClass: [CSS_CLASSES.carCardTitle],
       elementText: carData.masterData.current.name['en-US'],
     })
     childElementsCarCard.push(carTitle)
+
     const сarСharacteristicsCont = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.carCharacterCont],
     })
+
     childElementsCarCard.push(сarСharacteristicsCont)
     const moreInfoLink = createHtmlElement({
       tagName: 'button',
