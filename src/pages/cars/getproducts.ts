@@ -68,8 +68,8 @@ export const createCarsList = (
   carsArr: Product [] ,
   carsCardContainer: HTMLElement
 ): HTMLElement => {
-  const childElementsCarCard = [];
   for (const carData of carsArr) {
+    const childElementsCarCard = [];
     const oneCarCardContainer = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.carCard],
