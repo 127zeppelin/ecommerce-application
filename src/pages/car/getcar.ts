@@ -19,35 +19,25 @@ export const createCarPage = (
   carData: Product,
   carContainer: HTMLElement
 ): HTMLElement => {
-  const carTitle = createHtmlElement({
-    tagName: 'h1',
-    cssClass: [CSS_CLASSES.carPageTitle],
-    elementText: carData.masterData.current.name['en-US']
+
+  const carDetailsWrapper = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.carDetailsWrapper],
   })
-  carContainer.append(carTitle);
+  carContainer.append(carDetailsWrapper);
+
   const carSliderWrapper = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.carSliderWrapper],
   })
-  carContainer.append(carSliderWrapper);
+  carDetailsWrapper.append(carSliderWrapper);
   const carSlider = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.carSlider],
   })
   carSliderWrapper.append(carSlider);
   const productImages: Image[] | undefined = carData.masterData.current.masterVariant.images;
-  // if (productImages !== undefined) {
-  //   for (let productImage of productImages) {
-  //     const carImg = createHtmlElement({
-  //       tagName: 'img',
-  //       cssClass: [CSS_CLASSES.carCardTb],
-  //       srcAtribute: productImage.url,
-  //       altAtribute: carData.masterData.current.name['en-US'],
-  //     })
-  //     carImg.classList.add("car__slider__img");
-  //     carSlider.append(carImg);
-  //   }
-  // }
+
   let sliderBtn = createHtmlElement({
     tagName: 'button',
     cssClass: [CSS_CLASSES.prevBtn],
@@ -63,5 +53,11 @@ export const createCarPage = (
 
   createSlider(carData, productImages);
 
+  const carTitle = createHtmlElement({
+    tagName: 'h1',
+    cssClass: [CSS_CLASSES.carPageTitle],
+    elementText: carData.masterData.current.name['en-US']
+  })
+  carDetailsWrapper.append(carTitle);
   return carContainer
 }

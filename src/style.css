@@ -341,7 +341,6 @@ p {
   color: rgb(253, 0, 0);
 }
 
-
 .cards-container {
   display: flex;
   flex-wrap: wrap;
@@ -392,7 +391,6 @@ p {
   font-weight: bold;
 }
 
-
 .more-link {
   margin-top: 20px;
   width: 100%;
@@ -433,13 +431,9 @@ p {
   color: orange;
 }
 
-
 .car__slider__wrapper {
   position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto;
-  overflow: hidden;
+  width: 600px;
   display: flex;
   align-items: center;
 }
@@ -448,7 +442,6 @@ p {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
-
 
 .car__slider__img {
   width: 100%;
@@ -478,6 +471,20 @@ p {
 
 .btn_next {
   right: 5px;
+}
+
+.car__details__wrapper {
+  min-height: 490px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 10px;
+  background: #0000004a;
+  margin: 20px;
+}
+
+.car-page-title {
+  font-size: 32px;
 }
 
 @media screen and (max-width: 800px) {

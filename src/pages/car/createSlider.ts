@@ -23,7 +23,7 @@ export const createSlider = (carData: Product, productImages: Image[] | undefine
   const nextBtn = document.querySelector(`.${CSS_CLASSES.nextBtn}`) as HTMLElement;
 
   let slideCount: number;
-  let slideIndex: number = 0;
+  let slideIndex: number = 1;
   let carImg = addImg(carData, productImages, carSlider, slideIndex);
 
   if (productImages) {
@@ -31,13 +31,13 @@ export const createSlider = (carData: Product, productImages: Image[] | undefine
   }
 
   nextBtn.addEventListener('click', () => {
-    slideIndex = slideIndex + 1 < slideCount ? slideIndex + 1 : 0;
+    slideIndex = slideIndex + 1 < slideCount ? slideIndex + 1 : 1;
     carImg?.remove();
     carImg = addImg(carData, productImages, carSlider, slideIndex);
   });
 
   prevBtn.addEventListener('click', () => {
-    slideIndex = slideIndex - 1 < 0 ? slideCount - 1: slideIndex - 1;
+    slideIndex = slideIndex - 1 < 1 ? slideCount - 1: slideIndex - 1;
     carImg?.remove();
     carImg = addImg(carData, productImages, carSlider, slideIndex);
   });

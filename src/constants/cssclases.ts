@@ -58,5 +58,6 @@ export const CSS_CLASSES: Record<string, string> = {
   carSliderWrapper: 'car__slider__wrapper',
   carSlider: 'car__slider',
   prevBtn: 'btn_previous',
-  nextBtn: 'btn_next'
+  nextBtn: 'btn_next',
+  carDetailsWrapper: 'car__details__wrapper'
 }
