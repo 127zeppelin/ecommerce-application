@@ -54,5 +54,9 @@ export const CSS_CLASSES: Record<string, string> = {
   moreInfoBtn: 'more-link',
   menuBtn: 'menu__btn',
   notAnActivePrice: 'not-active',
-  carPageTitle: 'car-page-title'
+  carPageTitle: 'car-page-title',
+  carSliderWrapper: 'car__slider__wrapper',
+  carSlider: 'car__slider',
+  prevBtn: 'btn_previous',
+  nextBtn: 'btn_next'
 }
