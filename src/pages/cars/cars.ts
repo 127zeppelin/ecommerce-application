@@ -1,20 +1,63 @@
 import Page from '../../temlates/page'
 import { createHtmlElement } from '../../utils/createelement'
 import { CSS_CLASSES } from '../../constants/cssclases'
-import { getCars, createCarsList } from './getproducts'
-// import { Car, CarResponse } from '../../types/types'
-import { Product } from '@commercetools/platform-sdk/dist/declarations/src' 
+import { createCarsList, getCarsWithoutFilter } from './getproducts'
+import { ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { filerFromAtribute, filterCarsFromCategory, getCarsWithFilter, sortCars } from './carfilter'
 
 class CarsPage extends Page {
-  async loadCarsWithoutCategory(carsCardContainer: HTMLElement) {
+  async loadCarsWithoutFilter(carsCardContainer: HTMLElement) {
     try {
-      const loadCarsResult  = await getCars()
-      const carsArr: Product[] = loadCarsResult.body.results
+      const loadCarsResult = await getCarsWithoutFilter()
+      const carsArr: ProductProjection[] = loadCarsResult.body.results
+      console.log(carsArr)
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
       // eslint-disable-next-line
       console.log(error)
     }
+  }
+
+  async loadCarsWithFilter(carsCardContainer: HTMLElement, btnContainer: HTMLElement) {
+    //carsCardContainer.innerHTML = '';
+    const categoryBtnsContainer = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.filerContainer],
+    })
+    btnContainer.append(categoryBtnsContainer)
+
+    async function appendCategoryBtnContainer(categoryBtnsContainer: HTMLElement) {
+      const categoryBtns = await filterCarsFromCategory(carsCardContainer);
+      categoryBtnsContainer.append(categoryBtns);
+    }
+    appendCategoryBtnContainer(categoryBtnsContainer)
+
+    const atributeBtnsContainer = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.filerContainer],
+    })
+    btnContainer.append(atributeBtnsContainer)
+    const atributesBtns = filerFromAtribute(carsCardContainer)
+    atributeBtnsContainer.append(atributesBtns)
+
+    const sortBtnsContainer = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.filerContainer],
+    })
+    btnContainer.append(sortBtnsContainer)
+
+    
+    const sortContainer = sortCars(carsCardContainer);
+    sortBtnsContainer.append(sortContainer)
+    // try {
+    //   const loadCarsResult = await getCarsWithFilter()
+    //   const carsArr: ProductProjection[] = loadCarsResult.body.results
+    //   console.log(carsArr)
+    //   createCarsList(carsArr, carsCardContainer)
+    // } catch (error: any) {
+    //   // eslint-disable-next-line
+    //   console.log(error)
+    // }
   }
 
   render() {
@@ -33,12 +76,20 @@ class CarsPage extends Page {
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
 
+    const optionsContainer = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.optionsContainer],
+    })
+    containerMain.append(optionsContainer)
+
     const cardsContainer = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.cardsContainer],
     })
-    this.loadCarsWithoutCategory(cardsContainer)
+   
+    this.loadCarsWithoutFilter(cardsContainer)
     containerMain.append(cardsContainer)
+    this.loadCarsWithFilter(cardsContainer,  optionsContainer)
     return this.container
   }
 }

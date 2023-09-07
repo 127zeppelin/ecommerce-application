@@ -1,18 +1,17 @@
 import { CSS_CLASSES } from "../constants/cssclases";
-// import { Car } from "../types/types";
 import { createHtmlElement } from "./createelement";
-import { Product, Price } from '@commercetools/platform-sdk/dist/declarations/src';
+import { Price, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src';
 
 
 
-export const installOfTheCurrentPrice = (carData: Product) => {
+export const installOfTheCurrentPrice = (carData: ProductProjection) => {
 
   const carPriceBlock = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.carCardPriceBlock],
   })
 
-  const carPriceArr: Price[] | undefined = carData.masterData.current.masterVariant.prices
+  const carPriceArr: Price[] | undefined = carData.masterVariant.prices
   if (carPriceArr) {
     const carPrice: number | undefined = carPriceArr[0]?.value?.centAmount / 100;
     const formattedPrice = carPrice.toLocaleString('en-US', {

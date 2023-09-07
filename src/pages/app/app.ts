@@ -45,12 +45,15 @@ class App {
       page = new CustomerPage(idPage)
     }  else if (idPage === pageList.CARS_PAGE) {
       page = new CarsPage(idPage)
+      localStorage.removeItem('CUR_FILTER')
     } else if (idPage === pageList.CUR_CAR) {
       page = new CarPage(idPage)
+    } else if (idPage === pageList.CUR_CAT) {
+      page = new CarsPage(idPage)
     } else if (idPage === pageList.ERROR_PAGE) {
       page = new ErrorPage(idPage)
     }
-
+    
     if (page) {
       const pageContext = page.render()
       pageContext.id = this.defaultPageId

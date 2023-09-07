@@ -6,6 +6,7 @@ export const pageList = {
   ERROR_PAGE: 'error',
   CARS_PAGE: 'cars',
   _CUR_CAR: '',
+  _CUR_CAT: '',
   get CUR_CAR() {
     if (!this._CUR_CAR) {
       const storedValue = localStorage.getItem('CUR_CAR');
@@ -13,10 +14,21 @@ export const pageList = {
     }
     return this._CUR_CAR;
   },
-
   set CUR_CAR(value) {
     this._CUR_CAR = value;
     localStorage.setItem('CUR_CAR', value); 
+  },
+  get CUR_CAT() {
+    if (!this._CUR_CAT) {
+      const storedValue = localStorage.getItem('CUR_CAT');
+      console.log(`Значение в хранилище ${storedValue}`)
+      this._CUR_CAT = storedValue !== undefined && storedValue !== null ? storedValue : 'main';
+    }
+    return this._CUR_CAT;
+  },
+  set CUR_CAT(value) {
+    this._CUR_CAT = value;
+    localStorage.setItem('CUR_CAT', value); 
   }
 }
 

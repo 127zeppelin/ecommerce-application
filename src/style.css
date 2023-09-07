@@ -433,6 +433,10 @@ p {
   color: orange;
 }
 
+.category-btn.active{
+  background-color: #b36af0;
+}
+
 @media screen and (max-width: 800px) {
   .login {
     width: 500px;
