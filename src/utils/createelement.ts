@@ -11,9 +11,9 @@ export const createHtmlElement = ({
   srcAtribute,
   altAtribute,
   dataCarAtribute,
-  forElement
+  forElement,
 }: ElementOptions):
-HTMLElement
+| HTMLElement
 | HTMLButtonElement
 | HTMLInputElement
 | HTMLDivElement
@@ -46,9 +46,9 @@ HTMLElement
       element.setAttribute('value', valueElement)
     } else if (element instanceof HTMLButtonElement) {
       element.setAttribute('value', valueElement)
-    }  else if (element instanceof HTMLOptionElement) {
+    } else if (element instanceof HTMLOptionElement) {
       element.setAttribute('value', valueElement)
-    } 
+    }
   }
   if (srcAtribute) {
     element.setAttribute('src', srcAtribute)

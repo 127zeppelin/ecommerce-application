@@ -1,199 +1,231 @@
-import { Category, ProductProjection } from "@commercetools/platform-sdk";
-import { apiRoot } from "../../components/api"
-import { PROJECT_KEY } from "../../constants/api-constants"
-import { CSS_CLASSES } from "../../constants/cssclases";
-import { createHtmlElement } from "../../utils/createelement"
-import { pageList } from "../pagelist";
-import { FilterValues } from "../../types/types";
-import { createCarsList } from "./getproducts";
+import { Category, ProductProjection } from '@commercetools/platform-sdk'
+import { apiRoot } from '../../components/api'
+import { PROJECT_KEY } from '../../constants/api-constants'
+import { CSS_CLASSES } from '../../constants/cssclases'
+import { createHtmlElement } from '../../utils/createelement'
+import { pageList } from '../pagelist'
+import { FilterValues } from '../../types/types'
+import { createCarsList } from './getproducts'
 
 let filterValues: FilterValues = {}
 let queryArgs = {}
-export const createCategorySelection = (categories: Category[], parentElement: HTMLElement, carsCardContainer: HTMLElement) => {
-  const currentHash = window.location.hash.slice(1);
-  const btnArr: HTMLElement[] = [];
+
+export const getCarsWithFilter = () => {
+  const filterValuesInlocalStorage = localStorage.getItem('CUR_FILTER')
+  const parsedData = filterValuesInlocalStorage
+    ? JSON.parse(filterValuesInlocalStorage)
+    : {}
+  return apiRoot
+    .withProjectKey({ projectKey: PROJECT_KEY })
+    .productProjections()
+    .search()
+    .get(parsedData)
+    .execute()
+}
+
+export const createCategorySelection = (
+  categories: Category[],
+  parentElement: HTMLElement,
+  carsCardContainer: HTMLElement
+) => {
+  const currentHash = window.location.hash.slice(1)
+  const btnArr: HTMLElement[] = []
   const allCarsBtn = createHtmlElement({
     tagName: 'button',
     cssClass: [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn],
     elementText: 'All cars',
-    elementId: `allcars-btn`
-  });
+    elementId: `allcars-btn`,
+  })
   btnArr.push(allCarsBtn)
 
   allCarsBtn.addEventListener('click', async (event: Event) => {
-    event.preventDefault();
+    event.preventDefault()
     for (const btn of btnArr) {
-      btn !== event.target ? btn.classList.remove(CSS_CLASSES.activeBtn) :
-        btn.classList.add(CSS_CLASSES.activeBtn);
+      if (btn !== event.target) {
+        btn.classList.remove(CSS_CLASSES.activeBtn)
+      } else {
+        btn.classList.add(CSS_CLASSES.activeBtn)
+      }
     }
-    localStorage.removeItem('CUR_FILTER');
-    localStorage.removeItem('CUR_CATEGORY');
-    filterValues.queryArgs = queryArgs;
+    localStorage.removeItem('CUR_FILTER')
+    localStorage.removeItem('CUR_CATEGORY')
+    filterValues.queryArgs = queryArgs
 
-    if (filterValues.queryArgs.filter === null || filterValues.queryArgs.filter === undefined) {
-      filterValues.queryArgs.filter = [];
+    if (
+      filterValues.queryArgs.filter === null ||
+      filterValues.queryArgs.filter === undefined
+    ) {
+      filterValues.queryArgs.filter = []
     }
-    const filteredArray =  filterValues.queryArgs.filter.filter((item) => !item.startsWith('categories.id:'));
-    filterValues.queryArgs.filter = filteredArray;
-    localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues));
-    carsCardContainer.innerHTML = '';
+    const filteredArray = filterValues.queryArgs.filter.filter(
+      (item) => !item.startsWith('categories.id:')
+    )
+    filterValues.queryArgs.filter = filteredArray
+    localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
+    carsCardContainer.innerHTML = ''
     try {
-      const loadCarsResult = await getCarsWithFilter();
+      const loadCarsResult = await getCarsWithFilter()
       const carsArr: ProductProjection[] = loadCarsResult.body.results
-      console.log(carsArr)
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
       // eslint-disable-next-line
       console.log(error)
     }
-  });
-  parentElement.append(allCarsBtn);
+  })
+  parentElement.append(allCarsBtn)
   for (const category of categories) {
     const categoryName = category.name['en-US']
     const categoryKey = category.key
     const categoryId = category.id
-    console.log(allCarsBtn);
     if (currentHash == categoryKey) {
       allCarsBtn.classList.remove(CSS_CLASSES.activeBtn)
     }
-    const curClass = currentHash === categoryKey ? [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn] :
-      [CSS_CLASSES.categoryBtn];
+    const curClass =
+      currentHash === categoryKey
+        ? [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn]
+        : [CSS_CLASSES.categoryBtn]
     const categoryBtn = createHtmlElement({
       tagName: 'button',
       cssClass: curClass,
       elementText: `${categoryName}`,
-      elementId: `${categoryKey}-btn`
-    });
+      elementId: `${categoryKey}-btn`,
+    })
     btnArr.push(categoryBtn)
     categoryBtn.addEventListener('click', async (event: Event) => {
-      event.preventDefault();
+      event.preventDefault()
       for (const btn of btnArr) {
-        btn !== event.target ? btn.classList.remove(CSS_CLASSES.activeBtn) :
-          btn.classList.add(CSS_CLASSES.activeBtn);
+        if (btn !== event.target) {
+          btn.classList.remove(CSS_CLASSES.activeBtn)
+        } else {
+          btn.classList.add(CSS_CLASSES.activeBtn)
+        }
       }
-      const clickedCategoryKey = categoryKey as string;
-      const clickedCategoryId = categoryId;
+      const clickedCategoryKey = categoryKey as string
+      const clickedCategoryId = categoryId
 
-      pageList.CUR_CAT = clickedCategoryKey;
-      filterValues.queryArgs = queryArgs;
-      if (filterValues.queryArgs.filter === null || filterValues.queryArgs.filter === undefined) {
-        filterValues.queryArgs.filter = [];
+      pageList.CUR_CAT = clickedCategoryKey
+      filterValues.queryArgs = queryArgs
+      if (
+        filterValues.queryArgs.filter === null ||
+        filterValues.queryArgs.filter === undefined
+      ) {
+        filterValues.queryArgs.filter = []
       }
-      const filteredArray =  filterValues.queryArgs.filter.filter((item) => !item.startsWith('categories.id:'));
-      filterValues.queryArgs.filter = filteredArray;
-      filterValues.queryArgs.filter?.push(`categories.id: "${clickedCategoryId}"`);
-      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues));
-      localStorage.setItem('CUR_CATEGORY', JSON.stringify(clickedCategoryId));
-      localStorage.setItem('CUR_HASH', clickedCategoryKey);
-      carsCardContainer.innerHTML = '';
+      const filteredArray = filterValues.queryArgs.filter.filter(
+        (item) => !item.startsWith('categories.id:')
+      )
+      filterValues.queryArgs.filter = filteredArray
+      filterValues.queryArgs.filter?.push(
+        `categories.id: "${clickedCategoryId}"`
+      )
+      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
+      localStorage.setItem('CUR_CATEGORY', JSON.stringify(clickedCategoryId))
+      localStorage.setItem('CUR_HASH', clickedCategoryKey)
+      carsCardContainer.innerHTML = ''
       try {
-        const loadCarsResult = await getCarsWithFilter();
+        const loadCarsResult = await getCarsWithFilter()
         const carsArr: ProductProjection[] = loadCarsResult.body.results
-        console.log(carsArr)
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
         // eslint-disable-next-line
         console.log(error)
       }
-    });
-    parentElement.append(categoryBtn);
+    })
+    parentElement.append(categoryBtn)
   }
 }
 
-export const filterCarsFromCategory = async (carsCardContainer: HTMLElement) => {
+export const filterCarsFromCategory = async (
+  carsCardContainer: HTMLElement
+) => {
   const blockCategoryCar = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.сategoryBtns]
-  });
+    cssClass: [CSS_CLASSES.сategoryBtns],
+  })
   const apiRequestCategories = await apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .categories()
     .get()
     .execute()
-  const apiResponseCategories = apiRequestCategories;
+  const apiResponseCategories = apiRequestCategories
   const categoriesArr: Category[] = apiResponseCategories.body.results
-  createCategorySelection(categoriesArr, blockCategoryCar, carsCardContainer);
+  createCategorySelection(categoriesArr, blockCategoryCar, carsCardContainer)
   return blockCategoryCar
 }
 
 export const sortCars = (carsCardContainer: HTMLElement) => {
-  const options = [];
+  const options = []
   const blockSortCars = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.sortContainer]
-  });
+    cssClass: [CSS_CLASSES.sortContainer],
+  })
 
   const sortLabel = createHtmlElement({
     tagName: 'label',
     cssClass: [CSS_CLASSES.sortSelection],
     elementText: 'Sort cars:',
-    forElement: 'sort'
-  });
+    forElement: 'sort',
+  })
   blockSortCars.append(sortLabel)
 
   const sortSelection = createHtmlElement({
     tagName: 'select',
     cssClass: [CSS_CLASSES.sortSelection],
     nameElement: 'sort',
-    elementId: 'sort'
-  }) as HTMLSelectElement;
+    elementId: 'sort',
+  }) as HTMLSelectElement
   blockSortCars.append(sortSelection)
 
   const sortPlaceholder = createHtmlElement({
     tagName: 'option',
     cssClass: [CSS_CLASSES.sortItem],
     valueElement: '',
-    elementText: 'Select option'
-  });
+    elementText: 'Select option',
+  })
 
-  options.push(sortPlaceholder);
+  options.push(sortPlaceholder)
 
   const sortNameUp = createHtmlElement({
     tagName: 'option',
     cssClass: [CSS_CLASSES.sortItem],
     elementText: 'Sort by name A-Z ',
-    valueElement: 'name.EN-US asc'
-  });
-  options.push(sortNameUp);
+    valueElement: 'name.EN-US asc',
+  })
+  options.push(sortNameUp)
   const sortNameDown = createHtmlElement({
     tagName: 'option',
     cssClass: [CSS_CLASSES.sortItem],
     elementText: 'Sort by name Z-A',
-    valueElement: 'name.EN-US desc'
-  });
-  options.push(sortNameDown);
+    valueElement: 'name.EN-US desc',
+  })
+  options.push(sortNameDown)
   const sortPriceUp = createHtmlElement({
     tagName: 'option',
     cssClass: [CSS_CLASSES.sortItem],
     elementText: 'Sort by price from high to low',
-    valueElement: 'price desc'
-  });
-  options.push(sortPriceUp);
+    valueElement: 'price desc',
+  })
+  options.push(sortPriceUp)
 
   const sortPriceDown = createHtmlElement({
     tagName: 'option',
     cssClass: [CSS_CLASSES.sortItem],
     elementText: 'Sort by price from low to high',
-    valueElement: 'price asc'
-  });
-  options.push(sortPriceDown);
-  sortSelection.append(...options);
+    valueElement: 'price asc',
+  })
+  options.push(sortPriceDown)
+  sortSelection.append(...options)
   sortSelection.addEventListener('change', async (event: Event) => {
-    const selectedOption = (event.target as HTMLSelectElement)?.value;
-    const curentCategoryId = localStorage.getItem('CUR_CATEGORY');
-    filterValues.queryArgs = queryArgs;
-    // if (curentCategoryId !== undefined && curentCategoryId !== null) {
+    const selectedOption = (event.target as HTMLSelectElement)?.value
+    localStorage.getItem('CUR_CATEGORY')
+    filterValues.queryArgs = queryArgs
     filterValues.queryArgs.sort = `${selectedOption}`
-    localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues));
-    //}
-    const curentHash = localStorage.getItem('CUR_HASH');
-    //pageList.CUR_CAT = `${curentHash}-sort`
-    //window.location.hash = `#${curentHash}-sort`;
-    carsCardContainer.innerHTML = '';
+    localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
+
+    carsCardContainer.innerHTML = ''
     try {
-      const loadCarsResult = await getCarsWithFilter();
+      const loadCarsResult = await getCarsWithFilter()
       const carsArr: ProductProjection[] = loadCarsResult.body.results
-      console.log(carsArr)
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
       // eslint-disable-next-line
@@ -206,39 +238,47 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
 export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
   const filterAtrbutesBtns = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.atributesBtns]
-  });
-  const colorsAuto = ['Transparent', 'White', 'Red', 'Blue', 'Gray', 'Black'];
-  const btnArr: HTMLElement[] = [];
-  
+    cssClass: [CSS_CLASSES.atributesBtns],
+  })
+  const colorsAuto = ['Transparent', 'White', 'Red', 'Blue', 'Gray', 'Black']
+  const btnArr: HTMLElement[] = []
+
   for (const color of colorsAuto) {
     const colorBtn = createHtmlElement({
       tagName: 'button',
       cssClass: [CSS_CLASSES.colorBtn],
-      elementId: `${color}`
-    });
+      elementId: `${color}`,
+    })
     colorBtn.style.backgroundColor = `${color}`
     colorBtn.addEventListener('click', async (event: Event) => {
       filterValues.queryArgs = queryArgs
-      if (filterValues.queryArgs.filter === null || filterValues.queryArgs.filter === undefined) {
-        filterValues.queryArgs.filter = [];
+      if (
+        filterValues.queryArgs.filter === null ||
+        filterValues.queryArgs.filter === undefined
+      ) {
+        filterValues.queryArgs.filter = []
       }
-      const filteredArray =  filterValues.queryArgs.filter.filter((item) => !item.startsWith('variants.attributes.color-auto:'));
-      filterValues.queryArgs.filter = filteredArray;
-      if(color !== 'Transparent'){
-        filterValues.queryArgs.filter?.push(`variants.attributes.color-auto: "${color}"`);
+      const filteredArray = filterValues.queryArgs.filter.filter(
+        (item) => !item.startsWith('variants.attributes.color-auto:')
+      )
+      filterValues.queryArgs.filter = filteredArray
+      if (color !== 'Transparent') {
+        filterValues.queryArgs.filter?.push(
+          `variants.attributes.color-auto: "${color}"`
+        )
       }
-      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues));
-      const curentHash = localStorage.getItem('CUR_HASH');
+      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
       for (const btn of btnArr) {
-        btn !== event.target ? btn.classList.remove(CSS_CLASSES.activeBtn) :
-          btn.classList.add(CSS_CLASSES.activeBtn);
+        if (btn !== event.target) {
+          btn.classList.remove(CSS_CLASSES.activeBtn)
+        } else {
+          btn.classList.add(CSS_CLASSES.activeBtn)
+        }
       }
-      carsCardContainer.innerHTML = '';
+      carsCardContainer.innerHTML = ''
       try {
-        const loadCarsResult = await getCarsWithFilter();
+        const loadCarsResult = await getCarsWithFilter()
         const carsArr: ProductProjection[] = loadCarsResult.body.results
-        console.log(carsArr)
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
         // eslint-disable-next-line
@@ -247,22 +287,6 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
     })
     btnArr.push(colorBtn)
   }
-  filterAtrbutesBtns.append(...btnArr);
+  filterAtrbutesBtns.append(...btnArr)
   return filterAtrbutesBtns
 }
-
-
-
-export const getCarsWithFilter = () => {
-  const filterValues = localStorage.getItem('CUR_FILTER');
-  const parsedData = filterValues ? JSON.parse(filterValues) : {};
-  console.log(`Парметр фильтрации`);
-  console.log(parsedData);
-  return apiRoot
-    .withProjectKey({ projectKey: PROJECT_KEY })
-    .productProjections()
-    .search()
-    .get(parsedData)
-    .execute()
-}
-

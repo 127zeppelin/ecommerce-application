@@ -22,12 +22,12 @@ class App {
   private footer: Footer
 
   handleInitialHash() {
-    const initialHash = window.location.hash.slice(1); // Извлекаем хэш из URL
-    this.renderNewPage(initialHash); // Вызываем метод для перерисовки страницы
-    this.header.renderPageButtons(initialHash); // Обновляем кнопки в хедере
+    const initialHash = window.location.hash.slice(1) // Извлекаем хэш из URL
+    this.renderNewPage(initialHash) // Вызываем метод для перерисовки страницы
+    this.header.renderPageButtons(initialHash) // Обновляем кнопки в хедере
   }
 
-  renderNewPage(idPage: string) {  
+  renderNewPage(idPage: string) {
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`)
     const footer = document.querySelector('.footer')
     if (currentPageHTML) {
@@ -43,7 +43,7 @@ class App {
       page = new RegistrationPage(idPage)
     } else if (idPage === pageList.CUSTOMER_PAGE) {
       page = new CustomerPage(idPage)
-    }  else if (idPage === pageList.CARS_PAGE) {
+    } else if (idPage === pageList.CARS_PAGE) {
       page = new CarsPage(idPage)
       localStorage.removeItem('CUR_FILTER')
     } else if (idPage === pageList.CUR_CAR) {
@@ -53,7 +53,7 @@ class App {
     } else if (idPage === pageList.ERROR_PAGE) {
       page = new ErrorPage(idPage)
     }
-    
+
     if (page) {
       const pageContext = page.render()
       pageContext.id = this.defaultPageId

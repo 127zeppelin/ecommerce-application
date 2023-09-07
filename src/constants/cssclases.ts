@@ -65,5 +65,5 @@ export const CSS_CLASSES: Record<string, string> = {
   colorBtn: 'color-btn',
   atributesContainer: 'atributes-container',
   atributesBtns: 'atributes-btns',
-  optionsContainer:'options-container'
+  optionsContainer: 'options-container',
 }

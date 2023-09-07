@@ -1,4 +1,4 @@
-import{CustomerUpdateAction }from '@commercetools/typescript-sdk'
+import { CustomerUpdateAction } from '@commercetools/typescript-sdk'
 
 export interface RequestBody {
   body: {
@@ -24,7 +24,7 @@ export interface ElementOptions {
 
 export interface FilterValues {
   queryArgs?: {
-    filter?: string[] | null | undefined;
-    sort?: string;
-  };
+    filter?: string[] | null | undefined
+    sort?: string
+  }
 }

@@ -2,13 +2,20 @@ import { createHtmlElement } from '../../utils/createelement'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { pageList } from '../pagelist'
 import { installOfTheCurrentPrice } from '../../utils/price'
-import { Attribute, Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src' 
+import {
+  Attribute,
+  Image,
+  ProductProjection,
+} from '@commercetools/platform-sdk/dist/declarations/src'
 import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 
-
-const carCharacterBlock = (carData: ProductProjection, atributesContainer: HTMLElement) => {
-  const arrayAtributs: Attribute[] | undefined = carData.masterVariant.attributes
+const carCharacterBlock = (
+  carData: ProductProjection,
+  atributesContainer: HTMLElement
+) => {
+  const arrayAtributs: Attribute[] | undefined =
+    carData.masterVariant.attributes
   if (arrayAtributs !== undefined) {
     for (const attribute of arrayAtributs) {
       const attributeName = attribute.name
@@ -46,7 +53,12 @@ const carCharacterBlock = (carData: ProductProjection, atributesContainer: HTMLE
         const atributeValueAfter = createHtmlElement({
           tagName: 'span',
           cssClass: [CSS_CLASSES.carCharacterCont],
-          elementText: attributeName === 'engine-power' ? 'HP' : attributeName === 'max-speed' ? 'Km/h' : '',
+          elementText:
+            attributeName === 'engine-power'
+              ? 'HP'
+              : attributeName === 'max-speed'
+                ? 'Km/h'
+                : '',
         })
         atributeContainer.append(atributeValueAfter)
 
@@ -56,18 +68,17 @@ const carCharacterBlock = (carData: ProductProjection, atributesContainer: HTMLE
   }
 }
 
-
 export const createCarsList = (
-  carsArr:  ProductProjection [] ,
+  carsArr: ProductProjection[],
   carsCardContainer: HTMLElement
 ): HTMLElement => {
   for (const carData of carsArr) {
-    const childElementsCarCard = [];
+    const childElementsCarCard = []
     const oneCarCardContainer = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.carCard],
     })
-    carsCardContainer.append(oneCarCardContainer);
+    carsCardContainer.append(oneCarCardContainer)
 
     const productImages: Image[] | undefined = carData.masterVariant.images
     if (productImages !== undefined) {
@@ -103,24 +114,20 @@ export const createCarsList = (
     })
     if (carData.key !== undefined && pageList.CUR_CAR !== undefined) {
       moreInfoLink.addEventListener('click', () => {
-        pageList.CUR_CAR = carData.key as string;
+        pageList.CUR_CAR = carData.key as string
         window.location.href = `#${pageList.CUR_CAR}`
       })
     }
     childElementsCarCard.push(moreInfoLink)
     oneCarCardContainer.append(...childElementsCarCard)
     carCharacterBlock(carData, сarСharacteristicsCont)
-
   }
   return carsCardContainer
 }
 
-
 export const getCarsWithoutFilter = () => {
-  const filterValues  = localStorage.getItem('CUR_FILTER');
-  const parsedData = filterValues ? JSON.parse(filterValues): {};
-  console.log(`Парметр фильтрации`);
-  console.log(parsedData);
+  const filterValues = localStorage.getItem('CUR_FILTER')
+  const parsedData = filterValues ? JSON.parse(filterValues) : {}
   return apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .productProjections()
@@ -128,4 +135,3 @@ export const getCarsWithoutFilter = () => {
     .get(parsedData)
     .execute()
 }
-
