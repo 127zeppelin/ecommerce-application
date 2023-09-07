@@ -2,8 +2,7 @@ import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { createHtmlElement } from '../../utils/createelement'
 import { getCar, createCarPage } from './getcar'
-import { Product } from '@commercetools/platform-sdk/dist/declarations/src'  
-
+import { Product } from '@commercetools/platform-sdk/dist/declarations/src'
 
 class CarPage extends Page {
   /*
@@ -13,14 +12,14 @@ class CarPage extends Page {
   }
 */
   getHashValue() {
-    const hashValue = window.location.hash.substring(1);
+    const hashValue = window.location.hash.substring(1)
     return hashValue
   }
 
   async getcarquery(containerMain: HTMLElement) {
-    const hash = this.getHashValue();
+    const hash = this.getHashValue()
     try {
-      const loadCarResult = await getCar(hash);
+      const loadCarResult = await getCar(hash)
       const carData: Product = loadCarResult.body
       createCarPage(carData, containerMain)
     } catch (error: any) {

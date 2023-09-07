@@ -54,5 +54,16 @@ export const CSS_CLASSES: Record<string, string> = {
   moreInfoBtn: 'more-link',
   menuBtn: 'menu__btn',
   notAnActivePrice: 'not-active',
-  carPageTitle: 'car-page-title'
+  carPageTitle: 'car-page-title',
+  filerContainer: 'filter-container',
+  categoryBtn: 'category-btn',
+  activeBtn: 'active',
+  сategoryBtns: 'category-btns',
+  sortContainer: 'sort-container',
+  sortSelection: 'sort-input',
+  sortItem: 'sort-item',
+  colorBtn: 'color-btn',
+  atributesContainer: 'atributes-container',
+  atributesBtns: 'atributes-btns',
+  optionsContainer: 'options-container',
 }

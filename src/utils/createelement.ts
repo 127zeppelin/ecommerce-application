@@ -10,12 +10,16 @@ export const createHtmlElement = ({
   valueElement,
   srcAtribute,
   altAtribute,
-  dataCarAtribute
+  dataCarAtribute,
+  forElement,
 }: ElementOptions):
-HTMLElement
+| HTMLElement
 | HTMLButtonElement
 | HTMLInputElement
-| HTMLDivElement => {
+| HTMLDivElement
+| HTMLButtonElement
+| HTMLSelectElement
+| HTMLOptionElement => {
   const element = document.createElement(tagName)
   cssClass.forEach((className) => {
     element.classList.add(className)
@@ -35,8 +39,16 @@ HTMLElement
   if (nameElement) {
     element.setAttribute('name', nameElement)
   }
-  if (valueElement && element instanceof HTMLInputElement) {
-    element.value = valueElement
+  if (valueElement) {
+    if (element instanceof HTMLInputElement) {
+      element.setAttribute('value', valueElement)
+    } else if (element instanceof HTMLSelectElement) {
+      element.setAttribute('value', valueElement)
+    } else if (element instanceof HTMLButtonElement) {
+      element.setAttribute('value', valueElement)
+    } else if (element instanceof HTMLOptionElement) {
+      element.setAttribute('value', valueElement)
+    }
   }
   if (srcAtribute) {
     element.setAttribute('src', srcAtribute)
@@ -46,6 +58,9 @@ HTMLElement
   }
   if (dataCarAtribute) {
     element.setAttribute('data-car', dataCarAtribute)
+  }
+  if (forElement) {
+    element.setAttribute('for', forElement)
   }
   return element
 }

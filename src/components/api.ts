@@ -8,14 +8,15 @@ import { PROJECT_KEY } from '../constants/api-constants'
 import { ApiRoot } from '@commercetools/platform-sdk'
 // import { ApiRoot } from '@commercetools/typescript-sdk'
 
-
 const fetch = require('node-fetch')
 const {
   createClient,
   createHttpClient,
-  createAuthForClientCredentialsFlow
+  createAuthForClientCredentialsFlow,
 } = require('@commercetools/sdk-client-v2')
-const { createApiBuilderFromCtpClient  } = require('@commercetools/typescript-sdk')
+const {
+  createApiBuilderFromCtpClient,
+} = require('@commercetools/typescript-sdk')
 
 export let tokenStore: TokenStore
 export const tokenCache: TokenCache = {

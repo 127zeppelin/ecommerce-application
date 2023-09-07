@@ -1,8 +1,11 @@
-import { PROJECT_KEY } from "../../constants/api-constants"
-import { apiRoot } from "../../components/api"
-import { CSS_CLASSES } from "../../constants/cssclases"
-import { createHtmlElement } from "../../utils/createelement"
-import { Product, Image } from '@commercetools/platform-sdk/dist/declarations/src' 
+import { PROJECT_KEY } from '../../constants/api-constants'
+import { apiRoot } from '../../components/api'
+import { CSS_CLASSES } from '../../constants/cssclases'
+import { createHtmlElement } from '../../utils/createelement'
+import {
+  Product,
+  Image,
+} from '@commercetools/platform-sdk/dist/declarations/src'
 
 export const getCar = (carKey: string) => {
   return apiRoot
@@ -13,7 +16,6 @@ export const getCar = (carKey: string) => {
     .execute()
 }
 
-
 export const createCarPage = (
   carData: Product,
   carContainer: HTMLElement
@@ -21,10 +23,11 @@ export const createCarPage = (
   const carTitle = createHtmlElement({
     tagName: 'h1',
     cssClass: [CSS_CLASSES.carPageTitle],
-    elementText: carData.masterData.current.name['en-US']
+    elementText: carData.masterData.current.name['en-US'],
   })
-  carContainer.append(carTitle);
-  const productImages: Image[] | undefined = carData.masterData.current.masterVariant.images
+  carContainer.append(carTitle)
+  const productImages: Image[] | undefined =
+    carData.masterData.current.masterVariant.images
   if (productImages !== undefined) {
     const carImg = createHtmlElement({
       tagName: 'img',
@@ -32,7 +35,7 @@ export const createCarPage = (
       srcAtribute: productImages[0].url,
       altAtribute: carData.masterData.current.name['en-US'],
     })
-    carContainer.append(carImg);
+    carContainer.append(carImg)
   }
   return carContainer
 }

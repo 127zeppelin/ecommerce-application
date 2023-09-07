@@ -11,7 +11,10 @@ import {
 } from '../../components/validationinput'
 import { BODY, RESOLVE_MESSAGE } from '../../components/constants'
 import { createHtmlElement } from '../../utils/createelement'
-import { ClientResponse, CustomerSignInResult } from '@commercetools/platform-sdk/dist/declarations/src'
+import {
+  ClientResponse,
+  CustomerSignInResult,
+} from '@commercetools/platform-sdk/dist/declarations/src'
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -274,7 +277,8 @@ class RegistrationPage extends Page {
             onlyOneAdressValue
           )
 
-          const apiResponse: ClientResponse<CustomerSignInResult> = resultRegistr
+          const apiResponse: ClientResponse<CustomerSignInResult> =
+            resultRegistr
           const customerId: string = apiResponse.body.customer.id
           const customerIdVersion: number = apiResponse.body.customer.version
           const shipingAddressId: string | undefined =
