@@ -1,6 +1,7 @@
 .options-container {
   display: flex;
   justify-content: space-between;
+  padding: 20px;
 }
 
 #current-page {
@@ -16,6 +17,7 @@
   margin-right: 10px;
   border: none;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 #Transparent {
@@ -37,6 +39,7 @@
   color: white;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .category-btn.active {
