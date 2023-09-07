@@ -1,18 +1,18 @@
 import { CSS_CLASSES } from "../../constants/cssclases";
-import { Product, Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createHtmlElement } from "../../utils/createelement";
 
 const addImg = (carData: ProductProjection, productImages: Image[] | undefined, carSlider: HTMLElement, i: number) => {
   let carImg;
   if (productImages) {
-      carImg = createHtmlElement({
-        tagName: 'img',
-        cssClass: [CSS_CLASSES.carCardTb],
-        srcAtribute: productImages[i].url,
-        altAtribute: carData.name['en-US'],
-      })
-      carImg.classList.add("car__slider__img");
-      carSlider.append(carImg);
+    carImg = createHtmlElement({
+      tagName: 'img',
+      cssClass: [CSS_CLASSES.carCardTb],
+      srcAtribute: productImages[i].url,
+      altAtribute: carData.name['en-US'],
+    })
+    carImg.classList.add("car__slider__img");
+    carSlider.append(carImg);
   }
   return carImg;
 }
@@ -37,7 +37,7 @@ export const createSlider = (carData: ProductProjection, productImages: Image[] 
   });
 
   prevBtn.addEventListener('click', () => {
-    slideIndex = slideIndex - 1 < 1 ? slideCount - 1: slideIndex - 1;
+    slideIndex = slideIndex - 1 < 1 ? slideCount - 1 : slideIndex - 1;
     carImg?.remove();
     carImg = addImg(carData, productImages, carSlider, slideIndex);
   });

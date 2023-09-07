@@ -40,7 +40,7 @@ class CarPage extends Page {
     })
     containerMain.append(titleContainer)
 
-    const title = this.createHeaderTitle('One cool car')
+    const title = this.createHeaderTitle('Rent one of our cool cars.')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
     this.getcarquery(containerMain)

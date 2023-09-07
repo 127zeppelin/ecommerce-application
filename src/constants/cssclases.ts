@@ -71,4 +71,8 @@ export const CSS_CLASSES: Record<string, string> = {
   atributesContainer: 'atributes-container',
   atributesBtns: 'atributes-btns',
   optionsContainer: 'options-container',
+  rentCarBtn: 'btn-rent-car',
+  carCharactersContainer: 'characters-container',
+  carDetails: 'car-details',
+  carArticle: 'car-article'
 }

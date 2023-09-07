@@ -2,7 +2,7 @@ import { PROJECT_KEY } from "../../constants/api-constants"
 import { apiRoot } from "../../components/api"
 import { CSS_CLASSES } from "../../constants/cssclases"
 import { createHtmlElement } from "../../utils/createelement"
-import { Product, Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getproducts"
 
@@ -61,31 +61,46 @@ export const createCarPage = (
     })
     carSliderWrapper.append(carImg);
   }
-  const carTitleContainer = createHtmlElement({
+  const carDetailsContainer = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.carPageTitle],
+    cssClass: [CSS_CLASSES.carDetails],
   })
 
-  carDetailsWrapper.append(carTitleContainer)
+  carDetailsWrapper.append(carDetailsContainer)
 
   const carTitle = createHtmlElement({
     tagName: 'h1',
     cssClass: [CSS_CLASSES.carPageTitle],
     elementText: carData.name['en-US'],
   })
-  carTitleContainer.append(carTitle)
+  carDetailsContainer.append(carTitle)
   const carCharactersContainer = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.carPageTitle],
+    cssClass: [CSS_CLASSES.carCharactersContainer],
   })
-  carTitleContainer.append(carCharactersContainer)
-  const charcters = carCharacterBlock(carData, carTitleContainer)
-  // const productImages: Image[] | undefined =
-  //   carData.masterData.current.masterVariant.images
-  // if (productImages !== undefined && productImages.length < 2 ) {
+  carDetailsContainer.append(carCharactersContainer)
+  carCharacterBlock(carData, carCharactersContainer)
 
-  //   console.log(carImg)
-  // }
+  const rentCarBtnContainer = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.rentCarBtn]
+  })
+  carDetailsContainer.append(rentCarBtnContainer)
+
+  const rentCarBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.rentCarBtn],
+    elementText: 'Rent a Car'
+  })
+  rentCarBtnContainer.append(rentCarBtn)
+  if (carData.description) {
+    const carDiscription = createHtmlElement({
+      tagName: 'p',
+      cssClass: [CSS_CLASSES.carArticle],
+      elementHtml: carData.description['en-US']
+    })
+    carContainer.append(carDiscription)
+  }
 
   return carContainer
 }
