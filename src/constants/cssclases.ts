@@ -55,6 +55,11 @@ export const CSS_CLASSES: Record<string, string> = {
   menuBtn: 'menu__btn',
   notAnActivePrice: 'not-active',
   carPageTitle: 'car-page-title',
+  carSliderWrapper: 'car__slider__wrapper',
+  carSlider: 'car__slider',
+  prevBtn: 'btn_previous',
+  nextBtn: 'btn_next',
+  carDetailsWrapper: 'car__details__wrapper'
   filerContainer: 'filter-container',
   categoryBtn: 'category-btn',
   activeBtn: 'active',

@@ -1,11 +1,10 @@
-import { PROJECT_KEY } from '../../constants/api-constants'
-import { apiRoot } from '../../components/api'
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createHtmlElement } from '../../utils/createelement'
-import {
-  Product,
-  Image,
-} from '@commercetools/platform-sdk/dist/declarations/src'
+import { PROJECT_KEY } from "../../constants/api-constants"
+import { apiRoot } from "../../components/api"
+import { CSS_CLASSES } from "../../constants/cssclases"
+import { createHtmlElement } from "../../utils/createelement"
+import { Product, Image } from '@commercetools/platform-sdk/dist/declarations/src'
+import { createSlider } from "./createSlider"
+
 
 export const getCar = (carKey: string) => {
   return apiRoot
@@ -20,6 +19,40 @@ export const createCarPage = (
   carData: Product,
   carContainer: HTMLElement
 ): HTMLElement => {
+
+  const carDetailsWrapper = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.carDetailsWrapper],
+  })
+  carContainer.append(carDetailsWrapper);
+
+  const carSliderWrapper = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.carSliderWrapper],
+  })
+  carDetailsWrapper.append(carSliderWrapper);
+  const carSlider = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.carSlider],
+  })
+  carSliderWrapper.append(carSlider);
+  const productImages: Image[] | undefined = carData.masterData.current.masterVariant.images;
+
+  let sliderBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.prevBtn],
+  })
+  sliderBtn.innerText = "<";
+  carSlider.append(sliderBtn);
+  sliderBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.nextBtn],
+  })
+  sliderBtn.innerText = ">";
+  carSlider.append(sliderBtn);
+
+  createSlider(carData, productImages);
+
   const carTitle = createHtmlElement({
     tagName: 'h1',
     cssClass: [CSS_CLASSES.carPageTitle],
@@ -37,5 +70,6 @@ export const createCarPage = (
     })
     carContainer.append(carImg)
   }
+
   return carContainer
 }
