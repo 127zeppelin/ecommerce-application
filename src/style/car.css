@@ -127,6 +127,9 @@
     max-width: 100%;
     width: 100%;
   }
+  .car__slider__wrapper img{
+    max-width: 100%;
+  }
   .title-container{
     padding: 25px;
   }
