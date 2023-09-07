@@ -1,23 +1,17 @@
 import Component from '../../temlates/components'
-import { CSS_CLASSES } from '../../constants/cssclases';
+import { CSS_CLASSES } from '../../constants/cssclases'
 import {
   logoutAndRedirect,
   isTheUserLoggedIn,
 } from '../../pages/login/istheuserlogged'
 
 class Header extends Component {
-  // constructor(tagName: string, className: string) {
-  //   super(tagName, className);
-  // }
-
   private createPageButtons(href: string, text: string) {
-    const pageButton = document.createElement('div');
-    const menuBtn = document.createElement('a');
-    pageButton.className = CSS_CLASSES.menuBtn;
+    const pageButton = document.createElement('div')
+    const menuBtn = document.createElement('a')
+    pageButton.className = CSS_CLASSES.menuBtn
     menuBtn.setAttribute('href', href)
-    // menuBtn.addEventListener('click', () => {
-    //   window.location.href = href
-    // })
+
     menuBtn.innerText = text
     menuBtn.setAttribute('id', `btn-${href.slice(1)}`)
     pageButton.append(menuBtn)

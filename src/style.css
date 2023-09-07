@@ -1,3 +1,4 @@
+@import url(./style/cars.css);
 html {
   min-height: 100%;
 }
@@ -485,6 +486,9 @@ p {
 
 .car-page-title {
   font-size: 32px;
+
+.category-btn.active{
+  background-color: #b36af0;
 }
 
 @media screen and (max-width: 800px) {

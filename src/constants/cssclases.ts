@@ -60,4 +60,15 @@ export const CSS_CLASSES: Record<string, string> = {
   prevBtn: 'btn_previous',
   nextBtn: 'btn_next',
   carDetailsWrapper: 'car__details__wrapper'
+  filerContainer: 'filter-container',
+  categoryBtn: 'category-btn',
+  activeBtn: 'active',
+  сategoryBtns: 'category-btns',
+  sortContainer: 'sort-container',
+  sortSelection: 'sort-input',
+  sortItem: 'sort-item',
+  colorBtn: 'color-btn',
+  atributesContainer: 'atributes-container',
+  atributesBtns: 'atributes-btns',
+  optionsContainer: 'options-container',
 }

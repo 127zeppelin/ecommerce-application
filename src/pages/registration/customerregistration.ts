@@ -6,7 +6,7 @@ import {
   CustomerSetDefaultShippingAddressAction,
   CustomerSetDefaultBillingAddressAction,
   ClientResponse,
-  CustomerSignInResult
+  CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
 
 export const customerRegistr = async (
@@ -73,11 +73,11 @@ export const customerRegistr = async (
             },
           ],
         },
-      });
+      })
 
-  const response = await request.execute();
-  return response;
-};
+  const response = await request.execute()
+  return response
+}
 
 export const setAddressOptions = (
   customerId: string,
