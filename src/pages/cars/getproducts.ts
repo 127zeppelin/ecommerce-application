@@ -10,7 +10,7 @@ import {
 import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 
-const carCharacterBlock = (
+export const carCharacterBlock = (
   carData: ProductProjection,
   atributesContainer: HTMLElement
 ) => {
@@ -61,7 +61,6 @@ const carCharacterBlock = (
                 : '',
         })
         atributeContainer.append(atributeValueAfter)
-
         atributesContainer.append(atributeContainer)
       }
     }

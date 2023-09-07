@@ -1,15 +1,15 @@
 import { CSS_CLASSES } from "../../constants/cssclases";
-import { Product, Image } from '@commercetools/platform-sdk/dist/declarations/src'
+import { Product, Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createHtmlElement } from "../../utils/createelement";
 
-const addImg = (carData: Product, productImages: Image[] | undefined, carSlider: HTMLElement, i: number) => {
+const addImg = (carData: ProductProjection, productImages: Image[] | undefined, carSlider: HTMLElement, i: number) => {
   let carImg;
   if (productImages) {
       carImg = createHtmlElement({
         tagName: 'img',
         cssClass: [CSS_CLASSES.carCardTb],
         srcAtribute: productImages[i].url,
-        altAtribute: carData.masterData.current.name['en-US'],
+        altAtribute: carData.name['en-US'],
       })
       carImg.classList.add("car__slider__img");
       carSlider.append(carImg);
@@ -17,7 +17,7 @@ const addImg = (carData: Product, productImages: Image[] | undefined, carSlider:
   return carImg;
 }
 
-export const createSlider = (carData: Product, productImages: Image[] | undefined) => {
+export const createSlider = (carData: ProductProjection, productImages: Image[] | undefined) => {
   const carSlider = document.querySelector(`.${CSS_CLASSES.carSlider}`) as HTMLElement;
   const prevBtn = document.querySelector(`.${CSS_CLASSES.prevBtn}`) as HTMLElement;
   const nextBtn = document.querySelector(`.${CSS_CLASSES.nextBtn}`) as HTMLElement;
