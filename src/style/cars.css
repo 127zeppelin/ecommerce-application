@@ -1,11 +1,14 @@
 .options-container {
   display: flex;
   justify-content: space-between;
+  padding: 20px;
 }
-#current-page{
+
+#current-page {
   min-height: 100%;
   flex-grow: 1;
 }
+
 .options-container .color-btn {
   width: 40px;
   height: 40px;
@@ -14,10 +17,13 @@
   margin-right: 10px;
   border: none;
   cursor: pointer;
+  margin-bottom: 15px;
 }
-#Transparent{
+
+#Transparent {
   border: 3px solid #b36af0;
 }
+
 .color-btn.active {
   border: 3px solid #b36af0;
 }
@@ -33,8 +39,24 @@
   color: white;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .category-btn.active {
   background: #b36af0;
+}
+
+@media(max-width: 576px) {
+  .options-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 25px;
+  }
+  .filter-container{
+    margin-bottom: 20px;
+  }
+  .options-container .category-btn {
+    margin-bottom: 20px;
+  }
 }

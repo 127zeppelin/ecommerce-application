@@ -5,5 +5,3 @@ import { isTheUserLoggedIn } from './pages/login/istheuserlogged'
 const app = new App()
 app.run()
 isTheUserLoggedIn()
-
-

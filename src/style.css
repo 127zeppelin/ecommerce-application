@@ -144,6 +144,7 @@ p {
   height: 64px;
   margin-bottom: 31px;
   position: relative;
+  max-width: 100%;
 }
 
 .input__email,
@@ -429,61 +430,6 @@ p {
   margin-top: 20px;
 }
 
-.car-card-price span {
-  color: orange;
-}
-
-.car__slider__wrapper {
-  position: relative;
-  width: 600px;
-  display: flex;
-  align-items: center;
-}
-
-.car__slider {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.car__slider__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.btn_previous,
-.btn_next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-  border: 0.5px solid #b36af0;
-  border-radius: 100%;
-  font-size: 24px;
-  font-weight: bold;
-  color: #b36af0;
-  cursor: pointer;
-}
-
-.btn_previous {
-  left: 5px;
-}
-
-.btn_next {
-  right: 5px;
-}
-
-.car__details__wrapper {
-  min-height: 490px;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  border-radius: 10px;
-  background: #0000004a;
-  margin: 20px;
-}
 
 .car-page-title {
   font-size: 32px;
@@ -509,6 +455,7 @@ p {
 
   .input {
     width: 404px;
+    max-width: 100%;
   }
 
   .input__email,
@@ -525,6 +472,7 @@ p {
   .input_bill_code,
   .input_bill_country {
     width: 404px;
+    max-width: 100%;
   }
 
   .billing-adress_wrapper,
