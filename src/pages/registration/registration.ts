@@ -15,6 +15,7 @@ import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
+import { isTheUserLoggedIn } from '../login/istheuserlogged'
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -44,7 +45,12 @@ class RegistrationPage extends Page {
     input.placeholder = placeholder
     return input
   }
-
+  redirectIfCustomerWithLogin(){
+    const userHaveLogin = isTheUserLoggedIn()
+    if(userHaveLogin){
+      window.location.hash = '#user'
+    }
+  }
   private createCountry(
     value: string,
     inputCountry: HTMLDataListElement,
@@ -341,6 +347,7 @@ class RegistrationPage extends Page {
   }
 
   render() {
+    this.redirectIfCustomerWithLogin()
     const cont = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.cont],

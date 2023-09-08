@@ -1,6 +1,6 @@
 import Page from '../../temlates/page'
 import { customerLogin } from './customerlogin'
-import { tokenStore } from '../../components/api'
+import { tokenStore, userAuthOptions } from '../../components/api'
 import {
   handleEmailInputChange,
   handlePasswordInputChange,
@@ -8,15 +8,12 @@ import {
 import { showPasword } from '../../components/showpasword'
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { createHtmlElement } from '../../utils/createelement'
+import { isTheUserLoggedIn } from './istheuserlogged'
 
 class LoginPage extends Page {
   TextObject = {
     MainTitle: 'Login Page',
   }
-
-  // constructor(id: string) {
-  //   super(id);
-  // }
 
   private createPageButtons(href: string, text: string) {
     const pageButton = document.createElement('div')
@@ -26,6 +23,12 @@ class LoginPage extends Page {
     loginBtn.innerText = text
     pageButton.append(loginBtn)
     return pageButton
+  }
+  redirectIfCustomerWithLogin(){
+    const userHaveLogin = isTheUserLoggedIn()
+    if(userHaveLogin){
+      window.location.hash = '#user'
+    }
   }
 
   private renderLogin(
@@ -91,8 +94,16 @@ class LoginPage extends Page {
       const inputLoginvalue: string = inputLogin.value
       const inputPassvalue: string = inputPass.value
 
+      userAuthOptions.username = inputLoginvalue
+      userAuthOptions.password = inputPassvalue
+       
       try {
-        await customerLogin(inputLoginvalue, inputPassvalue)
+        const customerLoginAction = await customerLogin(inputLoginvalue, inputPassvalue)
+        const response = customerLoginAction
+        const responseHeaders = response.headers;
+        console.log('Response на странице login:', response);
+        console.log('Response Headers  на странице login:', responseHeaders);
+
         localStorage.setItem('access_token', tokenStore.token)
         localStorage.setItem(
           'expiration_time',
@@ -102,6 +113,9 @@ class LoginPage extends Page {
           'refresh_token',
           tokenStore.refreshToken ? tokenStore.refreshToken : ''
         )
+        console.log('Страница login токен из хранилища:', tokenStore.token)
+        console.log('Страница login токен из хранилища:', tokenStore.expirationTime)
+        console.log('Страница login токен из хранилища:', tokenStore.refreshToken)
         const BODY: HTMLElement | null = document.querySelector('body')
         const resolveMessage: HTMLElement = document.createElement('div')
         resolveMessage.classList.add('resolve', 'successfully')
@@ -135,6 +149,7 @@ class LoginPage extends Page {
   }
 
   render() {
+    this.redirectIfCustomerWithLogin()
     const cont = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.cont],

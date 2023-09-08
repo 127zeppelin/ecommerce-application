@@ -1,5 +1,3 @@
-import { TokenStore } from '@commercetools/sdk-client-v2'
-import { pageList } from '../pagelist'
 export const logoutAndRedirect = () => {
   localStorage.clear()
   window.location.href = '#main'
@@ -7,36 +5,15 @@ export const logoutAndRedirect = () => {
 }
 
 export const isTheUserLoggedIn = (): boolean => {
-  const accessToken: string | null = localStorage.getItem('access_token')
-  const expirationTokenTime: number | null = Number(
+  const accessToken: string | null | undefined = localStorage.getItem('access_token')
+  const expirationTokenTime: number | null | undefined = Number(
     localStorage.getItem('expiration_time')
   )
-  const refreshTokenInStorage: string | undefined | null =
+  const refreshTokenInStorage: string | undefined | null | undefined =
     localStorage.getItem('refresh_token')
   let UserLoggedIn: boolean = false
-  if (accessToken !== null) {
-    const tokenStore: TokenStore = {
-      token: accessToken,
-      expirationTime: expirationTokenTime,
-    }
-    if (refreshTokenInStorage !== null) {
-      tokenStore.refreshToken = refreshTokenInStorage
-    }
+  if (accessToken && expirationTokenTime && refreshTokenInStorage) {
     UserLoggedIn = true
   }
-
-  function handleHashChange() {
-    const hash: string = window.location.hash.substring(1)
-    if ((hash === 'login' || hash === 'registration') && UserLoggedIn) {
-      window.location.href = '#main'
-    }
-    if (!hash) {
-      window.location.href = '#main'
-    }
-    if (!Object.values(pageList).includes(hash)) {
-      window.location.href = `/#${pageList.ERROR_PAGE}`
-    }
-  }
-  window.addEventListener('hashchange', handleHashChange)
   return UserLoggedIn
 }
