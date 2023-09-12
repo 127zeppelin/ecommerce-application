@@ -24,9 +24,10 @@ class LoginPage extends Page {
     pageButton.append(loginBtn)
     return pageButton
   }
-  redirectIfCustomerWithLogin(){
+
+  redirectIfCustomerWithLogin() {
     const userHaveLogin = isTheUserLoggedIn()
-    if(userHaveLogin){
+    if (userHaveLogin) {
       window.location.hash = '#user'
     }
   }
@@ -96,14 +97,9 @@ class LoginPage extends Page {
 
       userAuthOptions.username = inputLoginvalue
       userAuthOptions.password = inputPassvalue
-       
-      try {
-        const customerLoginAction = await customerLogin(inputLoginvalue, inputPassvalue)
-        const response = customerLoginAction
-        const responseHeaders = response.headers;
-        console.log('Response на странице login:', response);
-        console.log('Response Headers  на странице login:', responseHeaders);
 
+      try {
+        await customerLogin(inputLoginvalue, inputPassvalue)
         localStorage.setItem('access_token', tokenStore.token)
         localStorage.setItem(
           'expiration_time',
@@ -113,9 +109,6 @@ class LoginPage extends Page {
           'refresh_token',
           tokenStore.refreshToken ? tokenStore.refreshToken : ''
         )
-        console.log('Страница login токен из хранилища:', tokenStore.token)
-        console.log('Страница login токен из хранилища:', tokenStore.expirationTime)
-        console.log('Страница login токен из хранилища:', tokenStore.refreshToken)
         const BODY: HTMLElement | null = document.querySelector('body')
         const resolveMessage: HTMLElement = document.createElement('div')
         resolveMessage.classList.add('resolve', 'successfully')

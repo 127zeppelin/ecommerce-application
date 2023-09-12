@@ -61,14 +61,14 @@ const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   host: process.env.CTP_API_URL,
   fetch,
 })
-const clientWithLogin = 
+const clientWithLogin =
   new ClientBuilder()
-  .withPasswordFlow(passwordAuthMiddlewareOptions)
-  .withHttpMiddleware(httpMiddleware)
-  .withLoggerMiddleware()
-  .build() 
+    .withPasswordFlow(passwordAuthMiddlewareOptions)
+    .withHttpMiddleware(httpMiddleware)
+    .withLoggerMiddleware()
+    .build()
 
-  const client = 
+const client =
   new ClientBuilder()
     .withClientCredentialsFlow(authMiddlewareOptions)
     .withHttpMiddleware(httpMiddleware)
@@ -76,5 +76,5 @@ const clientWithLogin =
     .build();
 
 //const userLogin = isTheUserLoggedIn()
-export const apiRoot: ApiRoot =  createApiBuilderFromCtpClient(client);
+export const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 export const apiRootPass: ApiRoot = createApiBuilderFromCtpClient(clientWithLogin)

@@ -12,6 +12,7 @@ export const createHtmlElement = ({
   altAtribute,
   dataCarAtribute,
   forElement,
+  appendInElement
 }: ElementOptions):
 | HTMLElement
 | HTMLButtonElement
@@ -61,6 +62,9 @@ export const createHtmlElement = ({
   }
   if (forElement) {
     element.setAttribute('for', forElement)
+  }
+  if (appendInElement){
+    appendInElement.append(element)
   }
   return element
 }

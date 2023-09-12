@@ -45,12 +45,14 @@ class RegistrationPage extends Page {
     input.placeholder = placeholder
     return input
   }
-  redirectIfCustomerWithLogin(){
+
+  redirectIfCustomerWithLogin() {
     const userHaveLogin = isTheUserLoggedIn()
-    if(userHaveLogin){
+    if (userHaveLogin) {
       window.location.hash = '#user'
     }
   }
+
   private createCountry(
     value: string,
     inputCountry: HTMLDataListElement,
