@@ -74,5 +74,14 @@ export const CSS_CLASSES: Record<string, string> = {
   rentCarBtn: 'btn-rent-car',
   carCharactersContainer: 'characters-container',
   carDetails: 'car-details',
-  carArticle: 'car-article'
+  carArticle: 'car-article',
+  userInputContainer: 'input-container',
+  containerUserPage: 'user-data-container',
+  inputLabel: 'input-label',
+  inputArea: 'input-area',
+  containerUserProfile: 'container-user-profile',
+  userDataEditBtn: 'user-data-edit-btn',
+  containerUserAddresses: 'user-addresses-container',
+  oneAddressContainer: 'one-addres-container',
+  addressOption: 'address-option',
 }

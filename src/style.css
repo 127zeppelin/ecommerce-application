@@ -1,5 +1,7 @@
 @import url(./style/cars.css);
 @import url(./style/car.css);
+@import url(./style/user.css);
+
 html {
   min-height: 100%;
 }
@@ -331,11 +333,11 @@ p {
   color: #000;
 }
 
-.card-car-price span{
+.card-car-price span {
   color: #64aedd;
 }
 
-.card-car-price.not-active{
+.card-car-price.not-active {
   text-decoration: line-through;
   color: rgb(253, 0, 0);
 }
@@ -390,7 +392,7 @@ p {
   padding: 15px 0 17px 0;
 }
 
-.car-atributr-container > span:nth-child(2) {
+.car-atributr-container>span:nth-child(2) {
   font-weight: bold;
 }
 
@@ -435,7 +437,7 @@ p {
   font-size: 32px;
 }
 
-.category-btn.active{
+.category-btn.active {
   background-color: #b36af0;
 }
 
@@ -583,6 +585,5 @@ p {
   .login__text p {
     font-size: 16px;
   }
-
-
 }
+

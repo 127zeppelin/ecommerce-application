@@ -66,6 +66,12 @@ class App {
       const hash = window.location.hash.slice(1)
       this.renderNewPage(hash)
       this.header.renderPageButtons(hash)
+      if (!hash) {
+        window.location.href = '#main'
+      }
+      if (!Object.values(pageList).includes(hash)) {
+        window.location.href = `/#${pageList.ERROR_PAGE}`
+      }
     })
   }
 

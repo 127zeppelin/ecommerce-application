@@ -20,6 +20,7 @@ export interface ElementOptions {
   altAtribute?: string
   dataCarAtribute?: string
   forElement?: string
+  appendInElement?: HTMLElement
 }
 
 export interface FilterValues {
