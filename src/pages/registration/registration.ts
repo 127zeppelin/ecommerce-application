@@ -11,6 +11,11 @@ import {
 } from '../../components/validationinput'
 import { BODY, RESOLVE_MESSAGE } from '../../components/constants'
 import { createHtmlElement } from '../../utils/createelement'
+import {
+  ClientResponse,
+  CustomerSignInResult,
+} from '@commercetools/platform-sdk/dist/declarations/src'
+import { isTheUserLoggedIn } from '../login/istheuserlogged'
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -39,6 +44,13 @@ class RegistrationPage extends Page {
     input.id = id
     input.placeholder = placeholder
     return input
+  }
+
+  redirectIfCustomerWithLogin() {
+    const userHaveLogin = isTheUserLoggedIn()
+    if (userHaveLogin) {
+      window.location.hash = '#user'
+    }
   }
 
   private createCountry(
@@ -273,24 +285,26 @@ class RegistrationPage extends Page {
             onlyOneAdressValue
           )
 
-          const apiResponse = resultRegistr
+          const apiResponse: ClientResponse<CustomerSignInResult> =
+            resultRegistr
           const customerId: string = apiResponse.body.customer.id
           const customerIdVersion: number = apiResponse.body.customer.version
-          const shipingAddressId: string =
+          const shipingAddressId: string | undefined =
             apiResponse.body.customer.addresses[0].id
-          const billingAddressId: string = onlyOneAdressValue
+          const billingAddressId: string | undefined = onlyOneAdressValue
             ? apiResponse.body.customer.addresses[0].id
             : apiResponse.body.customer.addresses[1].id
 
-          await setAddressOptions(
-            customerId,
-            customerIdVersion,
-            shipingAddressId,
-            billingAddressId,
-            defaultShipingAddressValue,
-            defaultBillingAddressValue,
-            onlyOneAdressValue
-          )
+          if (shipingAddressId && billingAddressId)
+            await setAddressOptions(
+              customerId,
+              customerIdVersion,
+              shipingAddressId,
+              billingAddressId,
+              defaultShipingAddressValue,
+              defaultBillingAddressValue,
+              onlyOneAdressValue
+            )
 
           localStorage.setItem('access_token', tokenStore.token)
           localStorage.setItem(
@@ -335,6 +349,7 @@ class RegistrationPage extends Page {
   }
 
   render() {
+    this.redirectIfCustomerWithLogin()
     const cont = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.cont],

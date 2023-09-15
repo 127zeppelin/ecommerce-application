@@ -1,3 +1,7 @@
+@import url(./style/cars.css);
+@import url(./style/car.css);
+@import url(./style/user.css);
+
 html {
   min-height: 100%;
 }
@@ -42,6 +46,14 @@ body {
 .container {
   display: flex;
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 1200px;
 }
@@ -134,21 +146,22 @@ p {
   height: 64px;
   margin-bottom: 31px;
   position: relative;
+  max-width: 100%;
 }
 
- .input__email,
-  .input__password, 
-  .input__name, 
-  .input__surname,
-  .input_date, 
-  .input_ship_street,
-  .input_ship_city,
-  .input_ship_code,
-  .input_country_ship,
-  .input_bill_street,
-  .input_bill_city,
-  .input_bill_code,
-  .input_bill_country {
+.input__email,
+.input__password,
+.input__name,
+.input__surname,
+.input_date,
+.input_ship_street,
+.input_ship_city,
+.input_ship_code,
+.input_country_ship,
+.input_bill_street,
+.input_bill_city,
+.input_bill_code,
+.input_bill_country {
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -177,7 +190,7 @@ p {
   gap: 10px;
 }
 
-.menu__btn button {
+.menu__btn a {
   background: #b46af063;
   border-radius: 8px;
   display: flex;
@@ -186,10 +199,10 @@ p {
   width: 98px;
   height: 40px;
   border: 2px solid #b36af0;
-
+  text-decoration: none;
 }
 
-.menu__btn button {
+.menu__btn a {
   font-size: 16px;
   color: #fafafa;
   cursor: pointer;
@@ -222,11 +235,11 @@ p {
 .same-adress_wrapper input {
   display: none;
 }
- 
+
 .label__adress {
   color: #000;
 }
- 
+
 .label__adress:before {
   content: " ";
   color: #b36af0;
@@ -241,9 +254,9 @@ p {
   vertical-align: middle;
   border-radius: 100%;
 }
- 
-.default-adress_wrapper input:checked + .label__adress:before,
-.same-adress_wrapper input:checked + .label__adress:before {
+
+.default-adress_wrapper input:checked+.label__adress:before,
+.same-adress_wrapper input:checked+.label__adress:before {
   content: "x";
 }
 
@@ -255,7 +268,7 @@ p {
   padding: 10px;
 }
 
-.billing-adress_wrapper.hidden{
+.billing-adress_wrapper.hidden {
   display: none;
 }
 
@@ -301,9 +314,131 @@ p {
   padding-top: 5px;
 }
 
-.empty-field, 
-.invalid-input{
+.empty-field,
+.invalid-input {
   border: 2px solid red;
+}
+
+/*Page Catalog*/
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cards-container img {
+  max-width: 100%;
+}
+
+.car-card span {
+  color: #000;
+}
+
+.card-car-price span {
+  color: #64aedd;
+}
+
+.card-car-price.not-active {
+  text-decoration: line-through;
+  color: rgb(253, 0, 0);
+}
+
+.card-car-price.not-active span {
+  color: rgb(253, 0, 0);
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.car-card {
+  background-color: #fafafa;
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 384px;
+  text-align: center;
+  margin-top: 40px;
+  transition: all .3s;
+  border: 1px solid #000;
+}
+
+.card-characters-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-atributr-container {
+  width: 110px;
+  height: 92px;
+  margin: 0 7.5px;
+}
+
+.atribute-img {
+  margin-bottom: 11px;
+  width: 35px;
+  height: 35px;
+  vertical-align: bottom;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: 0.02em;
+  color: #030305;
+  padding: 15px 0 17px 0;
+}
+
+.car-atributr-container>span:nth-child(2) {
+  font-weight: bold;
+}
+
+.more-link {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  height: 54px;
+  background: #f19409b7;
+  border: 0;
+  border-radius: 0 0 10px 10px;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  transition: background-color .5s;
+}
+
+.more-link:hover {
+  cursor: pointer;
+  background: #f0940d;
+}
+
+.card-tb-img {
+  border-radius: 10px;
+}
+
+.car-card:hover {
+  transform: scale(1.1);
+}
+
+.card-car-price-block {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+
+.car-page-title {
+  font-size: 32px;
+}
+
+.category-btn.active {
+  background-color: #b36af0;
 }
 
 @media screen and (max-width: 800px) {
@@ -322,13 +457,14 @@ p {
 
   .input {
     width: 404px;
+    max-width: 100%;
   }
 
   .input__email,
-  .input__password, 
-  .input__name, 
+  .input__password,
+  .input__name,
   .input__surname,
-  .input_date, 
+  .input_date,
   .input_ship_street,
   .input_ship_city,
   .input_ship_code,
@@ -338,9 +474,10 @@ p {
   .input_bill_code,
   .input_bill_country {
     width: 404px;
+    max-width: 100%;
   }
 
-  .billing-adress_wrapper, 
+  .billing-adress_wrapper,
   .shipping-adress_wrapper {
     margin: 0;
     padding: 10px 0 10px 0;
@@ -353,14 +490,14 @@ p {
 }
 
 @media screen and (max-width: 600px) {
- 
-  .menu__btn button { 
+
+  .menu__btn a {
     width: 60px;
   }
 }
 
 @media screen and (max-width: 560px) {
- 
+
   .login {
     width: 400px;
     padding: 48px 10px 10px 10px;
@@ -379,9 +516,9 @@ p {
   }
 
   .input__email,
-  .input__password, 
-  .input__name, 
-  .input__info, 
+  .input__password,
+  .input__name,
+  .input__info,
   .input__adress {
     width: 304px;
   }
@@ -404,7 +541,7 @@ p {
     height: 110px;
   }
 
-  .menu__btn button { 
+  .menu__btn a {
     font-size: 14px;
   }
 
@@ -412,7 +549,7 @@ p {
     display: grid;
     grid-template-columns: 50% 50%;
     padding: 10px;
-}
+  }
 
   .login {
     width: 310px;
@@ -433,9 +570,9 @@ p {
   }
 
   .input__email,
-  .input__password, 
-  .input__name, 
-  .input__info, 
+  .input__password,
+  .input__name,
+  .input__info,
   .input__adress {
     width: 250px;
   }
@@ -448,6 +585,5 @@ p {
   .login__text p {
     font-size: 16px;
   }
-
-
 }
+

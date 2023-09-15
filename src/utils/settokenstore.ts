@@ -1,19 +1,19 @@
-export const logoutAndRedirect = () => {
-  localStorage.clear()
-  window.location.href = '#main'
-  location.reload()
-}
+import { TokenStore } from "@commercetools/sdk-client-v2"
+import { tokenCache } from "../components/api"
 
-export const isTheUserLoggedIn = (): boolean => {
+export const setTokenStore = () => {
   const accessToken: string | null | undefined = localStorage.getItem('access_token')
   const expirationTokenTime: number | null | undefined = Number(
     localStorage.getItem('expiration_time')
   )
   const refreshTokenInStorage: string | undefined | null | undefined =
     localStorage.getItem('refresh_token')
-  let UserLoggedIn: boolean = false
   if (accessToken && expirationTokenTime && refreshTokenInStorage) {
-    UserLoggedIn = true
+    const newTokenStore: TokenStore = {
+      token: accessToken,
+      expirationTime: expirationTokenTime,
+      refreshToken: refreshTokenInStorage
+    };
+    tokenCache.set(newTokenStore);
   }
-  return UserLoggedIn
 }
