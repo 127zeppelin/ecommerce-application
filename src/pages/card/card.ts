@@ -3,19 +3,10 @@ import Page from '../../temlates/page'
 import { createHtmlElement } from '../../utils/createelement'
 
 class CartPage extends Page {
-  /*
-  constructor(id: string, errorType: ErrorTypes | string) {
-    super(id);
-    this.errorType = errorType;
-  }
-*/
+
   getHashValue() {
     const hashValue = window.location.hash.substring(1)
     return hashValue
-  }
-
-  async getcarquery(containerMain: HTMLElement) {
-    
   }
 
   render() {
@@ -29,11 +20,9 @@ class CartPage extends Page {
       cssClass: [CSS_CLASSES.titleCont],
     })
     containerMain.append(titleContainer)
-
     const title = this.createHeaderTitle('Card')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
-    this.getcarquery(containerMain)
     return this.container
   }
 }
