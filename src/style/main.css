@@ -1,0 +1,21 @@
+.main-page-content {
+  display: block;
+  height: 50vh;
+  background: url(../images/background.png) no-repeat;
+  width: 100%;
+  background-size: contain;
+}
+
+.main-page-content .pade-title {
+  width: 60%;
+  top: 5vh;
+  position: relative;
+}
+
+.main-page-discription {
+  color: white;
+  position: relative;
+  margin-top: 100px;
+  line-height: 1.6;
+  letter-spacing: 0.012em;
+}

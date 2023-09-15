@@ -4,6 +4,7 @@ export const pageList = {
   REGISRATION_PAGE: 'registration',
   CUSTOMER_PAGE: 'user',
   ERROR_PAGE: 'error',
+  CART_PAGE: 'cart',
   CARS_PAGE: 'cars',
   _CUR_CAR: '',
   _CUR_CAT: '',

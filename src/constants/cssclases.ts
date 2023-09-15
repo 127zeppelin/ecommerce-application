@@ -84,4 +84,6 @@ export const CSS_CLASSES: Record<string, string> = {
   containerUserAddresses: 'user-addresses-container',
   oneAddressContainer: 'one-addres-container',
   addressOption: 'address-option',
+  mainPageContent: 'main-page-content',
+  mainPageDiscription: 'main-page-discription'
 }
