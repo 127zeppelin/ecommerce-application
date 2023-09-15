@@ -1,6 +1,7 @@
 @import url(./style/cars.css);
 @import url(./style/car.css);
 @import url(./style/user.css);
+@import url(./style/main.css);
 
 html {
   min-height: 100%;
@@ -207,7 +208,14 @@ p {
   color: #fafafa;
   cursor: pointer;
 }
-
+.menu__btn #btn-cart{
+  background: transparent;
+  border: none;
+  max-height: 50px;
+}
+.menu__btn #btn-cart img{
+  max-height: 100%;
+}
 .img_wrapper {
   display: flex;
   align-items: center;
