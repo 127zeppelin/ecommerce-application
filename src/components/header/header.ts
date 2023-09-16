@@ -35,6 +35,9 @@ class Header extends Component {
     const carsButton = this.createPageButtons('#cars', 'Cars', undefined)
     pageButtons.append(carsButton)
 
+    const aboutButton = this.createPageButtons('#about', 'About us', undefined)
+    pageButtons.append(aboutButton);
+
     const loginPageButton = this.createPageButtons('#login', 'Log in', undefined)
     if (!isTheUserLoggedIn()) {
       pageButtons.append(loginPageButton)
