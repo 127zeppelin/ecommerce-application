@@ -688,5 +688,25 @@ p {
   .login__text p {
     font-size: 16px;
   }
+
+  .about__person {
+    width: 260px;
+  }
+
+  .person__img {
+    width: 260px;
+  }
+
+  .pade-title {
+    font-size: 50px;
+  }
+
+  .car-card {
+    width: 300px;
+  }
+
+  .more-link {
+    margin-top: 40px;
+  }
 }
 
