@@ -6,6 +6,7 @@ import {
   PasswordAuthMiddlewareOptions,
   ClientBuilder,
   UserAuthOptions,
+  AnonymousAuthMiddlewareOptions,
 } from '@commercetools/sdk-client-v2'
 import { PROJECT_KEY } from '../constants/api-constants'
 import { ApiRoot } from '@commercetools/platform-sdk'
@@ -61,6 +62,17 @@ const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   host: process.env.CTP_API_URL,
   fetch,
 })
+
+const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
+  host: process.env.CTP_AUTH_URL || '',
+  projectKey: PROJECT_KEY,
+  credentials: {
+    clientId: process.env.CTP_CLIENT_ID || '',
+    clientSecret: process.env.CTP_CLIENT_SECRET || '',
+  },
+  fetch
+}
+
 const clientWithLogin =
   new ClientBuilder()
     .withPasswordFlow(passwordAuthMiddlewareOptions)
@@ -70,7 +82,8 @@ const clientWithLogin =
 
 const client =
   new ClientBuilder()
-    .withClientCredentialsFlow(authMiddlewareOptions)
+    .withAnonymousSessionFlow(anonymousAuthMiddlewareOptions)
+    //.withClientCredentialsFlow(authMiddlewareOptions)
     .withHttpMiddleware(httpMiddleware)
     .withLoggerMiddleware()
     .build();

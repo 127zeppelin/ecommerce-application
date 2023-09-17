@@ -5,6 +5,7 @@ import { createHtmlElement } from "../../utils/createelement"
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getproducts"
+import { addInCart } from "./addincart"
 
 
 export const getCar = (carKey: string) => {
@@ -20,7 +21,7 @@ export const createCarPage = (
   carData: ProductProjection,
   carContainer: HTMLElement
 ): HTMLElement => {
-
+  const carId: string = carData.id;
   const productImages: Image[] | undefined = carData.masterVariant.images;
   const carDetailsWrapper = createHtmlElement({
     tagName: 'div',
@@ -92,6 +93,7 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.rentCarBtn],
     elementText: 'Rent a Car'
   })
+  rentCarBtn.addEventListener('click', () => {addInCart(carId, 1)})
   rentCarBtnContainer.append(rentCarBtn)
   if (carData.description) {
     const carDiscription = createHtmlElement({
