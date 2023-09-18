@@ -6,6 +6,7 @@ import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/decla
 import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getproducts"
 import { addInCart } from "./addincart"
+import { installOfTheCurrentPrice } from "../../utils/price"
 
 
 export const getCar = (carKey: string) => {
@@ -82,19 +83,66 @@ export const createCarPage = (
   carDetailsContainer.append(carCharactersContainer)
   carCharacterBlock(carData, carCharactersContainer)
 
+  const carPriceContainer = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.carPriceContainer]
+  })
+  carDetailsContainer.append(carPriceContainer)
+
+  const priceCar = installOfTheCurrentPrice(carData)
+  carPriceContainer.append(priceCar)
+
   const rentCarBtnContainer = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.rentCarBtn]
+    cssClass: [CSS_CLASSES.rentCarBtnContainer]
   })
   carDetailsContainer.append(rentCarBtnContainer)
+
+  const smallerBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.quantityBtn],
+    elementText: '-'
+  })
+  // rentCarBtn.addEventListener('click', () => {addInCart(carId, 1)})
+  rentCarBtnContainer.append(smallerBtn)
+
+  const quantityInput: HTMLInputElement = createHtmlElement({
+    tagName: 'input',
+    cssClass: [CSS_CLASSES.quantityInput],
+    valueElement: '1'
+  }) as HTMLInputElement
+  rentCarBtnContainer.append(quantityInput)
+
+  const moreBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.quantityBtn],
+    elementText: '+'
+  })
+  function chageQuantity(btnSmaller: HTMLElement, input: HTMLInputElement, btnMore: HTMLElement) {
+
+    btnSmaller.addEventListener('click', () => {
+      let currentValue: number = parseInt(input.value, 10);
+      currentValue > 1 ? currentValue -= 1 : currentValue;
+      input.value = currentValue.toString()
+    })
+    btnMore.addEventListener('click', () => {
+      let currentValue: number = parseInt(input.value, 10);
+      currentValue < 365 ? currentValue += 1 : currentValue;
+      input.value = currentValue.toString()
+    })
+  }
+  rentCarBtnContainer.append(moreBtn)
+
+  chageQuantity(smallerBtn, quantityInput, moreBtn)
 
   const rentCarBtn = createHtmlElement({
     tagName: 'button',
     cssClass: [CSS_CLASSES.rentCarBtn],
     elementText: 'Rent a Car'
   })
-  rentCarBtn.addEventListener('click', () => {addInCart(carId, 1)})
+  rentCarBtn.addEventListener('click', () => { addInCart(carId, parseInt(quantityInput.value, 10)) })
   rentCarBtnContainer.append(rentCarBtn)
+
   if (carData.description) {
     const carDiscription = createHtmlElement({
       tagName: 'p',

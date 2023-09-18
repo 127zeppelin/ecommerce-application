@@ -85,5 +85,9 @@ export const CSS_CLASSES: Record<string, string> = {
   oneAddressContainer: 'one-addres-container',
   addressOption: 'address-option',
   mainPageContent: 'main-page-content',
-  mainPageDiscription: 'main-page-discription'
+  mainPageDiscription: 'main-page-discription',
+  rentCarBtnContainer: 'rent-car-btn-cont',
+  quantityInput: 'quantity-input',
+  quantityBtn: 'quantity-btn',
+  carPriceContainer: 'car-price-container'
 }

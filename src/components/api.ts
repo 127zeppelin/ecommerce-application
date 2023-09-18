@@ -29,6 +29,16 @@ export const tokenCache: TokenCache = {
   },
 }
 
+export let tokenStoreAnonimus: TokenStore
+export const tokenCacheAnonimus: TokenCache = {
+  get(): TokenStore {
+    return tokenStoreAnonimus
+  },
+  set(value: TokenStore): void {
+    tokenStoreAnonimus = value
+  },
+}
+
 export const userAuthOptions: UserAuthOptions = {
   username: '',
   password: '',
@@ -70,7 +80,9 @@ const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
     clientId: process.env.CTP_CLIENT_ID || '',
     clientSecret: process.env.CTP_CLIENT_SECRET || '',
   },
-  fetch
+  fetch,
+  tokenCache: tokenCacheAnonimus,
+  scopes: [`manage_project:${PROJECT_KEY}`],
 }
 
 const clientWithLogin =
