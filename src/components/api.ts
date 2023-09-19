@@ -1,7 +1,7 @@
 import {
   TokenCache,
   TokenStore,
-  AuthMiddlewareOptions,
+ // AuthMiddlewareOptions,
   HttpMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
   ClientBuilder,
