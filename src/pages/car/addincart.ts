@@ -27,37 +27,37 @@ import { PROJECT_KEY } from "../../constants/api-constants"
 //     .execute
 // }
 
-const createCard = (productId: string, quantityCar: number, acessToken: string) => {
-  return apiRoot
-    .withProjectKey({ projectKey: PROJECT_KEY })
-    .me()
-    .carts()
-    .post({
-      headers: {
-        Authorization: acessToken,
-      },
-      body: {
-        currency: "USD",
-        lineItems: [
-          {
-            productId: productId,
-            quantity: quantityCar
-          }
-        ]
-      }
-    })
-    .execute()
-}
+// const createCard = (productId: string, quantityCar: number, acessToken: string) => {
+//   return apiRoot
+//     .withProjectKey({ projectKey: PROJECT_KEY })
+//     .me()
+//     .carts()
+//     .post({
+//       headers: {
+//         Authorization: acessToken,
+//       },
+//       body: {
+//         currency: "USD",
+//         lineItems: [
+//           {
+//             productId: productId,
+//             quantity: quantityCar
+//           }
+//         ]
+//       }
+//     })
+//     .execute()
+// }
 
-export const addInCart = (/*idCart: string, */idProduct: string, quantityCar: number) => {
-  //const requestHeader = acessTokenL0calStorage !== undefined ? {
-  //   Authorization: `Bearer ${acessTokenL0calStorage}`,
-  // } : tokenCache;
-  const currentToken = tokenCache.get();
-  const token = currentToken.token
-  const tokenRf = currentToken.refreshToken
-  const tokenTime = currentToken.expirationTime
-  const theToken = `Bearer ${token}`
-  console.log('ТОкен', token, tokenTime, tokenRf)
-}
+// export const addInCart = (/*idCart: string, */idProduct: string, quantityCar: number) => {
+//   //const requestHeader = acessTokenL0calStorage !== undefined ? {
+//   //   Authorization: `Bearer ${acessTokenL0calStorage}`,
+//   // } : tokenCache;
+//   const currentToken = tokenCache.get();
+//   const token = currentToken.token
+//   const tokenRf = currentToken.refreshToken
+//   const tokenTime = currentToken.expirationTime
+//   const theToken = `Bearer ${token}`
+//   console.log('ТОкен', token, tokenTime, tokenRf)
+// }
 
