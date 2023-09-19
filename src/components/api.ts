@@ -7,9 +7,13 @@ import {
   ClientBuilder,
   UserAuthOptions,
   AnonymousAuthMiddlewareOptions,
+  RefreshAuthMiddlewareOptions,
+  Client,
+  TokenCacheOptions,
 } from '@commercetools/sdk-client-v2'
 import { PROJECT_KEY } from '../constants/api-constants'
 import { ApiRoot } from '@commercetools/platform-sdk'
+import { isTheUserLoggedIn } from '../pages/login/istheuserlogged'
 
 const fetch = require('node-fetch')
 const {
@@ -19,32 +23,47 @@ const {
   createApiBuilderFromCtpClient,
 } = require('@commercetools/typescript-sdk')
 
-export let tokenStore: TokenStore
+export const tokenCacheOptions: TokenCacheOptions = {
+  clientId: process.env.CTP_CLIENT_ID || '',
+  projectKey: PROJECT_KEY,
+  host: process.env.CTP_AUTH_URL || '',
+}
+
+export let tokenStore: TokenStore = {
+  token: '', 
+  expirationTime: 0
+}; 
+
 export const tokenCache: TokenCache = {
   get(): TokenStore {
     return tokenStore
   },
-  set(value: TokenStore): void {
-    tokenStore = value
+  set(value: TokenStore, tokenCacheOptions?: TokenCacheOptions): void {
+    tokenStore = value;
   },
 }
 
-export let tokenStoreAnonimus: TokenStore
-export const tokenCacheAnonimus: TokenCache = {
+export let tokenStoreAnonim: TokenStore = {
+  token: '', 
+  expirationTime: 0
+}; 
+
+export const tokenCacheAnonim: TokenCache = {
   get(): TokenStore {
-    return tokenStoreAnonimus
+    return tokenStoreAnonim
   },
-  set(value: TokenStore): void {
-    tokenStoreAnonimus = value
+  set(value: TokenStore, tokenCacheOptions?: TokenCacheOptions): void {
+    tokenStoreAnonim = value;
   },
 }
+
 
 export const userAuthOptions: UserAuthOptions = {
   username: '',
   password: '',
 }
 
-const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions =
+export const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions =
 {
   host: process.env.CTP_AUTH_URL || '',
   projectKey: PROJECT_KEY,
@@ -54,8 +73,20 @@ const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions =
     user: userAuthOptions,
   },
   scopes: [`manage_project:${PROJECT_KEY}`],
-  tokenCache: tokenCache,
+  tokenCache,
   fetch,
+}
+export const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
+  host: process.env.CTP_AUTH_URL || '',
+  projectKey: PROJECT_KEY,
+  credentials: {
+    clientId: process.env.CTP_CLIENT_ID || '',
+    clientSecret: process.env.CTP_CLIENT_SECRET || '',
+    //anonymousId: 'no-name-id'
+  },
+  scopes: [`manage_project:${PROJECT_KEY}`],
+  fetch,
+  tokenCache: tokenCacheAnonim
 }
 
 const authMiddlewareOptions: AuthMiddlewareOptions = {
@@ -66,48 +97,55 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
     clientSecret: process.env.CTP_CLIENT_SECRET || '',
   },
   fetch,
-  tokenCache: tokenCache,
+  tokenCache: tokenCache
 }
 const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   host: process.env.CTP_API_URL,
   fetch,
+  includeHeaders: true,
+  includeResponseHeaders: true,
+  refreshToken: 'foobar123',
+  //credentialsMode: "include"
 })
 
-const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
+
+export const refreshAuthMiddlewareOptions: RefreshAuthMiddlewareOptions = {
   host: process.env.CTP_AUTH_URL || '',
   projectKey: PROJECT_KEY,
   credentials: {
     clientId: process.env.CTP_CLIENT_ID || '',
     clientSecret: process.env.CTP_CLIENT_SECRET || '',
   },
-  fetch,
-  tokenCache: tokenCacheAnonimus,
-  scopes: [`manage_project:${PROJECT_KEY}`],
+  refreshToken: 'foobar123',
+  oauthUri: process.env.CTP_AUTH_URL || '',
+  fetch
 }
 
-const clientWithLogin =
-  new ClientBuilder()
-    .withPasswordFlow(passwordAuthMiddlewareOptions)
-    .withHttpMiddleware(httpMiddleware)
-    .withLoggerMiddleware()
-    .build()
+const userLogin = isTheUserLoggedIn()
 
-const client =
-  new ClientBuilder()
-    .withAnonymousSessionFlow(anonymousAuthMiddlewareOptions)
-    //.withClientCredentialsFlow(authMiddlewareOptions)
-    .withHttpMiddleware(httpMiddleware)
-    .withLoggerMiddleware()
-    .build();
+let client: Client; // Глобальная переменная для хранения клиента
+export let apiRoot: ApiRoot
+const updateApiRoot = () => {
+  console.log('Клиент', client)
+  apiRoot = createApiBuilderFromCtpClient(client);
+};
 
-const clientCredentialsFlow =
-  new ClientBuilder()
-    .withClientCredentialsFlow(authMiddlewareOptions)
+export const initializeClient = (userLogin: boolean) => {
+  const clientBuilder = new ClientBuilder()
     .withHttpMiddleware(httpMiddleware)
-    .withLoggerMiddleware()
-    .build()
+    .withLoggerMiddleware();
 
-//const userLogin = isTheUserLoggedIn()
-export const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
-export const apiRootPass: ApiRoot = createApiBuilderFromCtpClient(clientWithLogin)
-export const apiRootFlow: ApiRoot = createApiBuilderFromCtpClient(clientCredentialsFlow)
+  if (userLogin) {
+    clientBuilder.withPasswordFlow(passwordAuthMiddlewareOptions);
+    console.log('Флаг сессия с паролем');
+  } else {
+    clientBuilder.withAnonymousSessionFlow(anonymousAuthMiddlewareOptions);
+    console.log('Флаг Анонимная сессия');
+  }
+
+  client = clientBuilder.build();
+  updateApiRoot(); // Обновляем apiRoot при изменении клиента
+};
+
+initializeClient(userLogin);
+

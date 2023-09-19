@@ -1,6 +1,6 @@
 import Page from '../../temlates/page'
 import { customerLogin } from './customerlogin'
-import { tokenStore, userAuthOptions } from '../../components/api'
+import { tokenStore } from '../../components/api'
 import {
   handleEmailInputChange,
   handlePasswordInputChange,
@@ -95,9 +95,6 @@ class LoginPage extends Page {
       event.preventDefault()
       const inputLoginvalue: string = inputLogin.value
       const inputPassvalue: string = inputPass.value
-
-      userAuthOptions.username = inputLoginvalue
-      userAuthOptions.password = inputPassvalue
 
       try {
         await customerLogin(inputLoginvalue, inputPassvalue)

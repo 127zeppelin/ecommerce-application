@@ -7,7 +7,7 @@ import {
   Image,
   ProductProjection,
 } from '@commercetools/platform-sdk/dist/declarations/src'
-import { apiRoot, apiRootFlow } from '../../components/api'
+import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 
 export const carCharacterBlock = (
@@ -127,7 +127,7 @@ export const createCarsList = (
 export const getCarsWithoutFilter = () => {
   const filterValues = localStorage.getItem('CUR_FILTER')
   const parsedData = filterValues ? JSON.parse(filterValues) : {}
-  return apiRootFlow
+  return apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .productProjections()
     .search()
