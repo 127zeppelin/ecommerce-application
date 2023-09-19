@@ -48,16 +48,16 @@ const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions =
   fetch,
 }
 
-const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: process.env.CTP_AUTH_URL || '',
-  projectKey: PROJECT_KEY,
-  credentials: {
-    clientId: process.env.CTP_CLIENT_ID || '',
-    clientSecret: process.env.CTP_CLIENT_SECRET || '',
-  },
-  fetch,
-  tokenCache: tokenCache,
-}
+// const authMiddlewareOptions: AuthMiddlewareOptions = {
+//   host: process.env.CTP_AUTH_URL || '',
+//   projectKey: PROJECT_KEY,
+//   credentials: {
+//     clientId: process.env.CTP_CLIENT_ID || '',
+//     clientSecret: process.env.CTP_CLIENT_SECRET || '',
+//   },
+//   fetch,
+//   tokenCache: tokenCache,
+// }
 const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   host: process.env.CTP_API_URL,
   fetch,
