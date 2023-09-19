@@ -6,6 +6,7 @@ export const pageList = {
   ERROR_PAGE: 'error',
   CART_PAGE: 'cart',
   CARS_PAGE: 'cars',
+  ABOUT_PAGE: 'about',
   _CUR_CAR: '',
   _CUR_CAT: '',
   get CUR_CAR() {

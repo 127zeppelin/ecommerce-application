@@ -85,5 +85,16 @@ export const CSS_CLASSES: Record<string, string> = {
   oneAddressContainer: 'one-addres-container',
   addressOption: 'address-option',
   mainPageContent: 'main-page-content',
-  mainPageDiscription: 'main-page-discription'
+  mainPageDiscription: 'main-page-discription',
+  aboutWrapper: 'about__wrapper',
+  aboutPersons: 'about__persons',
+  aboutPersonWrapper: 'about__person__wrapper',
+  aboutPerson: 'about__person',
+  personImg: 'person__img',
+  personName: 'person__name',
+  personRole: 'person__role',
+  personBio: 'person__bio',
+  personGit: 'person__git',
+  aboutText: 'about__text',
+  aboutLogo: 'about__logo',
 }
