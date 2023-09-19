@@ -1,7 +1,6 @@
 import {
   TokenCache,
   TokenStore,
-  AuthMiddlewareOptions,
   HttpMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
   ClientBuilder,
@@ -38,7 +37,7 @@ export const tokenCache: TokenCache = {
   get(): TokenStore {
     return tokenStore
   },
-  set(value: TokenStore, tokenCacheOptions?: TokenCacheOptions): void {
+  set(value: TokenStore): void {
     tokenStore = value;
   },
 }
@@ -52,7 +51,7 @@ export const tokenCacheAnonim: TokenCache = {
   get(): TokenStore {
     return tokenStoreAnonim
   },
-  set(value: TokenStore, tokenCacheOptions?: TokenCacheOptions): void {
+  set(value: TokenStore): void {
     tokenStoreAnonim = value;
   },
 }
@@ -88,17 +87,7 @@ export const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   fetch,
   tokenCache: tokenCacheAnonim
 }
-
-const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: process.env.CTP_AUTH_URL || '',
-  projectKey: PROJECT_KEY,
-  credentials: {
-    clientId: process.env.CTP_CLIENT_ID || '',
-    clientSecret: process.env.CTP_CLIENT_SECRET || '',
-  },
-  fetch,
-  tokenCache: tokenCache
-}
+ 
 const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   host: process.env.CTP_API_URL,
   fetch,
@@ -126,21 +115,18 @@ const userLogin = isTheUserLoggedIn()
 let client: Client; // Глобальная переменная для хранения клиента
 export let apiRoot: ApiRoot
 const updateApiRoot = () => {
-  console.log('Клиент', client)
   apiRoot = createApiBuilderFromCtpClient(client);
 };
 
-export const initializeClient = (userLogin: boolean) => {
+export const initializeClient = (userIsLogin: boolean) => {
   const clientBuilder = new ClientBuilder()
     .withHttpMiddleware(httpMiddleware)
     .withLoggerMiddleware();
 
-  if (userLogin) {
+  if (userIsLogin) {
     clientBuilder.withPasswordFlow(passwordAuthMiddlewareOptions);
-    console.log('Флаг сессия с паролем');
   } else {
     clientBuilder.withAnonymousSessionFlow(anonymousAuthMiddlewareOptions);
-    console.log('Флаг Анонимная сессия');
   }
 
   client = clientBuilder.build();

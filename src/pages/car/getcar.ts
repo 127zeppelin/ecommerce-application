@@ -122,12 +122,12 @@ export const createCarPage = (
 
     btnSmaller.addEventListener('click', () => {
       let currentValue: number = parseInt(input.value, 10);
-      currentValue > 1 ? currentValue -= 1 : currentValue;
+      if (currentValue > 1) { currentValue -= 1 };
       input.value = currentValue.toString()
     })
     btnMore.addEventListener('click', () => {
       let currentValue: number = parseInt(input.value, 10);
-      currentValue < 365 ? currentValue += 1 : currentValue;
+      if (currentValue < 365) { currentValue += 1 }
       input.value = currentValue.toString()
     })
   }
@@ -140,7 +140,8 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.rentCarBtn],
     elementText: 'Rent a Car'
   })
-  rentCarBtn.addEventListener('click', () => { addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US'])})
+  rentCarBtn.addEventListener('click', () => { 
+    addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US']) })
   rentCarBtnContainer.append(rentCarBtn)
 
   if (carData.description) {

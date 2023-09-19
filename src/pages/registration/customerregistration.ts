@@ -48,7 +48,7 @@ export const customerRegistr = async (
               country: country,
             },
           ],
-          
+
         },
       })
     : apiRoot
@@ -81,9 +81,12 @@ export const customerRegistr = async (
 
   const response = await request.execute()
   const cartId = response.body.cart?.id
-      const cartState = response.body.cart?.cartState;
-      cartId && cartState === 'Active' ? localStorage.setItem('curent_cart_id', cartId) :
-                                         localStorage.removeItem('curent_cart_id');
+  const cartState = response.body.cart?.cartState;
+  if (cartId && cartState === 'Active') {
+    localStorage.setItem('curent_cart_id', cartId)
+  } else {
+    localStorage.removeItem('curent_cart_id')
+  };
   return response
 }
 

@@ -7,15 +7,15 @@ import {
 
 
 export const customerLogin = async (email: string, password: string):
-  Promise<ClientResponse<CustomerSignInResult>> => {
-    const cartId = localStorage.getItem('curent_cart_id')
+Promise<ClientResponse<CustomerSignInResult>> => {
+  const cartId = localStorage.getItem('curent_cart_id')
   const requestBody = {
     email: email,
     password: password,
     updateProductData: true,
-    anonymousCart : {
-      id : `{{${cartId}}}`,
-      typeId : "cart"
+    anonymousCart: {
+      id: `{{${cartId}}}`,
+      typeId: "cart"
     }
   }
   // const userLogin = isTheUserLoggedIn()
@@ -30,13 +30,14 @@ export const customerLogin = async (email: string, password: string):
     .post({ body: requestBody })
     .execute()
     .then(data => {
-      const cartId = data.body.cart?.id
+      const cartIdCustomerWithLogin = data.body.cart?.id
       const cartState = data.body.cart?.cartState;
-      cartId && cartState === 'Active' ? localStorage.setItem('curent_cart_id', cartId) :
-                                         localStorage.removeItem('curent_cart_id');
-
+      if (cartIdCustomerWithLogin && cartState === 'Active') {
+        localStorage.setItem('curent_cart_id', cartIdCustomerWithLogin)
+      } else {
+        localStorage.removeItem('curent_cart_id')
+      };
       return data;
     })
-
 }
 

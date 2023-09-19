@@ -44,13 +44,12 @@ const createCartItems = (arrCartItems: LineItem[], container: HTMLElement) => {
       elementText: `${arrCartItems[i].quantity}`
     })
     cartItem.append(cartItemQuantity);
-    
+
     const priceItem = arrCartItems[i].totalPrice.centAmount / 100;
     const formatedPrice = priceItem.toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
     })
-    const currencyCode = arrCartItems[i].totalPrice.currencyCode
     const cartItemPrice = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.cartItemPrice],
@@ -77,7 +76,7 @@ export const createCartPage = () => {
   })
   if (doesTheShoppingCartExist) {
     const request = getCartById(doesTheShoppingCartExist);
-    const responce = request
+    request
       .then((data) => {
         const cartItems = data.body.lineItems;
         createCartItems(cartItems, cardContainer)
