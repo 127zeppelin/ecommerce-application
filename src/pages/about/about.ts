@@ -60,7 +60,7 @@ class AboutPage extends Page {
       cssClass: [CSS_CLASSES.aboutPersons]
     })
     aboutWrapper.append(about);
-    this.createPerson(about, 'images/image.png', 'Сергей', 'ИП', 'Программист', 'https://github.com/127zeppelin');
+    this.createPerson(about, 'images/MG_3935.jpg', 'Сергей', 'ИП', 'Программист', 'https://github.com/127zeppelin');
     this.createPerson(about, 'images/photo_2023.jpg', 'Анастасия Гладкая', 'Инженер по автоматизации', 'Программист', 'https://github.com/Gladkaay');
 
     const aboutText = createHtmlElement({
