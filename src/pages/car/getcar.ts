@@ -93,7 +93,7 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.rentCarBtn],
     elementText: 'Rent a Car'
   })
-  rentCarBtn.addEventListener('click', () => {addInCart(carId, 1)})
+  //rentCarBtn.addEventListener('click', () => {addInCart(carId, 1)})
   rentCarBtnContainer.append(rentCarBtn)
   if (carData.description) {
     const carDiscription = createHtmlElement({
