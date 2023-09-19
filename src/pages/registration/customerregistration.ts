@@ -1,4 +1,4 @@
-import { apiRoot } from '../../components/api'
+import { apiRoot, apiRootPass, userAuthOptions } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 import { RequestBody } from '../../types/types'
 import {
@@ -26,7 +26,7 @@ export const customerRegistr = async (
   oneAdress: boolean
 ): Promise<ClientResponse<CustomerSignInResult>> => {
   const request = oneAdress
-    ? apiRoot
+    ? apiRootPass
       .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
@@ -47,11 +47,15 @@ export const customerRegistr = async (
           ],
         },
       })
-    : apiRoot
+    : apiRootPass
       .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
       .post({
+        headers:{
+          username: email,
+          password: password,
+        },
         body: {
           email: email,
           password: password,
@@ -123,7 +127,7 @@ export const setAddressOptions = (
     requestBody.body.actions.push(setDefaultBillingAddress)
   }
 
-  return apiRoot
+  return apiRootPass
     .withProjectKey({ projectKey: PROJECT_KEY })
     .customers()
     .withId({ ID: customerId })

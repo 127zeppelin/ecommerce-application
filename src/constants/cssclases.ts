@@ -89,5 +89,16 @@ export const CSS_CLASSES: Record<string, string> = {
   rentCarBtnContainer: 'rent-car-btn-cont',
   quantityInput: 'quantity-input',
   quantityBtn: 'quantity-btn',
-  carPriceContainer: 'car-price-container'
+  carPriceContainer: 'car-price-container',
+  cartContainer: 'cart-container',
+  cardAlertContainer: 'cart-alert-container',
+  cartalert: 'cart-alert',
+  cartAlertImg: 'cart-alert-img',
+  cartItem: 'cart-item',
+  cartItemNumber: 'cart-item-number',
+  cartItemImage: 'cart-item-image',
+  cartItemName: 'cart-item-name',
+  cartItemQuantity: 'cart-item-quantity',
+  cartItemPrice: 'cart-item-price',
+  cartItemDeleteBtn: 'cart-item-delete-btn'
 }

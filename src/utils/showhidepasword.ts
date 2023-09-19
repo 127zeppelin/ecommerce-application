@@ -1,4 +1,4 @@
-export const showPasword = (passwordInput: HTMLInputElement) => {
+export const showHidePasword = (passwordInput: HTMLInputElement) => {
   const showPassBtn = document.createElement('button')
   showPassBtn.classList.add('btn-show-pass')
   showPassBtn.type = 'button'

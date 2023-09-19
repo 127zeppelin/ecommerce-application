@@ -1,4 +1,4 @@
-import { apiRootPass } from '../../components/api'
+import { apiRoot, apiRootPass, userAuthOptions } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 import {
   ClientResponse,

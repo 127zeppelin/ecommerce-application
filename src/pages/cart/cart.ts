@@ -1,6 +1,7 @@
 import { CSS_CLASSES } from '../../constants/cssclases'
 import Page from '../../temlates/page'
 import { createHtmlElement } from '../../utils/createelement'
+import { createCartPage } from './cartpagecreate'
 
 class CartPage extends Page {
 
@@ -20,9 +21,11 @@ class CartPage extends Page {
       cssClass: [CSS_CLASSES.titleCont],
     })
     containerMain.append(titleContainer)
-    const title = this.createHeaderTitle('Card')
+    const title = this.createHeaderTitle('Cart')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
+    const cartContainer = createCartPage()
+    containerMain.append(cartContainer)
     return this.container
   }
 }

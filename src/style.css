@@ -2,6 +2,7 @@
 @import url(./style/car.css);
 @import url(./style/user.css);
 @import url(./style/main.css);
+@import url(./style/cart.css);
 
 html {
   min-height: 100%;
@@ -296,10 +297,29 @@ p {
   background-color: transparent;
 }
 
+@keyframes slideAndStop {
+  0% {
+    right: -350px; 
+  }
+  25% {
+    right: -20px; 
+  }
+  50% {
+    right: -20px;
+  }
+  75% {
+    right: -20px;
+  }
+  100% {
+    right: -350px; 
+  }
+}
+
+
 .resolve {
   position: fixed;
   top: calc(50% - 100px);
-  right: calc((100% - 350px)/2);
+  right: - 350px;
   width: 350px;
   height: 200px;
   background: red;
@@ -310,6 +330,8 @@ p {
   align-items: center;
   text-align: center;
   box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+  animation: slideAndStop 4s; 
+  animation-fill-mode: forwards;
 }
 
 .resolve.successfully {

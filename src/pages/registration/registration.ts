@@ -1,21 +1,21 @@
 import Page from '../../temlates/page'
 import { customerRegistr, setAddressOptions } from './customerregistration'
 import { tokenStore } from '../../components/api'
-import { showPasword } from '../../components/showpasword'
+import { showHidePasword } from '../../utils/showhidepasword' 
 import { CSS_CLASSES } from '../../constants/cssclases'
 import {
   checkResultValidation,
   handleEmailInputChange,
   handlePasswordInputChange,
   checkResultValidationRestration,
-} from '../../components/validationinput'
-import { BODY, RESOLVE_MESSAGE } from '../../components/constants'
+} from '../../utils/validationinput'
 import { createHtmlElement } from '../../utils/createelement'
 import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
 import { isTheUserLoggedIn } from '../login/istheuserlogged'
+import { resolveMessageAddAndRemove } from '../../utils/resolvemsg'
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -258,12 +258,8 @@ class RegistrationPage extends Page {
         )
 
         if (!resultValidation) {
-          RESOLVE_MESSAGE.classList.add('resolve')
-          RESOLVE_MESSAGE.innerText = 'All fields must be filled'
-          BODY?.append(RESOLVE_MESSAGE)
-          setTimeout(() => {
-            RESOLVE_MESSAGE.remove()
-          }, 5000)
+          const resolveMessage: string = 'All fields must be filled'
+          resolveMessageAddAndRemove(resolveMessage, false)
           return
         }
 
@@ -315,34 +311,13 @@ class RegistrationPage extends Page {
             'refresh_token',
             tokenStore.refreshToken ? tokenStore.refreshToken : ''
           )
-          const resolveMessage = createHtmlElement({
-            tagName: 'div',
-            cssClass: [CSS_CLASSES.resolveMsg, CSS_CLASSES.successfully],
-          })
+          const resolveMessage: string = 'Registration in successfully';
+          resolveMessageAddAndRemove(resolveMessage, true);
+          window.location.hash = '#main'
 
-          if (
-            resolveMessage instanceof HTMLElement &&
-            BODY instanceof HTMLElement
-          ) {
-            resolveMessage.innerText = 'Registration in successfully'
-            BODY.append(resolveMessage)
-            setTimeout(() => {
-              resolveMessage.remove()
-            }, 5000)
-            window.location.href = './#main'
-          }
         } catch (error: any) {
-          RESOLVE_MESSAGE.classList.add(CSS_CLASSES.resolveMsg)
-          if (
-            RESOLVE_MESSAGE instanceof HTMLElement &&
-            BODY instanceof HTMLElement
-          ) {
-            RESOLVE_MESSAGE.innerText = error.message
-            BODY.append(RESOLVE_MESSAGE)
-            setTimeout(() => {
-              RESOLVE_MESSAGE.remove()
-            }, 5000)
-          }
+          const resolveMessage: string = error.message;
+          resolveMessageAddAndRemove(resolveMessage, false);
         }
       })
     }
@@ -415,7 +390,7 @@ class RegistrationPage extends Page {
       'Password'
     )
     paswordInputContainer.append(inputPass)
-    showPasword(inputPass)
+    showHidePasword(inputPass)
 
     const inputNameContainer = createHtmlElement({
       tagName: 'div',

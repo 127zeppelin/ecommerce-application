@@ -100,6 +100,14 @@ const client =
     .withLoggerMiddleware()
     .build();
 
+const clientCredentialsFlow =
+  new ClientBuilder()
+    .withClientCredentialsFlow(authMiddlewareOptions)
+    .withHttpMiddleware(httpMiddleware)
+    .withLoggerMiddleware()
+    .build()
+
 //const userLogin = isTheUserLoggedIn()
 export const apiRoot: ApiRoot = createApiBuilderFromCtpClient(client);
 export const apiRootPass: ApiRoot = createApiBuilderFromCtpClient(clientWithLogin)
+export const apiRootFlow: ApiRoot = createApiBuilderFromCtpClient(clientCredentialsFlow)

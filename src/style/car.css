@@ -145,18 +145,18 @@
 }
 
 .car-price-container  .card-car-price span {
-  color: #64aedd;
+  color: #b36af0;
   font-size: 24px;
 }
 
 .car-price-container .card-car-price.not-active {
   text-decoration: line-through;
-  color: rgb(253, 0, 0);
+  color: #5a3e7f;
   font-size: 24px;
 }
 
 .car-price-container  .card-car-price.not-active span {
-  color: rgb(253, 0, 0);
+  color: #5a3e7f;
   font-size: 24px;
 }
 
