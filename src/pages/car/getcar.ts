@@ -5,7 +5,7 @@ import { createHtmlElement } from "../../utils/createelement"
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getproducts"
-import { addInCart } from "./addincart"
+//import { addInCart } from "./addincart"
 
 
 export const getCar = (carKey: string) => {
