@@ -113,4 +113,5 @@ export const CSS_CLASSES: Record<string, string> = {
   personBio: 'person__bio',
   personGit: 'person__git',
   aboutText: 'about__text',
-  aboutLogo: 'about__logo',
+  aboutLogo: 'about__logo'
+}

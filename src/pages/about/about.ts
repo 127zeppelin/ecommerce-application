@@ -61,12 +61,23 @@ class AboutPage extends Page {
     })
     aboutWrapper.append(about);
     this.createPerson(about, 'images/MG_3935.jpg', 'Сергей', 'ИП', 'Программист', 'https://github.com/127zeppelin');
-    this.createPerson(about, 'images/photo_2023.jpg', 'Анастасия Гладкая', 'Инженер по автоматизации', 'Программист', 'https://github.com/Gladkaay');
+    this.createPerson(about, 'images/photo_2023.jpg', 'Анастасия Гладкая', 'Инженер по автоматизации', 'Программист',
+      'https://github.com/Gladkaay');
 
     const aboutText = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.aboutText],
-      elementText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis viverra mattis. Etiam id urna at ipsum dictum rhoncus. Donec a lacinia nunc, at ullamcorper diam. Donec dictum nunc id pellentesque dignissim. Nam sapien lacus, maximus vitae elementum vitae, consectetur eu ante. Cras eget tempus eros. Nam cursus eleifend tellus, at gravida augue auctor vitae. Aenean ornare mi hendrerit elit viverra, eget rutrum nisi vulputate. Sed auctor aliquam luctus. Morbi dui magna, pellentesque sed tristique ac, aliquam et lectus. Nam dapibus non dui non hendrerit. Sed euismod mauris et pretium blandit. Mauris suscipit hendrerit nibh vitae viverra. Nunc sit amet quam vel ligula molestie semper. Curabitur sollicitudin non sem rutrum lacinia.'
+      elementText: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Fusce sagittis viverra mattis. Etiam id urna at ipsum dictum rhoncus. 
+                    Donec a lacinia nunc, at ullamcorper diam. Donec dictum nunc 
+                    id pellentesque dignissim. Nam sapien lacus, maximus vitae 
+                    elementum vitae, consectetur eu ante. Cras eget tempus eros. 
+                    Nam cursus eleifend tellus, at gravida augue auctor vitae. 
+                    Aenean ornare mi hendrerit elit viverra, eget rutrum nisi vulputate. 
+                    Sed auctor aliquam luctus. Morbi dui magna, pellentesque sed tristique ac, 
+                    aliquam et lectus. Nam dapibus non dui non hendrerit. 
+                    Sed euismod mauris et pretium blandit. Mauris suscipit hendrerit nibh vitae viverra. 
+                    Nunc sit amet quam vel ligula molestie semper. Curabitur sollicitudin non sem rutrum lacinia.`
     })
     aboutWrapper.append(aboutText);
 
