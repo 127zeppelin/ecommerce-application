@@ -52,4 +52,3 @@ export const addInCart = (idProduct: string, quantityCar: number, carName: strin
       });
   }
 }
-

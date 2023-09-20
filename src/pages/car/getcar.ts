@@ -22,7 +22,7 @@ export const createCarPage = (
   carData: ProductProjection,
   carContainer: HTMLElement
 ): HTMLElement => {
-  const carId: string = carData.id;
+  //const carId: string = carData.id;
   const productImages: Image[] | undefined = carData.masterVariant.images;
   const carDetailsWrapper = createHtmlElement({
     tagName: 'div',
@@ -142,6 +142,7 @@ export const createCarPage = (
   })
   rentCarBtn.addEventListener('click', () => { 
     addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US']) })
+
   rentCarBtnContainer.append(rentCarBtn)
 
   if (carData.description) {

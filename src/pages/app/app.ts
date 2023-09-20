@@ -10,6 +10,7 @@ import ErrorPage from '../error/error'
 import CarsPage from '../cars/cars'
 import CarPage from '../car/car'
 import CartPage from '../cart/cart'
+import AboutPage from '../about/about'
 
 class App {
   private container: HTMLElement = document.body
@@ -55,6 +56,8 @@ class App {
       page = new CartPage(idPage)
     } else if (idPage === pageList.ERROR_PAGE) {
       page = new ErrorPage(idPage)
+    } else if (idPage === pageList.ABOUT_PAGE) {
+      page = new AboutPage(idPage)
     }
 
     if (page) {

@@ -75,6 +75,7 @@ export const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions =
   tokenCache,
   fetch,
 }
+
 export const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   host: process.env.CTP_AUTH_URL || '',
   projectKey: PROJECT_KEY,
@@ -88,6 +89,7 @@ export const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   tokenCache: tokenCacheAnonim
 }
  
+
 const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   host: process.env.CTP_API_URL,
   fetch,
