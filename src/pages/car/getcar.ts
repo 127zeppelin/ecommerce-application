@@ -22,7 +22,7 @@ export const createCarPage = (
   carData: ProductProjection,
   carContainer: HTMLElement
 ): HTMLElement => {
-  //const carId: string = carData.id;
+  const carId: string = carData.id;
   const productImages: Image[] | undefined = carData.masterVariant.images;
   const carDetailsWrapper = createHtmlElement({
     tagName: 'div',
