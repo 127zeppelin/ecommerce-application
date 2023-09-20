@@ -38,7 +38,7 @@ class CarPage extends Page {
     const title = this.createHeaderTitle('Rent one of our cool cars.')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
-    
+
     const backBtnContainer: HTMLElement = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.backBtnContainer],
@@ -50,9 +50,9 @@ class CarPage extends Page {
       cssClass: [CSS_CLASSES.backBtn],
       elementText: '< Back'
     })
-    backBtn.addEventListener('click', function() {
+    backBtn.addEventListener('click', function () {
       window.history.back();
-  });
+    });
     backBtnContainer.append(backBtn);
     this.getcarquery(containerMain)
     return this.container
