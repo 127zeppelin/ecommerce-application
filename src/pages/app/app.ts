@@ -9,7 +9,7 @@ import CustomerPage from '../user/user'
 import ErrorPage from '../error/error'
 import CarsPage from '../cars/cars'
 import CarPage from '../car/car'
-import CartPage from '../card/card'
+import CartPage from '../cart/cart'
 import AboutPage from '../about/about'
 
 class App {

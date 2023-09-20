@@ -5,12 +5,7 @@ import { getCar, createCarPage } from './getcar'
 import { ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 
 class CarPage extends Page {
-  /*
-  constructor(id: string, errorType: ErrorTypes | string) {
-    super(id);
-    this.errorType = errorType;
-  }
-*/
+
   getHashValue() {
     const hashValue = window.location.hash.substring(1)
     return hashValue
@@ -43,6 +38,22 @@ class CarPage extends Page {
     const title = this.createHeaderTitle('Rent one of our cool cars.')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
+
+    const backBtnContainer: HTMLElement = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.backBtnContainer],
+    })
+    containerMain.append(backBtnContainer)
+
+    const backBtn: HTMLElement = createHtmlElement({
+      tagName: 'button',
+      cssClass: [CSS_CLASSES.backBtn],
+      elementText: '< Back'
+    })
+    backBtn.addEventListener('click', function () {
+      window.history.back();
+    });
+    backBtnContainer.append(backBtn);
     this.getcarquery(containerMain)
     return this.container
   }
