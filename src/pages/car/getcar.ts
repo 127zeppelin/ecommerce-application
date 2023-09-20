@@ -71,7 +71,7 @@ export const createCarPage = (
   carDetailsWrapper.append(carDetailsContainer)
 
   const carTitle = createHtmlElement({
-    tagName: 'h1',
+    tagName: 'h2',
     cssClass: [CSS_CLASSES.carPageTitle],
     elementText: carData.name['en-US'],
   })

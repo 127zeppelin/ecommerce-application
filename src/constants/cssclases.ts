@@ -100,5 +100,7 @@ export const CSS_CLASSES: Record<string, string> = {
   cartItemName: 'cart-item-name',
   cartItemQuantity: 'cart-item-quantity',
   cartItemPrice: 'cart-item-price',
-  cartItemDeleteBtn: 'cart-item-delete-btn'
+  cartItemDeleteBtn: 'cart-item-delete-btn',
+  backBtnContainer: 'back-btn-container',
+  backBtn: 'back-btn'
 }

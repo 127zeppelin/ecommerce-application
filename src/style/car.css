@@ -160,6 +160,26 @@
   font-size: 24px;
 }
 
+.back-btn-container {
+  padding: 30px;
+}
+
+.back-btn {
+  background: #5a3e7f;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98px;
+  height: 40px;
+  outline: 10px solid #0e0f21;
+  text-decoration: none;
+  color: white;
+  border: 2px solid #b36af0;
+  cursor: pointer;
+}
+
+
 @media(max-width:1200px) {
   .car__slider__wrapper {
     position: relative;
