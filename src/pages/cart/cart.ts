@@ -21,11 +21,16 @@ class CartPage extends Page {
       cssClass: [CSS_CLASSES.titleCont],
     })
     containerMain.append(titleContainer)
+
+    const cartContainer = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.cartContainer]
+    })
     const title = this.createHeaderTitle('Cart')
     title.className = CSS_CLASSES.pageTitle
     titleContainer.append(title)
-    const cartContainer = createCartPage()
     containerMain.append(cartContainer)
+    createCartPage(cartContainer)
     return this.container
   }
 }

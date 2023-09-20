@@ -27,7 +27,7 @@ export const updateCartAddAuto = (idCart: string, versionCart: number, productId
     .withProjectKey({ projectKey: PROJECT_KEY })
     .me()
     .carts()
-    .withId({ ID: idCart})
+    .withId({ ID: idCart })
     .post({
       body: {
         version: versionCart,
@@ -35,6 +35,25 @@ export const updateCartAddAuto = (idCart: string, versionCart: number, productId
           action: "addLineItem",
           productId: productId,
           quantity: quantityCar
+        }]
+      }
+    })
+    .execute()
+}
+
+export const updateCartRemoveAuto = (idCart: string, versionCart: number, productId: string, quantityCar: number) => {
+  return apiRoot
+    .withProjectKey({ projectKey: PROJECT_KEY })
+    .me()
+    .carts()
+    .withId({ ID: idCart })
+    .post({
+      body: {
+        version: versionCart,
+        actions: [{
+          action: "removeLineItem",
+          lineItemId: productId,
+          quantity: quantityCar,
         }]
       }
     })

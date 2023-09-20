@@ -1,104 +1,56 @@
-import { LineItem } from "@commercetools/platform-sdk";
 import { CSS_CLASSES } from "../../constants/cssclases";
 import { createHtmlElement } from "../../utils/createelement";
 import { getCartById } from "./cartactions";
-
-const createCartItems = (arrCartItems: LineItem[], container: HTMLElement) => {
-  let i = 0;
-  while (i < arrCartItems.length) {
-    const cartItem = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItem],
-    })
-    container.append(cartItem);
-
-    const cartItemNumber = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemNumber],
-      elementText: `#${i + 1}`
-    })
-    cartItem.append(cartItemNumber);
-    const thumbImg = arrCartItems[i].variant.images;
-    const thumbUrlImg: string | undefined = thumbImg ? thumbImg[0].url : undefined;
-
-    if (thumbUrlImg) {
-      const cartItemImage = createHtmlElement({
-        tagName: 'img',
-        cssClass: [CSS_CLASSES.cartItemImage],
-        srcAtribute: thumbUrlImg
-      })
-      cartItem.append(cartItemImage);
-    }
-
-    const cartItemName = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemName],
-      elementText: arrCartItems[i].name["en-US"]
-
-    })
-    cartItem.append(cartItemName);
-
-    const cartItemQuantity = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemQuantity],
-      elementText: `${arrCartItems[i].quantity}`
-    })
-    cartItem.append(cartItemQuantity);
-
-    const priceItem = arrCartItems[i].totalPrice.centAmount / 100;
-    const formatedPrice = priceItem.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    })
-    const cartItemPrice = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemPrice],
-      elementText: formatedPrice
-    })
-    cartItem.append(cartItemPrice);
-
-    const cartItemDeleteBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.cartItemDeleteBtn],
-      elementText: 'Delete'
-    })
-    cartItem.append(cartItemDeleteBtn);
-    i += 1
-  }
-}
+import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
+import { cartIsEmpty } from "./cartisemptymsg";
+import { createCartItems } from "./createcartitems";
 
 
-export const createCartPage = () => {
+export function createCartPage(container: HTMLElement) {
   const doesTheShoppingCartExist: string | undefined | null = localStorage.getItem('curent_cart_id');
-  const cardContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.cartContainer]
-  })
+  container.innerHTML = '';
   if (doesTheShoppingCartExist) {
     const request = getCartById(doesTheShoppingCartExist);
     request
       .then((data) => {
         const cartItems = data.body.lineItems;
-        createCartItems(cartItems, cardContainer)
+        const cartVersion = data.body.version.toString()
+        localStorage.setItem('cart_version', cartVersion)
+        createCartItems(cartItems, container)
+        const totaPriceValue = data.body.totalPrice.centAmount / 100;
+        const formatedPrice = totaPriceValue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })
+        const totalPrice = createHtmlElement({
+          tagName: 'div',
+          cssClass: [CSS_CLASSES.totalPrice],
+          elementText: formatedPrice 
+        })
+        container.append(totalPrice)
+        console.log(data);
+        const totalLineItemQuantityIs: number | undefined = data.body.totalLineItemQuantity;
+        if (totalLineItemQuantityIs === undefined) {
+          cartIsEmpty(container);
+          totalPrice.remove()
+        }
+      })
+      .catch((error) => {
+        if (error.statusCode === 404) {
+          cartIsEmpty(container)
+          localStorage.removeItem('curent_cart_id')
+          localStorage.removeItem('cart_version')
+          const resolveMessage: string = 'We did not manage to save your basket, fill it again'
+          resolveMessageAddAndRemove(resolveMessage, false)
+        } else {
+          console.error('Произошла другая ошибка:', error.message);
+        }
       });
   } else {
-    const cardAlertContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cardAlertContainer],
-    })
-    cardContainer.append(cardAlertContainer);
-    const cardAlertImg = createHtmlElement({
-      tagName: 'img',
-      cssClass: [CSS_CLASSES.cartAlertImg],
-      srcAtribute: './images/ferrari-daytona.png'
-    })
-    cardAlertContainer.append(cardAlertImg);
-    const cardAlert = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartalert],
-      elementText: 'Your cart is empty :('
-    })
-    cardAlertContainer.append(cardAlert);
+    cartIsEmpty(container)
+    localStorage.removeItem('curent_cart_id')
+    localStorage.removeItem('cart_version')
   }
-  return cardContainer
+  return container
 }
+
