@@ -100,7 +100,9 @@ export const CSS_CLASSES: Record<string, string> = {
   cartItemName: 'cart-item-name',
   cartItemQuantity: 'cart-item-quantity',
   cartItemPrice: 'cart-item-price',
+  cartItemBtnsContainer: 'cart-item-btns-cont',
   cartItemDeleteBtn: 'cart-item-delete-btn',
+  cartItemRecalculateBtn: 'cart-item-recalculate-btn',
   backBtnContainer: 'back-btn-container',
   backBtn: 'back-btn',
   aboutWrapper: 'about__wrapper',
@@ -113,5 +115,10 @@ export const CSS_CLASSES: Record<string, string> = {
   personBio: 'person__bio',
   personGit: 'person__git',
   aboutText: 'about__text',
-  aboutLogo: 'about__logo'
+  aboutLogo: 'about__logo',
+  totalPrice: 'total-price',
+  discountCodeContainer:'discount-code-container',
+  inputDiscountCode: 'input-discount-code',
+  submitDiscountCode: 'submit-discount-code',
+  discountCode: 'discount-code',
 }

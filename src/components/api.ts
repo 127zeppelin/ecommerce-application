@@ -13,6 +13,7 @@ import {
 import { PROJECT_KEY } from '../constants/api-constants'
 import { ApiRoot } from '@commercetools/platform-sdk'
 import { isTheUserLoggedIn } from '../pages/login/istheuserlogged'
+import { decodePassword } from '../utils/encodepass'
 
 const fetch = require('node-fetch')
 const {
@@ -61,6 +62,8 @@ export const userAuthOptions: UserAuthOptions = {
   username: '',
   password: '',
 }
+
+decodePassword()
 
 export const passwordAuthMiddlewareOptions: PasswordAuthMiddlewareOptions =
 {

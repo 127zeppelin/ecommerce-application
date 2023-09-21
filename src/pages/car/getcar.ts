@@ -7,6 +7,7 @@ import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getproducts"
 import { addInCart } from "./addincart"
 import { installOfTheCurrentPrice } from "../../utils/price"
+import { chageQuantity } from "../../utils/carchangequantiti"
 
 
 export const getCar = (carKey: string) => {
@@ -103,7 +104,6 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.quantityBtn],
     elementText: '-'
   })
-  // rentCarBtn.addEventListener('click', () => {addInCart(carId, 1)})
   rentCarBtnContainer.append(smallerBtn)
 
   const quantityInput: HTMLInputElement = createHtmlElement({
@@ -118,19 +118,7 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.quantityBtn],
     elementText: '+'
   })
-  function chageQuantity(btnSmaller: HTMLElement, input: HTMLInputElement, btnMore: HTMLElement) {
 
-    btnSmaller.addEventListener('click', () => {
-      let currentValue: number = parseInt(input.value, 10);
-      if (currentValue > 1) { currentValue -= 1 };
-      input.value = currentValue.toString()
-    })
-    btnMore.addEventListener('click', () => {
-      let currentValue: number = parseInt(input.value, 10);
-      if (currentValue < 365) { currentValue += 1 }
-      input.value = currentValue.toString()
-    })
-  }
   rentCarBtnContainer.append(moreBtn)
 
   chageQuantity(smallerBtn, quantityInput, moreBtn)
