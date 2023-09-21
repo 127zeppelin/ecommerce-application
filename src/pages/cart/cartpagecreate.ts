@@ -1,6 +1,6 @@
 import { CSS_CLASSES } from "../../constants/cssclases";
 import { createHtmlElement } from "../../utils/createelement";
-import { getCartById } from "./cartactions";
+import { addDiscountCode, getCartById } from "./cartactions";
 import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
 import { cartIsEmpty } from "./cartisemptymsg";
 import { createCartItems } from "./createcartitems";
@@ -25,14 +25,45 @@ export function createCartPage(container: HTMLElement) {
         const totalPrice = createHtmlElement({
           tagName: 'div',
           cssClass: [CSS_CLASSES.totalPrice],
-          elementText: formatedPrice 
+          elementText: formatedPrice
         })
         container.append(totalPrice)
-        console.log(data);
+        const discountCodeContainer = createHtmlElement({
+          tagName: 'div',
+          cssClass: [CSS_CLASSES.discountCodeContainer],
+        })
+        container.append(discountCodeContainer)
+        const inputDiscountCode: HTMLInputElement = createHtmlElement({
+          tagName: 'input',
+          cssClass: [CSS_CLASSES.inputDiscountCode],
+          typeElement: 'text',
+        }) as HTMLInputElement
+        discountCodeContainer.append(inputDiscountCode)
+        const submitDiscount = createHtmlElement({
+          tagName: 'button',
+          cssClass: [CSS_CLASSES.submitDiscountCode],
+          elementText: 'Add the code'
+        })
+        discountCodeContainer.append(submitDiscount)
+        submitDiscount.addEventListener('click', async () => {
+          const discountCodeValue: string = inputDiscountCode.value
+          const shoppingCartVersionNumber = parseInt(cartVersion)
+          try {
+            await addDiscountCode(doesTheShoppingCartExist, shoppingCartVersionNumber, discountCodeValue);
+            container.innerHTML = '';
+            createCartPage(container);
+            const resolveMessage: string = `The discount is applied to the basket`
+            resolveMessageAddAndRemove(resolveMessage, true)
+          } catch (error) {
+            const resolveMessage: string = `${error}`
+            resolveMessageAddAndRemove(resolveMessage, false)
+          }
+        })
         const totalLineItemQuantityIs: number | undefined = data.body.totalLineItemQuantity;
         if (totalLineItemQuantityIs === undefined) {
           cartIsEmpty(container);
-          totalPrice.remove()
+          totalPrice.remove();
+          discountCodeContainer.remove();
         }
       })
       .catch((error) => {
@@ -43,7 +74,8 @@ export function createCartPage(container: HTMLElement) {
           const resolveMessage: string = 'We did not manage to save your basket, fill it again'
           resolveMessageAddAndRemove(resolveMessage, false)
         } else {
-          console.error('Произошла другая ошибка:', error.message);
+          const resolveMessage: string = error.message
+          resolveMessageAddAndRemove(resolveMessage, false)
         }
       });
   } else {

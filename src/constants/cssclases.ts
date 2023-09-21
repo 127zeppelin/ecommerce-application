@@ -116,5 +116,9 @@ export const CSS_CLASSES: Record<string, string> = {
   personGit: 'person__git',
   aboutText: 'about__text',
   aboutLogo: 'about__logo',
-  totalPrice: 'total-price'
+  totalPrice: 'total-price',
+  discountCodeContainer:'discount-code-container',
+  inputDiscountCode: 'input-discount-code',
+  submitDiscountCode: 'submit-discount-code',
+  discountCode: 'discount-code',
 }

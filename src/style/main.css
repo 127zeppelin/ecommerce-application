@@ -1,6 +1,5 @@
 .main-page-content {
   display: block;
-  height: 50vh;
   background: url(../images/background.png) no-repeat;
   width: 100%;
   background-size: contain;
@@ -18,4 +17,44 @@
   margin-top: 100px;
   line-height: 1.6;
   letter-spacing: 0.012em;
+}
+
+.main-page-content .discount-code-container {
+  background-color: #0e0f21;
+  width: 100%;
+  position: relative;
+  padding: 10%;
+  margin-top: 100px;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+
+.main-page-content .discount-code-container::before {
+  content: "Your discount code for the first order?  ";
+  margin-right: 10px;
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.main-page-content .discount-code {
+  background: white;
+  padding: 10px;
+  max-height: 40px;
+  border-radius: 7px;
+  margin-right: 20px;
+}
+
+.main-page-content .submit-discount-code {
+  margin-bottom: 0px;
+  background: #b46af063;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98px;
+  height: 40px;
+  border: 2px solid #b36af0;
+  text-decoration: none;
+  color: white;
 }

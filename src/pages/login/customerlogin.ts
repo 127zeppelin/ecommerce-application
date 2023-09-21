@@ -4,6 +4,7 @@ import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
+import { encodePasswordAndUsername } from '../../utils/encodepass'
 
 
 export const customerLogin = async (email: string, password: string):
@@ -22,6 +23,10 @@ Promise<ClientResponse<CustomerSignInResult>> => {
   // initializeClient(userLogin);
   userAuthOptions.username = email;
   userAuthOptions.password = password;
+  encodePasswordAndUsername(email, password)
+ 
+  localStorage.setItem('username', email);
+  localStorage.setItem('password', password)
   initializeClient(true);
   return apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })

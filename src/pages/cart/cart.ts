@@ -31,6 +31,7 @@ class CartPage extends Page {
     titleContainer.append(title)
     containerMain.append(cartContainer)
     createCartPage(cartContainer)
+
     return this.container
   }
 }

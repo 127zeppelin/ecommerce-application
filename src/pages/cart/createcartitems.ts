@@ -95,6 +95,7 @@ export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement
       elementText: 'Recalculate'
     })
     cartItemBtnsContainer.append(cartItemRecalculateBtn);
+    cartItemRecalculateBtn.setAttribute('disabled', 'disabled');
 
     chageQuantityItemInCart(smallerBtn, quantityInput, moreBtn, cartItemRecalculateBtn, quantityStart);
 

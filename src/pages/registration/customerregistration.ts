@@ -8,6 +8,7 @@ import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
+import { encodePasswordAndUsername } from '../../utils/encodepass'
 
 export const customerRegistr = async (
   email: string,
@@ -27,6 +28,7 @@ export const customerRegistr = async (
 ): Promise<ClientResponse<CustomerSignInResult>> => {
   userAuthOptions.username = email;
   userAuthOptions.password = password;
+  encodePasswordAndUsername(email, password)
   initializeClient(false);
   const request = oneAdress
     ? apiRoot

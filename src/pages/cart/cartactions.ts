@@ -70,3 +70,22 @@ export const getCartById = (cartId: string) => {
     .get()
     .execute()
 }
+
+
+export const addDiscountCode = (idCart: string, versionCart: number, code: string) => {
+  return apiRoot
+    .withProjectKey({ projectKey: PROJECT_KEY })
+    .me()
+    .carts()
+    .withId({ ID: idCart })
+    .post({
+      body: {
+        version: versionCart,
+        actions: [{
+          action: "addDiscountCode",
+          code
+        }]
+      }
+    })
+    .execute()
+}

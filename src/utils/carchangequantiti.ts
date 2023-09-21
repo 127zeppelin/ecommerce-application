@@ -27,17 +27,21 @@ export const chageQuantityItemInCart =
       input.value = currentValue.toString()
       if (startValue !== currentValue) {
         recalculateBtn.classList.add('active')
+        recalculateBtn.removeAttribute('disabled');
       } else {
-        recalculateBtn.classList.remove('active')
+        recalculateBtn.classList.remove('active');
+        recalculateBtn.setAttribute('disabled', 'disabled');
       }
     })
     btnMore.addEventListener('click', () => {
       if (currentValue < 365) { currentValue += 1 }
       input.value = currentValue.toString()
       if (startValue !== currentValue) {
-        recalculateBtn.classList.add('active')
+        recalculateBtn.classList.add('active');
+        recalculateBtn.removeAttribute('disabled');
       } else {
         recalculateBtn.classList.remove('active')
+        recalculateBtn.setAttribute('disabled', 'disabled');
       }
     })
   }
