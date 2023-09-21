@@ -62,8 +62,23 @@
 }
 
 .cart-item-price {
-  flex-basis: 10%;
-  font-size: 18px;
+  background: #b36af0;
+  padding: 10px;
+  padding-left: 30px;
+  border-radius: 5px;
+}
+
+.cart-item-price::before {
+  content: '';
+  width: 28px;
+  height: 28px;
+  margin-left: -42px;
+  margin-top: -5px;
+  display: block;
+  background: #b36af0;
+  border-radius: 5px;
+  position: absolute;
+  transform: rotate(45deg);
 }
 
 .cart-item-delete-btn,
@@ -82,9 +97,11 @@
   cursor: pointer;
   transition: all 0.5s;
 }
-.cart-item-recalculate-btn:disabled{
+
+.cart-item-recalculate-btn:disabled {
   cursor: not-allowed;
 }
+
 .cart-item-delete-btn:hover {
   background-color: #b36af0;
   border: 4px solid #5a3e7f;
@@ -144,11 +161,96 @@
   cursor: pointer;
   transition: all 0.5s;
 }
-.submit-discount-code:hover{
+
+.submit-discount-code:hover {
   background-color: #b36af0;
   border: 4px solid #5a3e7f;
   transition: all 0.5s;
 }
 
+@media(max-width:600px) {
+  .cart-alert-container {
+    flex-direction: column;
+  }
 
+  .cart-item {
+    flex-wrap: wrap;
+    align-items: stretch;
+    align-content: center;
+  }
 
+  .cart-item * {
+    align-self: center;
+  }
+
+  .cart-item-btns-cont {
+    display: flex;
+  }
+
+  .cart-item-name {
+    flex-basis: 60%;
+    font-size: 18px;
+  }
+
+  .cart-item * {
+    margin-bottom: 15px;
+  }
+
+  .cart-item-btns-cont {
+    margin-top: 10px;
+  }
+
+  .cart-item-quantity {
+    font-size: 17px;
+  }
+
+  .cart-item-quantity::before {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 35px;
+  }
+
+  .cart-item-recalculate-btn {
+    margin: 0 5px;
+  }
+
+  .cart-item-image {
+    border-radius: 7px;
+  }
+
+  .cart-item-price {
+    background: #b36af0;
+    padding: 10px;
+    padding-left: 20px;
+    border-radius: 5px;
+  }
+
+  .cart-item-price::before {
+    content: '';
+    margin-left: -33px;
+    width: 29px;
+    height: 29px;
+    margin-top: -6px;
+    display: block;
+    background: #b36af0;
+    border-radius: 5px;
+    position: absolute;
+    transform: rotate(45deg);
+  }
+
+  .cart-item-delete-btn {
+    margin: 0 5px;
+  }
+
+  .cart-item-price::before {}
+
+  .discount-code-container {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .discount-code-container::before {
+    position: absolute;
+    margin-top: -78px;
+  }
+}
