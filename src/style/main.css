@@ -58,3 +58,25 @@
   text-decoration: none;
   color: white;
 }
+
+@media (max-width: 600px) {
+  .main-page-content {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .main-page-content .discount-code-container {
+    flex-direction: column;
+  }
+
+  .main-page-content .discount-code-container * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .main-page-content .discount-code-container::before {
+    text-align: center;
+    position: relative;
+    margin-top: 0px;
+  }
+}

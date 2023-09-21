@@ -121,4 +121,6 @@ export const CSS_CLASSES: Record<string, string> = {
   inputDiscountCode: 'input-discount-code',
   submitDiscountCode: 'submit-discount-code',
   discountCode: 'discount-code',
+  burgerBtn: 'burger-btn',
+  burgerLine: 'burger-line'
 }

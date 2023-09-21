@@ -41,6 +41,10 @@ body {
   margin-bottom: 55px;
 }
 
+.burger-btn {
+  display: none;
+}
+
 .footer {
   margin-top: 4%;
   border-top: 1px solid #7D7E93;
@@ -210,14 +214,17 @@ p {
   color: #fafafa;
   cursor: pointer;
 }
-.menu__btn #btn-cart{
+
+.menu__btn #btn-cart {
   background: transparent;
   border: none;
   max-height: 50px;
 }
-.menu__btn #btn-cart img{
+
+.menu__btn #btn-cart img {
   max-height: 100%;
 }
+
 .img_wrapper {
   display: flex;
   align-items: center;
@@ -300,19 +307,23 @@ p {
 
 @keyframes slideAndStop {
   0% {
-    right: -350px; 
+    right: -350px;
   }
+
   25% {
-    right: -20px; 
+    right: -20px;
   }
+
   50% {
     right: -20px;
   }
+
   75% {
     right: -20px;
   }
+
   100% {
-    right: -350px; 
+    right: -350px;
   }
 }
 
@@ -331,7 +342,7 @@ p {
   align-items: center;
   text-align: center;
   box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
-  animation: slideAndStop 4s; 
+  animation: slideAndStop 4s;
   animation-fill-mode: forwards;
 }
 
@@ -537,7 +548,7 @@ p {
   }
 
   .header {
-    height: 180px;
+    height: 70px;
   }
 
 }
@@ -645,3 +656,86 @@ p {
   }
 }
 
+
+
+@media screen and (max-width:600px) {
+  .menu_wrapper {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1000;
+    background: #000;
+    width: 40%;
+    right: -40%;
+    text-align: center;
+    height: 100%;
+    top: 0px;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: all 0.5s;
+  }
+
+  .menu_wrapper.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1000;
+    background: #14152e;
+    min-width: 40%;
+    right: 0px;
+    text-align: center;
+    height: 100%;
+    top: 0px;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: all 0.5s;
+    box-shadow: -100px 0px 300px rgba(0,0,0,0.9);
+  }
+
+  .burger-btn {
+    display: block;
+    width: 30px;
+    height: 30px;
+    z-index: 10000;
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .burger-line {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: white;
+    z-index: 10000;
+    position: absolute;
+    top: 12px
+  }
+
+  .burger-btn::before {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: white;
+    z-index: 10000;
+    position: absolute;
+    margin-top: 0px
+  }
+
+  .burger-btn::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: white;
+    z-index: 10000;
+    position: absolute;
+    margin-top: 24px
+  }
+  .main-container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
