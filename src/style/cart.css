@@ -242,8 +242,6 @@
     margin: 0 5px;
   }
 
-  .cart-item-price::before {}
-
   .discount-code-container {
     flex-wrap: nowrap;
     flex-direction: row;
