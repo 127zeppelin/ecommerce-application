@@ -179,7 +179,7 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
   const sortPlaceholder = createHtmlElement({
     tagName: 'option',
     cssClass: [CSS_CLASSES.sortItem],
-    valueElement: '',
+    valueElement: 'createdAt asc',
     elementText: 'Select option',
   })
 
