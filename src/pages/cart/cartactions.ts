@@ -1,5 +1,7 @@
 import { apiRoot } from "../../components/api"
 import { PROJECT_KEY } from "../../constants/api-constants"
+import { resolveMessageAddAndRemove } from "../../utils/resolvemsg"
+import { createCartPage } from "./cartpagecreate"
 
 
 
@@ -61,7 +63,7 @@ export const updateCartRemoveAuto = (idCart: string, versionCart: number, produc
 }
 
 
-export const getCartById = (cartId: string) => {
+export const getCartById = async (cartId: string) => {
   return apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .me()
@@ -88,4 +90,28 @@ export const addDiscountCode = (idCart: string, versionCart: number, code: strin
       }
     })
     .execute()
+}
+
+export const deleteCart = (idCart: string, versionCart: number) => {
+  return apiRoot
+    .withProjectKey({ projectKey: PROJECT_KEY })
+    .me()
+    .carts()
+    .withId({ ID: idCart })
+    .delete({
+      queryArgs: {
+        version: versionCart,
+      }
+    })
+    .execute()
+}
+
+
+export const CartDeletionAndPageRefresh = async (cartId: string, cartVersion: number, container: HTMLElement) => {
+  await deleteCart(cartId, cartVersion);
+  localStorage.removeItem('curent_cart_id')
+  localStorage.removeItem('cart_version')
+  const resolveMessage: string = 'Your cart is empty.'
+  resolveMessageAddAndRemove(resolveMessage, true)
+  createCartPage(container);
 }

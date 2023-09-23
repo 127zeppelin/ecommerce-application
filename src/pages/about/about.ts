@@ -4,7 +4,8 @@ import { createHtmlElement } from '../../utils/createelement'
 
 class AboutPage extends Page {
 
-  private createPerson(about: HTMLElement, img: string, name: string, role: string, bio: string, git: string) {
+  private createPerson(about: HTMLElement, img: string, name: string, profession:
+  string, bio: string, role: string, git: string) {
     const aboutPersonWrapper = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.aboutPersonWrapper]
@@ -15,6 +16,7 @@ class AboutPage extends Page {
       cssClass: [CSS_CLASSES.aboutPerson]
     })
     aboutPersonWrapper.append(aboutPerson);
+
     const personImg = createHtmlElement({
       tagName: 'img',
       cssClass: [CSS_CLASSES.personImg],
@@ -22,11 +24,28 @@ class AboutPage extends Page {
       altAtribute: 'Person',
     })
     aboutPerson.append(personImg);
+
     const personName = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.personName],
       elementText: name
     })
+    aboutPerson.append(personName);
+
+    const personProfession = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.personRole],
+      elementText: profession
+    })
+    aboutPerson.append(personProfession);
+
+    const personBio = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.personBio],
+      elementText: bio
+    })
+    aboutPerson.append(personBio);
+
     aboutPerson.append(personName);
     const personRole = createHtmlElement({
       tagName: 'div',
@@ -34,12 +53,7 @@ class AboutPage extends Page {
       elementText: role
     })
     aboutPerson.append(personRole);
-    const personBio = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.personBio],
-      elementText: bio
-    })
-    aboutPerson.append(personBio);
+
     const personGit = createHtmlElement({
       tagName: 'a',
       cssClass: [CSS_CLASSES.personGit],
@@ -55,29 +69,41 @@ class AboutPage extends Page {
       cssClass: [CSS_CLASSES.aboutWrapper]
     })
     this.container.append(aboutWrapper);
+
+    const title = this.createHeaderTitle('About Us')
+    title.className = CSS_CLASSES.pageTitle
+    aboutWrapper.append(title)
+
     const about = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.aboutPersons]
     })
     aboutWrapper.append(about);
-    this.createPerson(about, 'images/MG_3935.jpg', 'Сергей', 'ИП', 'Программист', 'https://github.com/127zeppelin');
-    this.createPerson(about, 'images/photo_2023.jpg', 'Анастасия Гладкая', 'Инженер по автоматизации', 'Программист',
+    this.createPerson(about, 'images/MG_3935.jpg', 'Siarhey Shcharbitski',
+      'Workplace: Sole proprietor', 'Profession: Programmer', 'Team role: Power behind the throne',
+      'https://github.com/127zeppelin');
+    this.createPerson(about, 'images/photo_2023.jpg', 'Anastasia Gladkaya',
+      'Workplace: Automation Engineer.', 'Profession: Programmer', 'Team Role: Acting Team Lead',
       'https://github.com/Gladkaay');
 
     const aboutText = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.aboutText],
-      elementText: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Fusce sagittis viverra mattis. Etiam id urna at ipsum dictum rhoncus. 
-                    Donec a lacinia nunc, at ullamcorper diam. Donec dictum nunc 
-                    id pellentesque dignissim. Nam sapien lacus, maximus vitae 
-                    elementum vitae, consectetur eu ante. Cras eget tempus eros. 
-                    Nam cursus eleifend tellus, at gravida augue auctor vitae. 
-                    Aenean ornare mi hendrerit elit viverra, eget rutrum nisi vulputate. 
-                    Sed auctor aliquam luctus. Morbi dui magna, pellentesque sed tristique ac, 
-                    aliquam et lectus. Nam dapibus non dui non hendrerit. 
-                    Sed euismod mauris et pretium blandit. Mauris suscipit hendrerit nibh vitae viverra. 
-                    Nunc sit amet quam vel ligula molestie semper. Curabitur sollicitudin non sem rutrum lacinia.`
+      elementHtml: `<p>Our team started working on the task without any major issues. 
+      Timur (Team Lead) set up the repository. Sergey configured the API for commercial 
+      tools and created a repository. We chose the theme of luxury car rentals. 
+      The purpose of the application is for the user to view the available cars on the catalog page, 
+      filter them by categories and color, sort them by name and price, and access additional 
+      information about a car by entering the product page.</p>
+
+      <p>Unfortunately, in the second sprint, after Anastasia created the basic structure of our project, 
+      Timur decided to leave the team. He mentioned that the project was complex, 
+      and he lacked the knowledge and time to delve into it. Subsequent work was carried 
+      out by Nastya and Sergey as a duo. We ran out of time to complete the second sprint 
+      and had to finish it during the third sprint. The third sprint extended into the fourth, 
+      which took time away from the fourth sprint and ultimately affected the assessment for 
+      each of the three sprints. As a result, some features remained unimplemented, such as 
+      a pop-up window when clicking on a photo and editing user information on the user page or writing tests.</p>`
     })
     aboutWrapper.append(aboutText);
 

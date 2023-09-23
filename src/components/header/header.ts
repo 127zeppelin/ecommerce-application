@@ -5,6 +5,7 @@ import {
   isTheUserLoggedIn,
 } from '../../pages/login/istheuserlogged'
 import { createHtmlElement } from '../../utils/createelement'
+import { carInCartCounter } from './carscounterincart'
 
 class Header extends Component {
   private createPageButtons(href: string, text: string, html: string | undefined) {
@@ -20,7 +21,7 @@ class Header extends Component {
     return pageButton
   }
   // eslint-disable-next-line
-  renderPageButtons(hash: string) {
+  async renderPageButtons(hash: string) {
     const currentHeader = document.querySelector('.header .container')
     if (currentHeader) {
       currentHeader.remove()
@@ -59,8 +60,10 @@ class Header extends Component {
       logautButton.addEventListener('click', logoutAndRedirect)
       pageButtons.append(logautButton)
     }
-    const CardButton = this.createPageButtons('#cart', '', './images/cart-full.svg')
-    pageButtons.append(CardButton)
+    const CartButton = this.createPageButtons('#cart', '', './images/cart-full.svg')
+    pageButtons.append(CartButton)
+
+    carInCartCounter();
 
     const burgerBtn = createHtmlElement({
       tagName: 'div',

@@ -128,8 +128,9 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.rentCarBtn],
     elementText: 'Rent a Car'
   })
-  rentCarBtn.addEventListener('click', () => { 
-    addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US']) })
+  rentCarBtn.addEventListener('click', async () => {
+    await addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US'])
+  })
 
   rentCarBtnContainer.append(rentCarBtn)
 
