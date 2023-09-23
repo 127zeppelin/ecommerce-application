@@ -46,6 +46,15 @@
   background: #b36af0;
 }
 
+.cards-container .cart-alert-container {
+  margin-top: 50px;
+  background: #0e0f21;
+  border-radius: 10px;
+  }
+.cards-container .cart-alert-img{
+ max-width: 50%;
+}
+
 @media(max-width: 576px) {
   .options-container {
     display: flex;

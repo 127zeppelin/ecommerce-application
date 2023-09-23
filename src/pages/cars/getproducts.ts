@@ -9,6 +9,7 @@ import {
 } from '@commercetools/platform-sdk/dist/declarations/src'
 import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
+import { pageIsEmpty } from '../../utils/cartisemptymsg'
 
 export const carCharacterBlock = (
   carData: ProductProjection,
@@ -120,6 +121,11 @@ export const createCarsList = (
     childElementsCarCard.push(moreInfoLink)
     oneCarCardContainer.append(...childElementsCarCard)
     carCharacterBlock(carData, сarСharacteristicsCont)
+  }
+  if(carsArr.length === 0){
+    const pageIsEmptyMsq: string = `No cars match your<br/>filtering settings :(`
+                                     
+    pageIsEmpty(carsCardContainer, pageIsEmptyMsq)
   }
   return carsCardContainer
 }

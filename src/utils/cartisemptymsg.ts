@@ -1,7 +1,7 @@
-import { CSS_CLASSES } from "../../constants/cssclases";
-import { createHtmlElement } from "../../utils/createelement";
+import { CSS_CLASSES } from "../constants/cssclases";
+import { createHtmlElement } from "./createelement";
 
-export function cartIsEmpty(cartcontainer: HTMLElement) {
+export function pageIsEmpty(cartcontainer: HTMLElement, msg: string) {
   const cardAlertContainer = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.cardAlertContainer],
@@ -16,9 +16,7 @@ export function cartIsEmpty(cartcontainer: HTMLElement) {
   const cardAlert = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.cartalert],
-    elementHtml: `Your cart is empty :( <br/>
-      Please choose car <br/>
-       from the <a href="#cars">catalog</a>.`
+    elementHtml: msg
   })
   cardAlertContainer.append(cardAlert);
 }

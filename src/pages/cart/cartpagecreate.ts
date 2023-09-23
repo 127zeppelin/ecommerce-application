@@ -2,12 +2,13 @@ import { CSS_CLASSES } from "../../constants/cssclases";
 import { createHtmlElement } from "../../utils/createelement";
 import { CartDeletionAndPageRefresh, addDiscountCode, deleteCart, getCartById } from "./cartactions";
 import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
-import { cartIsEmpty } from "./cartisemptymsg";
+import { pageIsEmpty } from "../../utils/cartisemptymsg";
 import { createCartItems } from "./createcartitems";
 
 
 export function createCartPage(container: HTMLElement) {
   const doesTheShoppingCartExist: string | undefined | null = localStorage.getItem('curent_cart_id');
+  const pageIsEmptyMsq: string = `Your cart is empty :( <br/>Please choose car <br/>from the <a href="#cars">catalog</a>.`
   container.innerHTML = '';
   if (doesTheShoppingCartExist) {
     const request = getCartById(doesTheShoppingCartExist);
@@ -61,7 +62,7 @@ export function createCartPage(container: HTMLElement) {
         })
         const totalLineItemQuantityIs: number | undefined = data.body.totalLineItemQuantity;
         if (totalLineItemQuantityIs === undefined) {
-          cartIsEmpty(container);
+          pageIsEmpty(container, pageIsEmptyMsq);
           totalPrice.remove();
           discountCodeContainer.remove();
         }
@@ -86,7 +87,7 @@ export function createCartPage(container: HTMLElement) {
       })
       .catch((error) => {
         if (error.statusCode === 404) {
-          cartIsEmpty(container)
+          pageIsEmpty(container, pageIsEmptyMsq)
           localStorage.removeItem('curent_cart_id')
           localStorage.removeItem('cart_version')
           const resolveMessage: string = 'We did not manage to save your basket, fill it again'
@@ -97,7 +98,7 @@ export function createCartPage(container: HTMLElement) {
         }
       });
   } else {
-    cartIsEmpty(container)
+    pageIsEmpty(container, pageIsEmptyMsq)
     localStorage.removeItem('curent_cart_id')
     localStorage.removeItem('cart_version')
   }
