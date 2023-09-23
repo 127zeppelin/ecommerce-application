@@ -4,7 +4,8 @@ import { createHtmlElement } from '../../utils/createelement'
 
 class AboutPage extends Page {
 
-  private createPerson(about: HTMLElement, img: string, name: string, profession: string, bio: string, role: string, git: string) {
+  private createPerson(about: HTMLElement, img: string, name: string, profession:
+  string, bio: string, role: string, git: string) {
     const aboutPersonWrapper = createHtmlElement({
       tagName: 'div',
       cssClass: [CSS_CLASSES.aboutPersonWrapper]
@@ -52,7 +53,7 @@ class AboutPage extends Page {
       elementText: role
     })
     aboutPerson.append(personRole);
-    
+
     const personGit = createHtmlElement({
       tagName: 'a',
       cssClass: [CSS_CLASSES.personGit],
@@ -78,8 +79,11 @@ class AboutPage extends Page {
       cssClass: [CSS_CLASSES.aboutPersons]
     })
     aboutWrapper.append(about);
-    this.createPerson(about, 'images/MG_3935.jpg', 'Siarhey Shcharbitski', 'Workplace: Sole proprietor', 'Profession: Programmer','Team role: Power behind the throne' ,'https://github.com/127zeppelin');
-    this.createPerson(about, 'images/photo_2023.jpg', 'Anastasia Gladkaya', 'Workplace: Automation Engineer.', 'Profession: Programmer', 'Team Role: Acting Team Lead',
+    this.createPerson(about, 'images/MG_3935.jpg', 'Siarhey Shcharbitski',
+      'Workplace: Sole proprietor', 'Profession: Programmer', 'Team role: Power behind the throne',
+      'https://github.com/127zeppelin');
+    this.createPerson(about, 'images/photo_2023.jpg', 'Anastasia Gladkaya',
+      'Workplace: Automation Engineer.', 'Profession: Programmer', 'Team Role: Acting Team Lead',
       'https://github.com/Gladkaay');
 
     const aboutText = createHtmlElement({

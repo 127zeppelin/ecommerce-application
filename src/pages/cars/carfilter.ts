@@ -6,11 +6,6 @@ import { createHtmlElement } from '../../utils/createelement'
 import { pageList } from '../pagelist'
 import { FilterValues } from '../../types/types'
 import { createCarsList } from './getproducts'
-import { ByProjectKeyProductProjectionsSearchRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/search/by-project-key-product-projections-search-request-builder'
-
-interface CustomMethodArgs extends ByProjectKeyProductProjectionsSearchRequestBuilder {
-  // Добавьте собственные свойства, если необходимо
-}
 
 let filterValues: FilterValues = {}
 let queryArgs = {}

@@ -483,6 +483,32 @@ p {
   background-color: #b36af0;
 }
 
+
+.cars-in-cart-counter {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  color: white;
+  background: #b36af0;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 50%;
+  border: 2px solid #212338;
+}
+
+
+.menu__btn #btn-cart {
+  position: relative;
+}
+
+
+div.menu__btn:nth-child(6) {
+  position: relative;
+}
+
+
 @media screen and (max-width: 800px) {
   .login {
     width: 500px;

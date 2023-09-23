@@ -5,6 +5,7 @@ import { createHtmlElement } from "../../utils/createelement";
 import { updateCartAddAuto, updateCartRemoveAuto } from "./cartactions";
 import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
 import { createCartPage } from "./cartpagecreate";
+import { carInCartCounter } from "../../components/header/carscounterincart";
 
 
 export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement) => {
@@ -155,6 +156,7 @@ export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement
           await updateCartRemoveAuto(curentCartId, cartVersionNumber, carLineId, carQuantity);
           const resolveMessage: string = `The car of the ${carName} is removed`
           resolveMessageAddAndRemove(resolveMessage, true)
+          setTimeout(()=>{carInCartCounter()}, 1000)
         } catch (error) {
           const resolveMessage: string = `Houston we have a problem ${error}`
           resolveMessageAddAndRemove(resolveMessage, false)

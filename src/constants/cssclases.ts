@@ -123,5 +123,6 @@ export const CSS_CLASSES: Record<string, string> = {
   discountCode: 'discount-code',
   burgerBtn: 'burger-btn',
   burgerLine: 'burger-line',
-  clearCartBtnContainer: 'clear-cart-btn-container'
+  clearCartBtnContainer: 'clear-cart-btn-container',
+  carsInCartCounter: 'cars-in-cart-counter'
 }

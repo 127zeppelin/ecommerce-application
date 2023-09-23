@@ -63,7 +63,7 @@ export const updateCartRemoveAuto = (idCart: string, versionCart: number, produc
 }
 
 
-export const getCartById = (cartId: string) => {
+export const getCartById = async (cartId: string) => {
   return apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .me()
@@ -107,11 +107,11 @@ export const deleteCart = (idCart: string, versionCart: number) => {
 }
 
 
-export const CartDeletionAndPageRefresh = async (cartId: string, cartVersion: number, container: HTMLElement)=>{
- await deleteCart(cartId, cartVersion);
- localStorage.removeItem('curent_cart_id')
- localStorage.removeItem('cart_version')
- const resolveMessage: string = 'Your cart is empty.'
- resolveMessageAddAndRemove (resolveMessage, true)
- createCartPage(container);
+export const CartDeletionAndPageRefresh = async (cartId: string, cartVersion: number, container: HTMLElement) => {
+  await deleteCart(cartId, cartVersion);
+  localStorage.removeItem('curent_cart_id')
+  localStorage.removeItem('cart_version')
+  const resolveMessage: string = 'Your cart is empty.'
+  resolveMessageAddAndRemove(resolveMessage, true)
+  createCartPage(container);
 }

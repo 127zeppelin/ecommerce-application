@@ -21,6 +21,10 @@
 }
 
 #Transparent {
+  border: 3px solid #5a3e7f;
+}
+
+#Transparent.active {
   border: 3px solid #b36af0;
 }
 

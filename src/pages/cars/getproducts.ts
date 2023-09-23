@@ -124,7 +124,6 @@ export const createCarsList = (
   }
   if(carsArr.length === 0){
     const pageIsEmptyMsq: string = `No cars match your<br/>filtering settings :(`
-                                     
     pageIsEmpty(carsCardContainer, pageIsEmptyMsq)
   }
   return carsCardContainer

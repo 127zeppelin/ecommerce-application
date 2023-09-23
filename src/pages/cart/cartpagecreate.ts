@@ -1,14 +1,16 @@
 import { CSS_CLASSES } from "../../constants/cssclases";
 import { createHtmlElement } from "../../utils/createelement";
-import { CartDeletionAndPageRefresh, addDiscountCode, deleteCart, getCartById } from "./cartactions";
+import { CartDeletionAndPageRefresh, addDiscountCode, getCartById } from "./cartactions";
 import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
 import { pageIsEmpty } from "../../utils/cartisemptymsg";
 import { createCartItems } from "./createcartitems";
+import { carInCartCounter } from "../../components/header/carscounterincart";
 
 
 export function createCartPage(container: HTMLElement) {
   const doesTheShoppingCartExist: string | undefined | null = localStorage.getItem('curent_cart_id');
-  const pageIsEmptyMsq: string = `Your cart is empty :( <br/>Please choose car <br/>from the <a href="#cars">catalog</a>.`
+  const pageIsEmptyMsq: string = `Your cart is empty :( <br/>Please choose car 
+                                     <br/>from the <a href="#cars">catalog</a>.`
   container.innerHTML = '';
   if (doesTheShoppingCartExist) {
     const request = getCartById(doesTheShoppingCartExist);
@@ -78,12 +80,13 @@ export function createCartPage(container: HTMLElement) {
           elementText: 'Clear cart'
         })
         clearCartBtnContainer.append(cleatCartBtn)
-        cleatCartBtn.addEventListener('click', 
-                  async ()=>{
-                    const cartId = data.body.id
-                    const cartVersion = data.body.version
-                    CartDeletionAndPageRefresh(cartId, cartVersion, container)
-                  })
+        cleatCartBtn.addEventListener('click',
+          async () => {
+            const cartId = data.body.id
+            const getCartVersion = data.body.version
+            CartDeletionAndPageRefresh(cartId, getCartVersion, container)
+            setTimeout(() => { carInCartCounter() }, 1000)
+          })
       })
       .catch((error) => {
         if (error.statusCode === 404) {
