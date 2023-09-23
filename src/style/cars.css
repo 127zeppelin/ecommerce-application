@@ -21,6 +21,10 @@
 }
 
 #Transparent {
+  border: 3px solid #5a3e7f;
+}
+
+#Transparent.active {
   border: 3px solid #b36af0;
 }
 
@@ -44,6 +48,15 @@
 
 .category-btn.active {
   background: #b36af0;
+}
+
+.cards-container .cart-alert-container {
+  margin-top: 50px;
+  background: #0e0f21;
+  border-radius: 10px;
+  }
+.cards-container .cart-alert-img{
+ max-width: 50%;
 }
 
 @media(max-width: 576px) {

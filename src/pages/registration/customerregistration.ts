@@ -1,4 +1,4 @@
-import { apiRoot } from '../../components/api'
+import { initializeClient, userAuthOptions, apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/api-constants'
 import { RequestBody } from '../../types/types'
 import {
@@ -8,6 +8,7 @@ import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
+import { encodePasswordAndUsername } from '../../utils/encodepass'
 
 export const customerRegistr = async (
   email: string,
@@ -25,6 +26,10 @@ export const customerRegistr = async (
   countryBill: string,
   oneAdress: boolean
 ): Promise<ClientResponse<CustomerSignInResult>> => {
+  userAuthOptions.username = email;
+  userAuthOptions.password = password;
+  encodePasswordAndUsername(email, password)
+  initializeClient(false);
   const request = oneAdress
     ? apiRoot
       .withProjectKey({ projectKey: PROJECT_KEY })
@@ -45,6 +50,7 @@ export const customerRegistr = async (
               country: country,
             },
           ],
+
         },
       })
     : apiRoot
@@ -76,6 +82,13 @@ export const customerRegistr = async (
       })
 
   const response = await request.execute()
+  const cartId = response.body.cart?.id
+  const cartState = response.body.cart?.cartState;
+  if (cartId && cartState === 'Active') {
+    localStorage.setItem('curent_cart_id', cartId)
+  } else {
+    localStorage.removeItem('curent_cart_id')
+  };
   return response
 }
 
@@ -122,7 +135,7 @@ export const setAddressOptions = (
   if (checkDefaultBillingAddress) {
     requestBody.body.actions.push(setDefaultBillingAddress)
   }
-
+  initializeClient(true);
   return apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .customers()

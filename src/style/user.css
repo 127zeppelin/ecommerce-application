@@ -65,3 +65,14 @@
   width: auto;
   background-color: #b36af0;
 }
+@media (max-width: 600px) {
+  .container-user-profile{
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .user-addresses-container {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+  }
+}

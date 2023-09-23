@@ -1,0 +1,265 @@
+.cart-alert-container {
+  display: flex;
+  align-items: center;
+}
+
+.cart-alert-img {
+  flex-basis: 50%;
+  max-width: 50%;
+}
+
+.cart-alert {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.cart-alert a{
+  font-size: 36px;
+  font-weight: bold;
+  color: #b36af0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.cart-item-image {
+  max-width: 100px;
+  flex-basis: 10%;
+}
+
+.cart-item-number {
+  flex-basis: 5%;
+  text-align: center;
+  font-size: 18px;
+}
+
+.cart-container {
+  background: #0e0f21;
+  border-radius: 10px;
+}
+
+.cart-item-name {
+  flex-basis: 30%;
+  font-size: 18px;
+}
+
+.cart-item-quantity {
+  flex-basis: 10%;
+  font-size: 18px;
+  flex-basis: 30%;
+  display: flex;
+  align-items: center;
+}
+
+.cart-item-quantity:before {
+  content: 'Rental days '
+}
+
+.cart-item-quantity .quantity-btn {
+  height: 40px;
+}
+
+.cart-item-quantity .quantity-input {
+  height: 40px;
+}
+
+.cart-item-price {
+  background: #b36af0;
+  padding: 10px;
+  padding-left: 30px;
+  border-radius: 5px;
+}
+
+.cart-item-price::before {
+  content: '';
+  width: 28px;
+  height: 28px;
+  margin-left: -42px;
+  margin-top: -5px;
+  display: block;
+  background: #b36af0;
+  border-radius: 5px;
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+.cart-item-delete-btn,
+.cart-item-recalculate-btn {
+  background: transparent;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98px;
+  height: 40px;
+  border: 2px solid #5a3e7f;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.cart-item-recalculate-btn:disabled {
+  cursor: not-allowed;
+}
+
+.cart-item-delete-btn:hover {
+  background-color: #b36af0;
+  border: 4px solid #5a3e7f;
+  transition: all 0.5s;
+}
+
+.cart-item-recalculate-btn.active {
+  background-color: #b36af0;
+  border: 4px solid #5a3e7f;
+  transition: all 0.5s;
+}
+
+.total-price {
+  position: absolute;
+  margin-top: 80px;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.total-price::before {
+  content: "Total: ";
+  font-size: 30px;
+}
+
+.discount-code-container {
+  display: flex;
+  position: absolute;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.discount-code-container::before {
+  content: "Do you have a discount code?  ";
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.input-discount-code {
+  height: 40px;
+  border-radius: 7px;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.submit-discount-code {
+  background: transparent;
+  border-radius: 8px;
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border: 2px solid #5a3e7f;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.submit-discount-code:hover {
+  background-color: #b36af0;
+  border: 4px solid #5a3e7f;
+  transition: all 0.5s;
+}
+
+.clear-cart-btn-container {
+  position: absolute;
+  margin-top: 150px;
+}
+
+@media(max-width:600px) {
+  .cart-alert-container {
+    flex-direction: column;
+  }
+
+  .cart-item {
+    flex-wrap: wrap;
+    align-items: stretch;
+    align-content: center;
+  }
+
+  .cart-item * {
+    align-self: center;
+  }
+
+  .cart-item-btns-cont {
+    display: flex;
+  }
+
+  .cart-item-name {
+    flex-basis: 60%;
+    font-size: 18px;
+  }
+
+  .cart-item * {
+    margin-bottom: 15px;
+  }
+
+  .cart-item-btns-cont {
+    margin-top: 10px;
+  }
+
+  .cart-item-quantity {
+    font-size: 17px;
+  }
+
+  .cart-item-quantity::before {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 35px;
+  }
+
+  .cart-item-recalculate-btn {
+    margin: 0 5px;
+  }
+
+  .cart-item-image {
+    border-radius: 7px;
+  }
+
+  .cart-item-price {
+    background: #b36af0;
+    padding: 10px;
+    padding-left: 20px;
+    border-radius: 5px;
+  }
+
+  .cart-item-price::before {
+    content: '';
+    margin-left: -33px;
+    width: 29px;
+    height: 29px;
+    margin-top: -6px;
+    display: block;
+    background: #b36af0;
+    border-radius: 5px;
+    position: absolute;
+    transform: rotate(45deg);
+  }
+
+  .cart-item-delete-btn {
+    margin: 0 5px;
+  }
+
+  .discount-code-container {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .discount-code-container::before {
+    position: absolute;
+    margin-top: -78px;
+  }
+}

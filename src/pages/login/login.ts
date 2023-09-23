@@ -1,14 +1,15 @@
 import Page from '../../temlates/page'
 import { customerLogin } from './customerlogin'
-import { tokenStore, userAuthOptions } from '../../components/api'
+import { tokenStore } from '../../components/api'
 import {
   handleEmailInputChange,
   handlePasswordInputChange,
-} from '../../components/validationinput'
-import { showPasword } from '../../components/showpasword'
+} from '../../utils/validationinput'
+import { showHidePasword } from '../../utils/showhidepasword' 
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { createHtmlElement } from '../../utils/createelement'
 import { isTheUserLoggedIn } from './istheuserlogged'
+import { resolveMessageAddAndRemove } from '../../utils/resolvemsg'
 
 class LoginPage extends Page {
   TextObject = {
@@ -95,9 +96,6 @@ class LoginPage extends Page {
       const inputLoginvalue: string = inputLogin.value
       const inputPassvalue: string = inputPass.value
 
-      userAuthOptions.username = inputLoginvalue
-      userAuthOptions.password = inputPassvalue
-
       try {
         await customerLogin(inputLoginvalue, inputPassvalue)
         localStorage.setItem('access_token', tokenStore.token)
@@ -109,34 +107,13 @@ class LoginPage extends Page {
           'refresh_token',
           tokenStore.refreshToken ? tokenStore.refreshToken : ''
         )
-        const BODY: HTMLElement | null = document.querySelector('body')
-        const resolveMessage: HTMLElement = document.createElement('div')
-        resolveMessage.classList.add('resolve', 'successfully')
-        if (
-          resolveMessage instanceof HTMLElement &&
-          BODY instanceof HTMLElement
-        ) {
-          resolveMessage.innerText = 'Logged in successfully'
-          BODY.append(resolveMessage)
-          setTimeout(() => {
-            resolveMessage.remove()
-          }, 4000)
-          window.location.href = './#main'
-        }
+        const resolveMessage: string = `Logged in successfully`
+        resolveMessageAddAndRemove(resolveMessage, true)
+        window.location.href = './#main'
+
       } catch (error: any) {
-        const BODY: HTMLElement | null = document.querySelector('body')
-        const resolveMessage: HTMLElement = document.createElement('div')
-        resolveMessage.classList.add('resolve')
-        if (
-          resolveMessage instanceof HTMLElement &&
-          BODY instanceof HTMLElement
-        ) {
-          resolveMessage.innerText = error.message
-          BODY.append(resolveMessage)
-          setTimeout(() => {
-            resolveMessage.remove()
-          }, 4000)
-        }
+        const resolveMessage: string = `${error.message}`
+        resolveMessageAddAndRemove(resolveMessage, false)
       }
     })
   }
@@ -213,7 +190,7 @@ class LoginPage extends Page {
       'Password'
     )
     loginPassword.append(inputPassword)
-    showPasword(inputPassword)
+    showHidePasword(inputPassword)
 
     cont.append(loginWrapper)
 

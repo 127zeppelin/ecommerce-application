@@ -5,6 +5,9 @@ import { createHtmlElement } from "../../utils/createelement"
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getproducts"
+import { addInCart } from "./addincart"
+import { installOfTheCurrentPrice } from "../../utils/price"
+import { chageQuantity } from "../../utils/carchangequantiti"
 
 
 export const getCar = (carKey: string) => {
@@ -20,7 +23,7 @@ export const createCarPage = (
   carData: ProductProjection,
   carContainer: HTMLElement
 ): HTMLElement => {
-
+  const carId: string = carData.id;
   const productImages: Image[] | undefined = carData.masterVariant.images;
   const carDetailsWrapper = createHtmlElement({
     tagName: 'div',
@@ -69,7 +72,7 @@ export const createCarPage = (
   carDetailsWrapper.append(carDetailsContainer)
 
   const carTitle = createHtmlElement({
-    tagName: 'h1',
+    tagName: 'h2',
     cssClass: [CSS_CLASSES.carPageTitle],
     elementText: carData.name['en-US'],
   })
@@ -81,18 +84,56 @@ export const createCarPage = (
   carDetailsContainer.append(carCharactersContainer)
   carCharacterBlock(carData, carCharactersContainer)
 
+  const carPriceContainer = createHtmlElement({
+    tagName: 'div',
+    cssClass: [CSS_CLASSES.carPriceContainer]
+  })
+  carDetailsContainer.append(carPriceContainer)
+
+  const priceCar = installOfTheCurrentPrice(carData)
+  carPriceContainer.append(priceCar)
+
   const rentCarBtnContainer = createHtmlElement({
     tagName: 'div',
-    cssClass: [CSS_CLASSES.rentCarBtn]
+    cssClass: [CSS_CLASSES.rentCarBtnContainer]
   })
   carDetailsContainer.append(rentCarBtnContainer)
+
+  const smallerBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.quantityBtn],
+    elementText: '-'
+  })
+  rentCarBtnContainer.append(smallerBtn)
+
+  const quantityInput: HTMLInputElement = createHtmlElement({
+    tagName: 'input',
+    cssClass: [CSS_CLASSES.quantityInput],
+    valueElement: '1'
+  }) as HTMLInputElement
+  rentCarBtnContainer.append(quantityInput)
+
+  const moreBtn = createHtmlElement({
+    tagName: 'button',
+    cssClass: [CSS_CLASSES.quantityBtn],
+    elementText: '+'
+  })
+
+  rentCarBtnContainer.append(moreBtn)
+
+  chageQuantity(smallerBtn, quantityInput, moreBtn)
 
   const rentCarBtn = createHtmlElement({
     tagName: 'button',
     cssClass: [CSS_CLASSES.rentCarBtn],
     elementText: 'Rent a Car'
   })
+  rentCarBtn.addEventListener('click', async () => {
+    await addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US'])
+  })
+
   rentCarBtnContainer.append(rentCarBtn)
+
   if (carData.description) {
     const carDiscription = createHtmlElement({
       tagName: 'p',
