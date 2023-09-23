@@ -1,0 +1,78 @@
+.user-data-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.user-data-container span {
+  color: white;
+}
+
+.container-user-profile,
+.user-addresses-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.input-container {
+  display: flex;
+  padding: 15px 25px 15px 15px;
+  align-items: center;
+}
+
+.input-container .input-label {
+  min-width: 130px;
+  flex-basis: 15%;
+  text-align: right;
+  padding-right: 15px;
+}
+
+.user-data-edit-btn {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.user-data-edit-btn img {
+  max-width: 100%;
+}
+
+.input-area {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #c3c3c3;
+  padding: 15px;
+  margin-right: 15px;
+  min-height: 50px;
+}
+
+.one-addres-container {
+  border: 1px solid white;
+  border-radius: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-bottom: 20px;
+}
+
+.address-option {
+  font-size: 12px;
+  width: auto;
+  background-color: #b36af0;
+}
+@media (max-width: 600px) {
+  .container-user-profile{
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .user-addresses-container {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+  }
+}
