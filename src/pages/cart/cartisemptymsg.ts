@@ -16,7 +16,9 @@ export function cartIsEmpty(cartcontainer: HTMLElement) {
   const cardAlert = createHtmlElement({
     tagName: 'div',
     cssClass: [CSS_CLASSES.cartalert],
-    elementText: 'Your cart is empty :('
+    elementHtml: `Your cart is empty :( <br/>
+      Please choose car <br/>
+       from the <a href="#cars">catalog</a>.`
   })
   cardAlertContainer.append(cardAlert);
 }

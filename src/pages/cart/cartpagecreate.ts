@@ -1,6 +1,6 @@
 import { CSS_CLASSES } from "../../constants/cssclases";
 import { createHtmlElement } from "../../utils/createelement";
-import { addDiscountCode, getCartById } from "./cartactions";
+import { CartDeletionAndPageRefresh, addDiscountCode, deleteCart, getCartById } from "./cartactions";
 import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
 import { cartIsEmpty } from "./cartisemptymsg";
 import { createCartItems } from "./createcartitems";
@@ -65,6 +65,24 @@ export function createCartPage(container: HTMLElement) {
           totalPrice.remove();
           discountCodeContainer.remove();
         }
+        const clearCartBtnContainer = createHtmlElement({
+          tagName: 'div',
+          cssClass: [CSS_CLASSES.clearCartBtnContainer],
+        })
+        container.append(clearCartBtnContainer)
+
+        const cleatCartBtn = createHtmlElement({
+          tagName: 'button',
+          cssClass: [CSS_CLASSES.submitDiscountCode],
+          elementText: 'Clear cart'
+        })
+        clearCartBtnContainer.append(cleatCartBtn)
+        cleatCartBtn.addEventListener('click', 
+                  async ()=>{
+                    const cartId = data.body.id
+                    const cartVersion = data.body.version
+                    CartDeletionAndPageRefresh(cartId, cartVersion, container)
+                  })
       })
       .catch((error) => {
         if (error.statusCode === 404) {
