@@ -1,7 +1,7 @@
-import { CSS_CLASSES } from '../../constants/cssclases'
+import { CSS_CLASSES } from '../../constants/cssClases'
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createelement'
-import { resolveMessageAddAndRemove } from '../../utils/resolvemsg'
+import { createHtmlElement } from '../../utils/createElement'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class MainPage extends Page {
 

@@ -1,6 +1,6 @@
-import { CSS_CLASSES } from "../../constants/cssclases";
+import { CSS_CLASSES } from "../../constants/cssClases";
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
-import { createHtmlElement } from "../../utils/createelement";
+import { createHtmlElement } from "../../utils/createElement";
 
 const addImg = (carData: ProductProjection, productImages: Image[] | undefined, carSlider: HTMLElement, i: number) => {
   let carImg;

@@ -1,7 +1,7 @@
 import Page from '../../temlates/page'
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createHtmlElement } from '../../utils/createelement'
-import { getCar, createCarPage } from './getcar'
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createHtmlElement } from '../../utils/createElement'
+import { getCar, createCarPage } from './getCar'
 import { ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 
 class CarPage extends Page {

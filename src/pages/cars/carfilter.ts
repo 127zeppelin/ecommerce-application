@@ -1,11 +1,11 @@
 import { Category, ProductProjection } from '@commercetools/platform-sdk'
 import { apiRoot } from '../../components/api'
-import { PROJECT_KEY } from '../../constants/api-constants'
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createHtmlElement } from '../../utils/createelement'
+import { PROJECT_KEY } from '../../constants/apiConstants'
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createHtmlElement } from '../../utils/createElement'
 import { pageList } from '../pagelist'
 import { FilterValues } from '../../types/types'
-import { createCarsList } from './getproducts'
+import { createCarsList } from './getProducts'
 
 let filterValues: FilterValues = {}
 let queryArgs = {}

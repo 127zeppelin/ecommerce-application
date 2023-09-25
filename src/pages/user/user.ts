@@ -1,10 +1,10 @@
 import Page from '../../temlates/page'
-import { getUser } from './getuserinfo'
-import { createUserPage } from './createuseppage';
+import { getUser } from './getUserinfo'
+import { createUserPage } from './createUseppage';
 
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
-import { CSS_CLASSES } from '../../constants/cssclases';
-import { createHtmlElement } from '../../utils/createelement';
+import { CSS_CLASSES } from '../../constants/cssClases';
+import { createHtmlElement } from '../../utils/createElement';
 
 class CustomerPage extends Page {
   async createUserPageWithTheReceivedData(container: HTMLElement) {

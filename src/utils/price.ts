@@ -1,5 +1,5 @@
-import { CSS_CLASSES } from '../constants/cssclases'
-import { createHtmlElement } from './createelement'
+import { CSS_CLASSES } from '../constants/cssClases'
+import { createHtmlElement } from './createElement'
 import {
   Price,
   ProductProjection,

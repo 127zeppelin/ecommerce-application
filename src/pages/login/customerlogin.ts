@@ -1,5 +1,5 @@
 import { apiRoot, initializeClient, userAuthOptions } from '../../components/api'
-import { PROJECT_KEY } from '../../constants/api-constants'
+import { PROJECT_KEY } from '../../constants/apiConstants'
 import {
   ClientResponse,
   CustomerSignInResult,

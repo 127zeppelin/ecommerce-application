@@ -1,21 +1,21 @@
 import Page from '../../temlates/page'
-import { customerRegistr, setAddressOptions } from './customerregistration'
+import { customerRegistr, setAddressOptions } from './customerRegistration'
 import { tokenStore } from '../../components/api'
-import { addShowHidePaswordBtn } from '../../utils/showhidepasword' 
-import { CSS_CLASSES } from '../../constants/cssclases'
+import { addShowHidePaswordBtn } from '../../utils/showHidePasword' 
+import { CSS_CLASSES } from '../../constants/cssClases'
 import {
   checkResultValidation,
   handleEmailInputChange,
   handlePasswordInputChange,
   checkResultValidationRestration,
-} from '../../utils/validationinput'
-import { createHtmlElement } from '../../utils/createelement'
+} from '../../utils/validationInput'
+import { createHtmlElement } from '../../utils/createElement'
 import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
-import { isTheUserLoggedIn } from '../login/istheuserlogged'
-import { resolveMessageAddAndRemove } from '../../utils/resolvemsg'
+import { isTheUserLoggedIn } from '../login/isTheUserLogged'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class RegistrationPage extends Page {
   TextObject = {

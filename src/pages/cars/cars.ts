@@ -1,13 +1,13 @@
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createelement'
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createCarsList, getCarsWithoutFilter } from './getproducts'
+import { createHtmlElement } from '../../utils/createElement'
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createCarsList, getCarsWithoutFilter } from './getProducts'
 import { ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import {
   filerFromAtribute,
   filterCarsFromCategory,
   sortCars,
-} from './carfilter'
+} from './carFilter'
 
 class CarsPage extends Page {
   async loadCarsWithoutFilter(carsCardContainer: HTMLElement) {

@@ -1,15 +1,15 @@
 import Page from '../../temlates/page'
-import { customerLogin } from './customerlogin'
+import { customerLogin } from './customerLogin'
 import { tokenStore } from '../../components/api'
 import {
   handleEmailInputChange,
-  handlePasswordInputChange,
-} from '../../utils/validationinput'
-import { addShowHidePaswordBtn } from '../../utils/showhidepasword' 
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createHtmlElement } from '../../utils/createelement'
-import { isTheUserLoggedIn } from './istheuserlogged'
-import { resolveMessageAddAndRemove } from '../../utils/resolvemsg'
+  handlePasswordInputChange
+} from '../../utils/validationInput'
+import { addShowHidePaswordBtn } from '../../utils/showHidePasword' 
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createHtmlElement } from '../../utils/createElement'
+import { isTheUserLoggedIn } from './isTheUserLogged'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class LoginPage extends Page {
   TextObject = {

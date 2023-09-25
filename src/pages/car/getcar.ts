@@ -1,13 +1,13 @@
-import { PROJECT_KEY } from "../../constants/api-constants"
+import { PROJECT_KEY } from "../../constants/apiConstants"
 import { apiRoot } from "../../components/api"
-import { CSS_CLASSES } from "../../constants/cssclases"
-import { createHtmlElement } from "../../utils/createelement"
+import { CSS_CLASSES } from "../../constants/cssClases"
+import { createHtmlElement } from "../../utils/createElement"
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
-import { carCharacterBlock } from "../cars/getproducts"
-import { addInCart } from "./addincart"
+import { carCharacterBlock } from "../cars/getProducts"
+import { addInCart } from "./addInnCart"
 import { installOfTheCurrentPrice } from "../../utils/price"
-import { chageQuantity } from "../../utils/carchangequantiti"
+import { chageQuantity } from "../../utils/carChangeuQantiti"
 
 
 export const getCar = (carKey: string) => {

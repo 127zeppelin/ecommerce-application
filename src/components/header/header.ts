@@ -1,11 +1,11 @@
 import Component from '../../temlates/components'
-import { CSS_CLASSES } from '../../constants/cssclases'
+import { CSS_CLASSES } from '../../constants/cssClases'
 import {
   logoutAndRedirect,
   isTheUserLoggedIn,
-} from '../../pages/login/istheuserlogged'
-import { createHtmlElement } from '../../utils/createelement'
-import { carInCartCounter } from './carscounterincart'
+} from '../../pages/login/isTheUserLogged'
+import { createHtmlElement } from '../../utils/createElement'
+import { carInCartCounter } from './carsCounterInCart'
 
 class Header extends Component {
   private createPageButtons(href: string, text: string, html: string | undefined) {

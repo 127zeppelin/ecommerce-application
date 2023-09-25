@@ -1,11 +1,11 @@
 import { LineItem } from "@commercetools/platform-sdk";
-import { CSS_CLASSES } from "../../constants/cssclases";
-import { chageQuantityItemInCart } from "../../utils/carchangequantiti";
-import { createHtmlElement } from "../../utils/createelement";
-import { updateCartAddAuto, updateCartRemoveAuto } from "./cartactions";
-import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
-import { createCartPage } from "./cartpagecreate";
-import { carInCartCounter } from "../../components/header/carscounterincart";
+import { CSS_CLASSES } from "../../constants/cssClases";
+import { chageQuantityItemInCart } from "../../utils/carChangeuQantiti";
+import { createHtmlElement } from "../../utils/createElement";
+import { updateCartAddAuto, updateCartRemoveAuto } from "./cartActions";
+import { resolveMessageAddAndRemove } from "../../utils/resolveMsg";
+import { createCartPage } from "./cartPageCreate";
+import { carInCartCounter } from "../../components/header/carsCounterInCart";
 
 
 export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement) => {

@@ -1,10 +1,10 @@
-import { CSS_CLASSES } from "../../constants/cssclases";
-import { createHtmlElement } from "../../utils/createelement";
-import { CartDeletionAndPageRefresh, addDiscountCode, getCartById } from "./cartactions";
-import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
-import { pageIsEmpty } from "../../utils/cartisemptymsg";
-import { createCartItems } from "./createcartitems";
-import { carInCartCounter } from "../../components/header/carscounterincart";
+import { CSS_CLASSES } from "../../constants/cssClases";
+import { createHtmlElement } from "../../utils/createElement";
+import { CartDeletionAndPageRefresh, addDiscountCode, getCartById } from "./cartActions";
+import { resolveMessageAddAndRemove } from "../../utils/resolveMsg";
+import { pageIsEmpty } from "../../utils/cartIsEmptyMsg";
+import { createCartItems } from "./createCartItems";
+import { carInCartCounter } from "../../components/header/carsCounterInCart";
 
 
 export function createCartPage(container: HTMLElement) {

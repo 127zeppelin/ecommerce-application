@@ -1,4 +1,4 @@
-import { CSS_CLASSES } from '../constants/cssclases'
+import { CSS_CLASSES } from '../constants/cssClases'
 
 export const validationFunctions = {
   email: function (email: string) {

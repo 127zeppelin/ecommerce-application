@@ -1,6 +1,6 @@
-import { CSS_CLASSES } from '../../constants/cssclases'
+import { CSS_CLASSES } from '../../constants/cssClases'
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createelement'
+import { createHtmlElement } from '../../utils/createElement'
 
 class AboutPage extends Page {
 

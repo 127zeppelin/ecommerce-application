@@ -1,5 +1,5 @@
-import { CSS_CLASSES } from "../../constants/cssclases"
-import { createHtmlElement } from "../../utils/createelement"
+import { CSS_CLASSES } from "../../constants/cssClases"
+import { createHtmlElement } from "../../utils/createElement"
 import { Address, ClientResponse, Customer } from "@commercetools/platform-sdk"
 
 

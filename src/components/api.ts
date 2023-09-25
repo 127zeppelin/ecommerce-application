@@ -9,9 +9,9 @@ import {
   Client,
   TokenCacheOptions,
 } from '@commercetools/sdk-client-v2'
-import { PROJECT_KEY } from '../constants/api-constants'
+import { PROJECT_KEY } from '../constants/apiConstants'
 import { ApiRoot } from '@commercetools/platform-sdk'
-import { isTheUserLoggedIn } from '../pages/login/istheuserlogged'
+import { isTheUserLoggedIn } from '../pages/login/isTheUserLogged'
 import { decodePassword } from '../utils/encodepass'
 
 const fetch = require('node-fetch')

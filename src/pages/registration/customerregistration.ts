@@ -1,5 +1,5 @@
 import { initializeClient, userAuthOptions, apiRoot } from '../../components/api'
-import { PROJECT_KEY } from '../../constants/api-constants'
+import { PROJECT_KEY } from '../../constants/apiConstants'
 import { RequestBody } from '../../types/types'
 import {
   CustomerUpdateAction,

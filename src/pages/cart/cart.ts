@@ -1,7 +1,7 @@
-import { CSS_CLASSES } from '../../constants/cssclases'
+import { CSS_CLASSES } from '../../constants/cssClases'
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createelement'
-import { createCartPage } from './cartpagecreate'
+import { createHtmlElement } from '../../utils/createElement'
+import { createCartPage } from './cartPageCreate'
 
 class CartPage extends Page {
 

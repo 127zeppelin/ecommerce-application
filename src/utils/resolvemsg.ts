@@ -1,4 +1,4 @@
-import { CSS_CLASSES } from "../constants/cssclases";
+import { CSS_CLASSES } from "../constants/cssClases";
 
 export const resolveMessageAddAndRemove = (message: string, successfully: boolean): void => {
   const documentBody: HTMLElement | null = document.querySelector('body')

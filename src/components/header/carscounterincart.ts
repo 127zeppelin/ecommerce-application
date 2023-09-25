@@ -1,6 +1,6 @@
-import { CSS_CLASSES } from "../../constants/cssclases";
-import { getCartById } from "../../pages/cart/cartactions";
-import { createHtmlElement } from "../../utils/createelement";
+import { CSS_CLASSES } from "../../constants/cssClases";
+import { getCartById } from "../../pages/cart/cartActions";
+import { createHtmlElement } from "../../utils/createElement";
 
 export const carInCartCounter = async () => {
   const cartId = localStorage.getItem('curent_cart_id');

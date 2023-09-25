@@ -1,5 +1,5 @@
-import { createHtmlElement } from '../../utils/createelement'
-import { CSS_CLASSES } from '../../constants/cssclases'
+import { createHtmlElement } from '../../utils/createElement'
+import { CSS_CLASSES } from '../../constants/cssClases'
 import { pageList } from '../pagelist'
 import { installOfTheCurrentPrice } from '../../utils/price'
 import {
@@ -8,8 +8,8 @@ import {
   ProductProjection,
 } from '@commercetools/platform-sdk/dist/declarations/src'
 import { apiRoot } from '../../components/api'
-import { PROJECT_KEY } from '../../constants/api-constants'
-import { pageIsEmpty } from '../../utils/cartisemptymsg'
+import { PROJECT_KEY } from '../../constants/apiConstants'
+import { pageIsEmpty } from '../../utils/cartIsEmptyMsg'
 
 export const carCharacterBlock = (
   carData: ProductProjection,
