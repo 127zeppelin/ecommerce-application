@@ -37,28 +37,29 @@ class App {
     }
     let page: Page | null = null
 
-    if (idPage === pageList.MAIN_PAGE) {
-      page = new MainPage(idPage)
-    } else if (idPage === pageList.LOGIN_PAGE) {
-      page = new LoginPage(idPage)
-    } else if (idPage === pageList.REGISRATION_PAGE) {
-      page = new RegistrationPage(idPage)
-    } else if (idPage === pageList.CUSTOMER_PAGE) {
-      page = new CustomerPage(idPage)
-    } else if (idPage === pageList.CARS_PAGE) {
-      page = new CarsPage(idPage)
-      localStorage.removeItem('CUR_FILTER')
-    } else if (idPage === pageList.CUR_CAR) {
-      page = new CarPage(idPage)
-    } else if (idPage === pageList.CUR_CAT) {
-      page = new CarsPage(idPage)
-    } else if (idPage === pageList.CART_PAGE) {
-      page = new CartPage(idPage)
-    } else if (idPage === pageList.ERROR_PAGE) {
-      page = new ErrorPage(idPage)
-    } else if (idPage === pageList.ABOUT_PAGE) {
-      page = new AboutPage(idPage)
-    }
+    const pageMap = {
+      [pageList.MAIN_PAGE]: MainPage,
+      [pageList.LOGIN_PAGE]: LoginPage,
+      [pageList.REGISRATION_PAGE]: RegistrationPage,
+      [pageList.CUSTOMER_PAGE]: CustomerPage,
+      [pageList.CARS_PAGE]: CarsPage,
+      [pageList.CUR_CAR]: CarPage,
+      [pageList.CUR_CAT]: CarsPage,
+      [pageList.CART_PAGE]: CartPage,
+      [pageList.ERROR_PAGE]: ErrorPage,
+      [pageList.ABOUT_PAGE]: AboutPage,
+    };
+    
+    const PageClass = pageMap[idPage];
+    
+    if (PageClass) {
+      page = new PageClass(idPage);
+      if (idPage === pageList.CARS_PAGE) {
+        localStorage.removeItem('CUR_FILTER');
+      }
+     } else {
+        window.location.hash = '#error'
+     }
 
     if (page) {
       const pageContext = page.render()
