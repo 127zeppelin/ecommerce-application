@@ -8,7 +8,7 @@ import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
-import { encodePasswordAndUsername } from '../../utils/encodepass'
+import { encodePasswordAndUsername } from '../../utils/encodePass'
 
 export const customerRegistr = async (
   email: string,

@@ -9,7 +9,7 @@ import {
 } from '@commercetools/platform-sdk/dist/declarations/src'
 import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/apiConstants'
-import { pageIsEmpty } from '../../utils/cartIsEmptyMsg'
+import { pageIsEmpty } from '../../utils/cartIsemptyMsg'
 
 export const carCharacterBlock = (
   carData: ProductProjection,

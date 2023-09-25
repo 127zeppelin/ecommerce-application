@@ -1,3 +1,10 @@
+export const showHidePasword = (event: Event, passwordInput: HTMLInputElement) => {
+  event.preventDefault()
+  passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password'
+}
+
+
+
 export const addShowHidePaswordBtn = (passwordInput: HTMLInputElement) => {
   const showPassBtn = document.createElement('button')
   showPassBtn.classList.add('btn-show-pass')
@@ -9,10 +16,5 @@ export const addShowHidePaswordBtn = (passwordInput: HTMLInputElement) => {
   })
 }
 
-
-export const showHidePasword = (event: Event, passwordInput: HTMLInputElement) => {
-  event.preventDefault()
-  passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password'
-}
 
 

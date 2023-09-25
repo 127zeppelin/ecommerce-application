@@ -1,6 +1,6 @@
 import Page from '../../temlates/page'
-import { getUser } from './getUserinfo'
-import { createUserPage } from './createUseppage';
+import { getUser } from './getuserInfo'
+import { createUserPage } from './createUsepPage';
 
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { CSS_CLASSES } from '../../constants/cssClases';

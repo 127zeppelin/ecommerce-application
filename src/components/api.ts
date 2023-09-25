@@ -12,7 +12,7 @@ import {
 import { PROJECT_KEY } from '../constants/apiConstants'
 import { ApiRoot } from '@commercetools/platform-sdk'
 import { isTheUserLoggedIn } from '../pages/login/isTheUserLogged'
-import { decodePassword } from '../utils/encodepass'
+import { decodePassword } from '../utils/encodePass'
 
 const fetch = require('node-fetch')
 const {

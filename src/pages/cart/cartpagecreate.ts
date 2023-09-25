@@ -2,7 +2,7 @@ import { CSS_CLASSES } from "../../constants/cssClases";
 import { createHtmlElement } from "../../utils/createElement";
 import { CartDeletionAndPageRefresh, addDiscountCode, getCartById } from "./cartActions";
 import { resolveMessageAddAndRemove } from "../../utils/resolveMsg";
-import { pageIsEmpty } from "../../utils/cartIsEmptyMsg";
+import { pageIsEmpty } from "../../utils/cartIsemptyMsg";
 import { createCartItems } from "./createCartItems";
 import { carInCartCounter } from "../../components/header/carsCounterInCart";
 
