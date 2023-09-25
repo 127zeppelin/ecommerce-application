@@ -6,7 +6,6 @@ import {
   ClientBuilder,
   UserAuthOptions,
   AnonymousAuthMiddlewareOptions,
-  RefreshAuthMiddlewareOptions,
   Client,
   TokenCacheOptions,
 } from '@commercetools/sdk-client-v2'
@@ -102,18 +101,6 @@ const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
   //credentialsMode: "include"
 })
 
-
-export const refreshAuthMiddlewareOptions: RefreshAuthMiddlewareOptions = {
-  host: process.env.CTP_AUTH_URL || '',
-  projectKey: PROJECT_KEY,
-  credentials: {
-    clientId: process.env.CTP_CLIENT_ID || '',
-    clientSecret: process.env.CTP_CLIENT_SECRET || '',
-  },
-  refreshToken: 'foobar123',
-  oauthUri: process.env.CTP_AUTH_URL || '',
-  fetch
-}
 
 const userLogin = isTheUserLoggedIn()
 

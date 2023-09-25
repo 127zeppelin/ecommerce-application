@@ -1,7 +1,7 @@
 import Page from '../../temlates/page'
 import { customerRegistr, setAddressOptions } from './customerregistration'
 import { tokenStore } from '../../components/api'
-import { showHidePasword } from '../../utils/showhidepasword' 
+import { addShowHidePaswordBtn } from '../../utils/showhidepasword' 
 import { CSS_CLASSES } from '../../constants/cssclases'
 import {
   checkResultValidation,
@@ -390,7 +390,7 @@ class RegistrationPage extends Page {
       'Password'
     )
     paswordInputContainer.append(inputPass)
-    showHidePasword(inputPass)
+    addShowHidePaswordBtn(inputPass)
 
     const inputNameContainer = createHtmlElement({
       tagName: 'div',

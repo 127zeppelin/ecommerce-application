@@ -5,7 +5,7 @@ import {
   handleEmailInputChange,
   handlePasswordInputChange,
 } from '../../utils/validationinput'
-import { showHidePasword } from '../../utils/showhidepasword' 
+import { addShowHidePaswordBtn } from '../../utils/showhidepasword' 
 import { CSS_CLASSES } from '../../constants/cssclases'
 import { createHtmlElement } from '../../utils/createelement'
 import { isTheUserLoggedIn } from './istheuserlogged'
@@ -190,7 +190,7 @@ class LoginPage extends Page {
       'Password'
     )
     loginPassword.append(inputPassword)
-    showHidePasword(inputPassword)
+    addShowHidePaswordBtn(inputPassword)
 
     cont.append(loginWrapper)
 
