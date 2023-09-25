@@ -197,7 +197,7 @@ p {
   gap: 10px;
 }
 
-.menu__btn a {
+.menu__link a {
   background: #b46af063;
   border-radius: 8px;
   display: flex;
@@ -209,19 +209,19 @@ p {
   text-decoration: none;
 }
 
-.menu__btn a {
+.menu__link a {
   font-size: 16px;
   color: #fafafa;
   cursor: pointer;
 }
 
-.menu__btn #btn-cart {
+.menu__link #btn-cart {
   background: transparent;
   border: none;
   max-height: 50px;
 }
 
-.menu__btn #btn-cart img {
+.menu__link #btn-cart img {
   max-height: 100%;
 }
 
@@ -499,12 +499,12 @@ p {
 }
 
 
-.menu__btn #btn-cart {
+.menu__link #btn-cart {
   position: relative;
 }
 
 
-div.menu__btn:nth-child(6) {
+div.menu__link:nth-child(6) {
   position: relative;
 }
 
@@ -555,7 +555,7 @@ div.menu__btn:nth-child(6) {
     padding: 10px;
   }
 
-  .menu__btn a {
+  .menu__link a {
     width: 70px;
   }
 
@@ -563,7 +563,7 @@ div.menu__btn:nth-child(6) {
 
 @media screen and (max-width: 600px) {
 
-  .menu__btn a {
+  .menu__link a {
     font-size: 14px;
   }
 

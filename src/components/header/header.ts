@@ -8,16 +8,16 @@ import { createHtmlElement } from '../../utils/createElement'
 import { carInCartCounter } from './carsCounterInCart'
 
 class Header extends Component {
-  private createPageButtons(href: string, text: string, html: string | undefined) {
+  private createPageLinks(href: string, text: string, html: string | undefined) {
     const pageButton = document.createElement('div')
-    const menuBtn = document.createElement('a')
-    pageButton.className = CSS_CLASSES.menuBtn
-    menuBtn.setAttribute('href', href)
+    const menuLink = document.createElement('a')
+    pageButton.className = CSS_CLASSES.menuLink
+    menuLink.setAttribute('href', href)
 
-    if (text !== '') { menuBtn.innerText = text }
-    if (html) { menuBtn.innerHTML = `<img src="${html}">` }
-    menuBtn.setAttribute('id', `btn-${href.slice(1)}`)
-    pageButton.append(menuBtn)
+    if (text !== '') { menuLink.innerText = text }
+    if (html) { menuLink.innerHTML = `<img src="${html}">` }
+    menuLink.setAttribute('id', `btn-${href.slice(1)}`)
+    pageButton.append(menuLink)
     return pageButton
   }
   // eslint-disable-next-line
@@ -28,40 +28,40 @@ class Header extends Component {
     }
 
     const title = this.createContainer()
-    const pageButtons = document.createElement('div')
-    pageButtons.className = 'menu_wrapper'
+    const pageLinks = document.createElement('div')
+    pageLinks.className = 'menu_wrapper'
 
-    const mainPageButton: HTMLElement = this.createPageButtons('#main', 'Main', undefined)
-    pageButtons.append(mainPageButton)
+    const mainPageButton: HTMLElement = this.createPageLinks('#main', 'Main', undefined)
+    pageLinks.append(mainPageButton)
 
-    const carsButton = this.createPageButtons('#cars', 'Cars', undefined)
-    pageButtons.append(carsButton)
+    const carsButton = this.createPageLinks('#cars', 'Cars', undefined)
+    pageLinks.append(carsButton)
 
-    const aboutButton = this.createPageButtons('#about', 'About us', undefined)
-    pageButtons.append(aboutButton);
+    const aboutButton = this.createPageLinks('#about', 'About us', undefined)
+    pageLinks.append(aboutButton);
 
-    const loginPageButton = this.createPageButtons('#login', 'Log in', undefined)
+    const loginPageButton = this.createPageLinks('#login', 'Log in', undefined)
     if (!isTheUserLoggedIn()) {
-      pageButtons.append(loginPageButton)
+      pageLinks.append(loginPageButton)
     }
 
-    const registrPageButton = this.createPageButtons('#registration', 'Sign up', undefined)
+    const registrPageButton = this.createPageLinks('#registration', 'Sign up', undefined)
     if (!isTheUserLoggedIn()) {
-      pageButtons.append(registrPageButton)
+      pageLinks.append(registrPageButton)
     }
 
-    const userPageButton = this.createPageButtons('#user', 'User Page', undefined)
+    const userPageButton = this.createPageLinks('#user', 'User Page', undefined)
     if (isTheUserLoggedIn()) {
-      pageButtons.append(userPageButton)
+      pageLinks.append(userPageButton)
     }
 
-    const logautButton = this.createPageButtons('#main', 'Logout', undefined)
+    const logautButton = this.createPageLinks('#main', 'Logout', undefined)
     if (isTheUserLoggedIn()) {
       logautButton.addEventListener('click', logoutAndRedirect)
-      pageButtons.append(logautButton)
+      pageLinks.append(logautButton)
     }
-    const CartButton = this.createPageButtons('#cart', '', './images/cart-full.svg')
-    pageButtons.append(CartButton)
+    const CartButton = this.createPageLinks('#cart', '', './images/cart-full.svg')
+    pageLinks.append(CartButton)
 
     carInCartCounter();
 
@@ -72,14 +72,14 @@ class Header extends Component {
     title.append(burgerBtn)
 
     burgerBtn.addEventListener('click', () => {
-      pageButtons.classList.toggle('active');
+      pageLinks.classList.toggle('active');
       if (document.body.style.overflow === 'hidden') {
         document.body.style.overflow = 'auto';
       } else {
         document.body.style.overflow = 'hidden';
       }
     })
-    pageButtons.addEventListener('click', (event) => {
+    pageLinks.addEventListener('click', (event) => {
       const clickedElement = event.target as HTMLElement;
       if (clickedElement && clickedElement.tagName === 'A') {
         if (document.body.style.overflow === 'hidden') {
@@ -93,9 +93,9 @@ class Header extends Component {
     })
     burgerBtn.append(burgerLine)
 
-    title.append(pageButtons)
+    title.append(pageLinks)
 
-    title.append(pageButtons)
+    title.append(pageLinks)
     this.container.append(title)
   }
 
