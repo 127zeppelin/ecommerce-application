@@ -5,40 +5,40 @@ export const validationFunctions = {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailPattern.test(email)
   },
-  password: function (password: string): { isValid: boolean; message: string } {
+  password: function (password: string):  string  {
     let message = ''
 
     if (password.length < 8) {
       message = 'Password must be more than 8 characters'
-      return { isValid: false, message }
+      return message
     }
 
     if (!/[A-Z]/.test(password)) {
       message = 'Password must contain uppercase letters'
-      return { isValid: false, message }
+      return message
     }
 
     if (!/[a-z]/.test(password)) {
       message = 'Password must contain lowercase letters'
-      return { isValid: false, message }
+      return message
     }
 
     if (!/\d/.test(password)) {
       message = 'Password must contain at least one digit'
-      return { isValid: false, message }
+      return message
     }
 
     if (!/[!@#$%^&*]/.test(password)) {
       message = 'Password must contain at least one special character'
-      return { isValid: false, message }
+      return message
     }
 
     if (password.trim() !== password) {
       message = 'Password should not have spaces at the beginning or end'
-      return { isValid: false, message }
+      return message 
     }
 
-    return { isValid: true, message: '' }
+    return message
   },
 }
 
@@ -66,13 +66,13 @@ export function handlePasswordInputChange(
 ): boolean {
   const result = validationFunctions.password(targetInputElement.value)
 
-  if (result.isValid) {
+  if (result === '') {
     targetInputElement.classList.remove(CSS_CLASSES.invalidInput)
     targetInputElement.classList.add(CSS_CLASSES.validInput)
     invalidInputMessagePass.innerHTML = '<span>Valid Pass</span>'
     return true
   } else {
-    const errorMessage = result.message // Получаем сообщение из объекта result
+    const errorMessage = result // Получаем сообщение из объекта result
     targetInputElement.classList.remove(CSS_CLASSES.validInput)
     targetInputElement.classList.add(CSS_CLASSES.invalidInput)
     invalidInputMessagePass.innerHTML = `<span>${errorMessage}</span>` // Выводим сообщение об ошибке
