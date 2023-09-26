@@ -18,27 +18,28 @@ const addImg = (carData: ProductProjection, productImages: Image[] | undefined, 
 }
 
 export const createSlider = (carData: ProductProjection, productImages: Image[] | undefined) => {
-  const carSlider = document.querySelector(`.${CSS_CLASSES.carSlider}`) as HTMLElement;
-  const prevBtn = document.querySelector(`.${CSS_CLASSES.prevBtn}`) as HTMLElement;
-  const nextBtn = document.querySelector(`.${CSS_CLASSES.nextBtn}`) as HTMLElement;
+  const carSlider: HTMLElement | null = document.querySelector(`.${CSS_CLASSES.carSlider}`);
+  const prevBtn: HTMLElement | null = document.querySelector(`.${CSS_CLASSES.prevBtn}`);
+  const nextBtn: HTMLElement | null = document.querySelector(`.${CSS_CLASSES.nextBtn}`);
+  if (carSlider && prevBtn && nextBtn) {
+    let slideCount: number;
+    let slideIndex: number = 1;
+    let carImg = addImg(carData, productImages, carSlider, slideIndex);
 
-  let slideCount: number;
-  let slideIndex: number = 1;
-  let carImg = addImg(carData, productImages, carSlider, slideIndex);
+    if (productImages) {
+      slideCount = productImages.length;
+    }
 
-  if (productImages) {
-    slideCount = productImages.length;
+    nextBtn.addEventListener('click', () => {
+      slideIndex = slideIndex + 1 < slideCount ? slideIndex + 1 : 1;
+      carImg?.remove();
+      carImg = addImg(carData, productImages, carSlider, slideIndex);
+    });
+
+    prevBtn.addEventListener('click', () => {
+      slideIndex = slideIndex - 1 < 1 ? slideCount - 1 : slideIndex - 1;
+      carImg?.remove();
+      carImg = addImg(carData, productImages, carSlider, slideIndex);
+    });
   }
-
-  nextBtn.addEventListener('click', () => {
-    slideIndex = slideIndex + 1 < slideCount ? slideIndex + 1 : 1;
-    carImg?.remove();
-    carImg = addImg(carData, productImages, carSlider, slideIndex);
-  });
-
-  prevBtn.addEventListener('click', () => {
-    slideIndex = slideIndex - 1 < 1 ? slideCount - 1 : slideIndex - 1;
-    carImg?.remove();
-    carImg = addImg(carData, productImages, carSlider, slideIndex);
-  });
 }

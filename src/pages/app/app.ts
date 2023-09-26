@@ -49,17 +49,17 @@ class App {
       [pageList.ERROR_PAGE]: ErrorPage,
       [pageList.ABOUT_PAGE]: AboutPage,
     };
-    
+
     const PageClass = pageMap[idPage];
-    
+
     if (PageClass) {
       page = new PageClass(idPage);
       if (idPage === pageList.CARS_PAGE) {
         localStorage.removeItem('CUR_FILTER');
       }
-     } else {
-        window.location.hash = '#error'
-     }
+    } else {
+      this.navigateToErrorPage();
+    }
 
     if (page) {
       const pageContext = page.render()
@@ -69,17 +69,25 @@ class App {
   }
 
   private enableRouting() {
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1)
-      this.renderNewPage(hash)
-      this.header.renderPageButtons(hash)
+    window.addEventListener('popstate', (event: PopStateEvent) => {
+      const hashCurent = window.location.hash;
+      const hash = window.location.hash.slice(1);
+      console.log(hash);
       if (!hash) {
-        window.location.href = '#main'
+        console.log('Условие 1 сработало')
+        this.navigateToErrorPage();
+      } else if (!window.location.pathname.startsWith('/#') && window.location.pathname !== '/'){
+        this.navigateToErrorPage();
+      } else {
+        this.renderNewPage(hash);
+        this.header.renderPageButtons(hash);
+        console.log('Условие 3 сработало')
       }
-      if (!Object.values(pageList).includes(hash)) {
-        window.location.href = `/#${pageList.ERROR_PAGE}`
-      }
-    })
+    });
+  }
+
+  private navigateToErrorPage() {
+    window.location.href = '#error';
   }
 
   constructor() {
@@ -89,10 +97,10 @@ class App {
   }
 
   run() {
-    let hash: string
+    let hash: string = '';
     if (window.location.hash) {
       hash = window.location.hash.slice(1)
-    } else {
+    } else if(window.location.pathname === '/'|| window.location.pathname === ''){
       hash = 'main'
     }
     this.container.append(this.header.render())

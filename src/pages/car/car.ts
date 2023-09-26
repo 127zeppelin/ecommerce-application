@@ -2,7 +2,7 @@ import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssClases'
 import { createHtmlElement } from '../../utils/createElement'
 import { getCar, createCarPage } from './getCar'
-import { ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { ClientResponse, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 
 class CarPage extends Page {
 
@@ -14,7 +14,7 @@ class CarPage extends Page {
   async getcarquery(containerMain: HTMLElement) {
     const hash = this.getHashValue()
     try {
-      const loadCarResult = await getCar(hash)
+      const loadCarResult: ClientResponse<ProductProjection> = await getCar(hash)
       const carData: ProductProjection = loadCarResult.body
       createCarPage(carData, containerMain)
     } catch (error: any) {
