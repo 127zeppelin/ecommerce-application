@@ -7,6 +7,7 @@ import { pageList } from '../pagelist'
 import { FilterValues } from '../../types/types'
 import { createCarsList } from './getProducts'
 import { getHashValue } from '../../utils/gethashvalue'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 let filterValues: FilterValues = {}
 let queryArgs = {}
@@ -23,6 +24,7 @@ export const getCarsWithFilter = () => {
     .get(parsedData)
     .execute()
 }
+
 
 export const createCategorySelection = (
   categories: Category[],
@@ -52,10 +54,7 @@ export const createCategorySelection = (
     localStorage.removeItem('CUR_CATEGORY')
     filterValues.queryArgs = queryArgs
 
-    if (
-      filterValues.queryArgs.filter === null ||
-      filterValues.queryArgs.filter === undefined
-    ) {
+    if (!filterValues.queryArgs.filter) {
       filterValues.queryArgs.filter = []
     }
     const filteredArray = filterValues.queryArgs.filter.filter(
@@ -69,8 +68,8 @@ export const createCategorySelection = (
       const carsArr: ProductProjection[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+      resolveMessageAddAndRemove( errorMessage, false)
     }
   })
   parentElement.append(allCarsBtn)
@@ -88,7 +87,7 @@ export const createCategorySelection = (
     const categoryBtn = createHtmlElement({
       tagName: 'button',
       cssClass: curClass,
-      elementText: `${categoryName}`,
+      elementText: categoryName,
       elementId: `${categoryKey}-btn`,
     })
     btnArr.push(categoryBtn)
@@ -101,15 +100,14 @@ export const createCategorySelection = (
           btn.classList.add(CSS_CLASSES.activeBtn)
         }
       }
-      const clickedCategoryKey = categoryKey as string
+      const clickedCategoryKey: string | undefined = categoryKey
       const clickedCategoryId = categoryId
-
-      pageList.CUR_CAT = clickedCategoryKey
+       if(clickedCategoryKey){
+        pageList.CUR_CAT = clickedCategoryKey
+       }
+      
       filterValues.queryArgs = queryArgs
-      if (
-        filterValues.queryArgs.filter === null ||
-        filterValues.queryArgs.filter === undefined
-      ) {
+      if (!filterValues.queryArgs.filter) {
         filterValues.queryArgs.filter = []
       }
       const filteredArray = filterValues.queryArgs.filter.filter(
@@ -121,15 +119,14 @@ export const createCategorySelection = (
       )
       localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
       localStorage.setItem('CUR_CATEGORY', JSON.stringify(clickedCategoryId))
-      localStorage.setItem('CUR_HASH', clickedCategoryKey)
       carsCardContainer.innerHTML = ''
       try {
         const loadCarsResult = await getCarsWithFilter()
         const carsArr: ProductProjection[] = loadCarsResult.body.results
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
-        // eslint-disable-next-line
-        console.log(error)
+        const errorMessage: string = error.message;
+        resolveMessageAddAndRemove( errorMessage, false)
       }
     })
     parentElement.append(categoryBtn)
@@ -220,7 +217,7 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
     const selectedOption = (event.target as HTMLSelectElement)?.value
     localStorage.getItem('CUR_CATEGORY')
     filterValues.queryArgs = queryArgs
-    filterValues.queryArgs.sort = `${selectedOption}`
+    filterValues.queryArgs.sort = selectedOption;
     localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
 
     carsCardContainer.innerHTML = ''
@@ -229,8 +226,8 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
       const carsArr: ProductProjection[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+      resolveMessageAddAndRemove( errorMessage, false)
     }
   })
   return blockSortCars
@@ -248,15 +245,12 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
     const colorBtn = createHtmlElement({
       tagName: 'button',
       cssClass: [CSS_CLASSES.colorBtn],
-      elementId: `${color}`,
+      elementId: color,
     })
-    colorBtn.style.backgroundColor = `${color}`
+    colorBtn.style.backgroundColor = color;
     colorBtn.addEventListener('click', async (event: Event) => {
       filterValues.queryArgs = queryArgs
-      if (
-        filterValues.queryArgs.filter === null ||
-        filterValues.queryArgs.filter === undefined
-      ) {
+      if (!filterValues.queryArgs.filter) {
         filterValues.queryArgs.filter = []
       }
       const filteredArray = filterValues.queryArgs.filter.filter(
@@ -282,8 +276,8 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
         const carsArr: ProductProjection[] = loadCarsResult.body.results
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
-        // eslint-disable-next-line
-        console.log(error)
+        const errorMessage: string = error.message;
+        resolveMessageAddAndRemove( errorMessage, false)
       }
     })
     btnArr.push(colorBtn)

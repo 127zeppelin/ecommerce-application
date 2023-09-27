@@ -8,6 +8,7 @@ import {
   filterCarsFromCategory,
   sortCars,
 } from './carFilter'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class CarsPage extends Page {
   async loadCarsWithoutFilter(carsCardContainer: HTMLElement) {
@@ -16,8 +17,8 @@ class CarsPage extends Page {
       const carsArr: ProductProjection[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+      resolveMessageAddAndRemove( errorMessage, false)
     }
   }
 
