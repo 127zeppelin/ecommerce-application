@@ -56,6 +56,7 @@ export const CSS_CLASSES: Record<string, string> = {
   notAnActivePrice: 'not-active',
   carPageTitle: 'car-page-title',
   carSliderWrapper: 'car__slider__wrapper',
+  carImgWrapper: 'car__img__wrapper',
   carSlider: 'car__slider',
   prevBtn: 'btn_previous',
   nextBtn: 'btn_next',

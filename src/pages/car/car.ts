@@ -2,7 +2,7 @@ import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssClases'
 import { createHtmlElement } from '../../utils/createElement'
 import { getCar, createCarPage } from './getCar'
-import { ClientResponse, ErrorObject, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { ClientResponse, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { getHashValue } from '../../utils/gethashvalue'
 import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 

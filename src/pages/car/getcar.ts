@@ -30,17 +30,18 @@ export const createCarPage = (
     cssClass: [CSS_CLASSES.carDetailsWrapper],
   })
   carContainer.append(carDetailsWrapper);
-  const carSliderWrapper = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carSliderWrapper],
-  })
-  carDetailsWrapper.append(carSliderWrapper);
-  const carSlider = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carSlider],
-  })
 
-  if (productImages !== undefined && productImages.length > 1) {
+  if (productImages && productImages.length > 1) {
+    const carSliderWrapper = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.carSliderWrapper],
+    })
+    carDetailsWrapper.append(carSliderWrapper);
+
+    const carSlider = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.carSlider],
+    })
     carSliderWrapper.append(carSlider);
     let sliderBtn = createHtmlElement({
       tagName: 'button',
@@ -55,14 +56,19 @@ export const createCarPage = (
     sliderBtn.innerText = ">";
     carSlider.append(sliderBtn);
     createSlider(carData, productImages);
-  } else if (productImages !== undefined && productImages.length === 1) {
+  } else if (productImages && productImages.length  === 1) {
+    const carImageWraper = createHtmlElement({
+      tagName: 'div',
+      cssClass: [CSS_CLASSES.carImgWrapper],
+    })
+    carDetailsWrapper.append(carImageWraper);
     const carImg = createHtmlElement({
       tagName: 'img',
       cssClass: [CSS_CLASSES.carCardTb],
       srcAtribute: productImages[0].url,
       altAtribute: carData.name['en-US'],
     })
-    carSliderWrapper.append(carImg);
+    carImageWraper.append(carImg);
   }
   const carDetailsContainer = createHtmlElement({
     tagName: 'div',
