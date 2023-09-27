@@ -11,6 +11,7 @@ import CarsPage from '../cars/cars'
 import CarPage from '../car/car'
 import CartPage from '../cart/cart'
 import AboutPage from '../about/about'
+import { getHashValue } from '../../utils/gethashvalue'
 
 class App {
   private container: HTMLElement = document.body
@@ -24,9 +25,9 @@ class App {
   private footer: Footer
 
   handleInitialHash() {
-    const initialHash = window.location.hash.slice(1) // Извлекаем хэш из URL
-    this.renderNewPage(initialHash) // Вызываем метод для перерисовки страницы
-    this.header.renderPageButtons(initialHash) // Обновляем кнопки в хедере
+    const initialHash = getHashValue()
+    this.renderNewPage(initialHash)
+    this.header.renderPageButtons(initialHash)
   }
 
   renderNewPage(idPage: string) {
@@ -70,18 +71,14 @@ class App {
 
   private enableRouting() {
     window.addEventListener('popstate', (event: PopStateEvent) => {
-      const hashCurent = window.location.hash;
-      const hash = window.location.hash.slice(1);
-      console.log(hash);
+      const hash = getHashValue()
       if (!hash) {
-        console.log('Условие 1 сработало')
         this.navigateToErrorPage();
-      } else if (!window.location.pathname.startsWith('/#') && window.location.pathname !== '/'){
+      } else if (!window.location.pathname.startsWith('/#') && window.location.pathname !== '/') {
         this.navigateToErrorPage();
       } else {
         this.renderNewPage(hash);
         this.header.renderPageButtons(hash);
-        console.log('Условие 3 сработало')
       }
     });
   }
@@ -99,8 +96,8 @@ class App {
   run() {
     let hash: string = '';
     if (window.location.hash) {
-      hash = window.location.hash.slice(1)
-    } else if(window.location.pathname === '/'|| window.location.pathname === ''){
+      hash = getHashValue()
+    } else if (window.location.pathname === '/' || window.location.pathname === '') {
       hash = 'main'
     }
     this.container.append(this.header.render())

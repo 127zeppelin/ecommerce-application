@@ -6,6 +6,7 @@ import {
 } from '../../pages/login/isTheUserLogged'
 import { createHtmlElement } from '../../utils/createElement'
 import { carInCartCounter } from './carsCounterInCart'
+import { getHashValue } from '../../utils/gethashvalue'
 
 class Header extends Component {
   private createPageLinks(href: string, text: string, html: string | undefined) {
@@ -100,7 +101,7 @@ class Header extends Component {
   }
 
   render() {
-    const hash = window.location.hash.slice(1)
+    const hash = getHashValue()
     this.renderPageButtons(hash)
     return this.container
   }

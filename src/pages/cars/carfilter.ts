@@ -6,6 +6,7 @@ import { createHtmlElement } from '../../utils/createElement'
 import { pageList } from '../pagelist'
 import { FilterValues } from '../../types/types'
 import { createCarsList } from './getProducts'
+import { getHashValue } from '../../utils/gethashvalue'
 
 let filterValues: FilterValues = {}
 let queryArgs = {}
@@ -28,7 +29,7 @@ export const createCategorySelection = (
   parentElement: HTMLElement,
   carsCardContainer: HTMLElement
 ) => {
-  const currentHash = window.location.hash.slice(1)
+  const currentHash = getHashValue()
   const btnArr: HTMLElement[] = []
   const allCarsBtn = createHtmlElement({
     tagName: 'button',

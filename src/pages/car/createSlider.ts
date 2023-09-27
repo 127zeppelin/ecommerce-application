@@ -23,7 +23,7 @@ export const createSlider = (carData: ProductProjection, productImages: Image[] 
   const nextBtn: HTMLElement | null = document.querySelector(`.${CSS_CLASSES.nextBtn}`);
   if (carSlider && prevBtn && nextBtn) {
     let slideCount: number;
-    let slideIndex: number = 1;
+    let slideIndex = 1;
     let carImg = addImg(carData, productImages, carSlider, slideIndex);
 
     if (productImages) {

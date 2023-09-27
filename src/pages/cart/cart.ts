@@ -5,11 +5,6 @@ import { createCartPage } from './cartPageCreate'
 
 class CartPage extends Page {
 
-  getHashValue() {
-    const hashValue = window.location.hash.substring(1)
-    return hashValue
-  }
-
   render() {
     const containerMain = createHtmlElement({
       tagName: 'main',

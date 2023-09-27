@@ -2,24 +2,22 @@ import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssClases'
 import { createHtmlElement } from '../../utils/createElement'
 import { getCar, createCarPage } from './getCar'
-import { ClientResponse, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { ClientResponse, ErrorObject, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
+import { getHashValue } from '../../utils/gethashvalue'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class CarPage extends Page {
-
-  getHashValue() {
-    const hashValue = window.location.hash.substring(1)
-    return hashValue
-  }
+ 
 
   async getcarquery(containerMain: HTMLElement) {
-    const hash = this.getHashValue()
+    const hash = getHashValue()
     try {
       const loadCarResult: ClientResponse<ProductProjection> = await getCar(hash)
       const carData: ProductProjection = loadCarResult.body
       createCarPage(carData, containerMain)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+        resolveMessageAddAndRemove( errorMessage, false)
     }
   }
 
