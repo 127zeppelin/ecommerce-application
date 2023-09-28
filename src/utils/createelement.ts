@@ -14,13 +14,13 @@ export const createHtmlElement = ({
   forElement,
   appendInElement
 }: ElementOptions):
-| HTMLElement
-| HTMLButtonElement
-| HTMLInputElement
-| HTMLDivElement
-| HTMLButtonElement
-| HTMLSelectElement
-| HTMLOptionElement => {
+  | HTMLElement
+  | HTMLButtonElement
+  | HTMLInputElement
+  | HTMLDivElement
+  | HTMLButtonElement
+  | HTMLSelectElement
+  | HTMLOptionElement => {
   const element = document.createElement(tagName)
   cssClass.forEach((className) => {
     element.classList.add(className)
@@ -63,7 +63,7 @@ export const createHtmlElement = ({
   if (forElement) {
     element.setAttribute('for', forElement)
   }
-  if (appendInElement){
+  if (appendInElement) {
     appendInElement.append(element)
   }
   return element
@@ -73,22 +73,33 @@ export const createHtmlElement = ({
 export function createEl<K extends keyof HTMLElementTagNameMap>(
   elementName: K,
   className?: string[],
-  content?: string,
-  hrefAtribute?: string,
+  content?: string  | HTMLElement,
+  hrefOrSrcAtribute?: string[],
   callback?: (event: Event) => void
 ): HTMLElementTagNameMap[K] {
   const element = document.createElement(elementName);
   if (className && className.length > 0) {
-    element.classList.add(...className); 
+    element.classList.add(...className);
   }
   if (content) {
-      element.textContent = content;
+    if (typeof content === 'string') {
+      element.innerHTML = content; 
+    } else {
+      element.appendChild(content);
+    }
   }
-  if (hrefAtribute) {
-    element.setAttribute('href', hrefAtribute)
+  if (elementName === 'img' && hrefOrSrcAtribute) {
+    element.setAttribute('src', hrefOrSrcAtribute[0])
+    if (hrefOrSrcAtribute.length === 2) {
+      element.setAttribute('alt', hrefOrSrcAtribute[1])
+    } else {
+      element.setAttribute('alt', '')
+    }
+  } else if (elementName === 'a' && hrefOrSrcAtribute) { 
+    element.setAttribute('href', hrefOrSrcAtribute[0]) 
   }
   if (callback) {
-      element.addEventListener('click', callback);
+    element.addEventListener('click', callback);
   }
   return element;
 }

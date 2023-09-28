@@ -14,7 +14,7 @@ class Header extends Component {
   private createPageLinks(href: string, text?: string | undefined) {
     const menuButton = createEl('div', [CSS_CLASSES.menuBtn]);
     const linkText = text !== '' ? text : undefined;
-    const menuLink = createEl('a', undefined, linkText, href);
+    const menuLink = createEl('a', undefined, linkText, [href]);
     menuLink.setAttribute('id', `btn-${href.slice(1)}`)
     if (text === 'Cart') { menuLink.innerHTML = `<img src="./images/cart-full.svg" alt="cart-icon">` }
     if (text === 'Logout') { menuLink.addEventListener('click', logoutAndRedirect) }

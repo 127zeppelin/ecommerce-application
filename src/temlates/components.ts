@@ -1,3 +1,4 @@
+import { CSS_CLASSES } from "../constants/cssClases"
 import { createEl } from "../utils/createElement"
 
 abstract class Component {
@@ -9,11 +10,9 @@ abstract class Component {
   }
 
   protected createContainer() {
-    const cont = createEl('div', ['container'])
-    const logo = createEl('div', ['img_wrapper'])
-    const logoImg = createEl('img')
-    logoImg.src = './images/image (1).png'
-    logoImg.alt = 'AutoCar'
+    const cont = createEl('div', [CSS_CLASSES.cont])
+    const logo = createEl('div', [CSS_CLASSES.imgWrapper])
+    const logoImg = createEl('img', undefined, undefined, ['./images/logo-2.png', 'AutoCar'])
     logo.append(logoImg)
     cont.append(logo)
     return cont

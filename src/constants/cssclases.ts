@@ -5,6 +5,7 @@ export const CSS_CLASSES: Record<string, string> = {
   validationMsg: 'validation-message',
   defaultAddrWrapper: 'default-adress_wrapper',
   cont: 'container',
+  imgWrapper: 'img_wrapper',
   formWrap: 'login__wrapper',
   registrationForm: 'login',
   pageBtns: 'login__btns',

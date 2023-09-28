@@ -122,7 +122,7 @@ export const initializeClient = (userIsLogin: boolean) => {
   }
 
   client = clientBuilder.build();
-  updateApiRoot(); // Обновляем apiRoot при изменении клиента
+  updateApiRoot(); 
 };
 
 initializeClient(userLogin);

@@ -1,83 +1,43 @@
 import { CSS_CLASSES } from '../../constants/cssClases'
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createElement'
+import { createEl, createHtmlElement } from '../../utils/createElement'
 
 class AboutPage extends Page {
 
   private createPerson(about: HTMLElement, img: string, name: string, profession:
-  string, bio: string, role: string, git: string) {
-    const aboutPersonWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.aboutPersonWrapper]
-    })
+    string, bio: string, role: string, git: string) {
+    const aboutPersonWrapper = createEl('div', [CSS_CLASSES.aboutPersonWrapper])
     about.append(aboutPersonWrapper);
-    const aboutPerson = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.aboutPerson]
-    })
+    const aboutPerson = createEl('div', [CSS_CLASSES.aboutPerson])
     aboutPersonWrapper.append(aboutPerson);
 
-    const personImg = createHtmlElement({
-      tagName: 'img',
-      cssClass: [CSS_CLASSES.personImg],
-      srcAtribute: img,
-      altAtribute: 'Person',
-    })
+    const personImg = createEl('img', [CSS_CLASSES.personImg], undefined, [img, 'Person'])
     aboutPerson.append(personImg);
 
-    const personName = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.personName],
-      elementText: name
-    })
+    const personName = createEl('div', [CSS_CLASSES.personName], name)
     aboutPerson.append(personName);
 
-    const personProfession = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.personRole],
-      elementText: profession
-    })
+    const personProfession = createEl('div', [CSS_CLASSES.personRole], profession)
     aboutPerson.append(personProfession);
 
-    const personBio = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.personBio],
-      elementText: bio
-    })
+    const personBio = createEl('div', [CSS_CLASSES.personBio], bio)
     aboutPerson.append(personBio);
 
-    aboutPerson.append(personName);
-    const personRole = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.personRole],
-      elementText: role
-    })
+    const personRole = createEl('div', [CSS_CLASSES.personRole], role)
     aboutPerson.append(personRole);
 
-    const personGit = createHtmlElement({
-      tagName: 'a',
-      cssClass: [CSS_CLASSES.personGit],
-      elementText: 'GitHub'
-    })
-    personGit.setAttribute('href', git);
+    const personGit = createEl('a', [CSS_CLASSES.personGit], 'GitHub', [git])
     aboutPerson.append(personGit);
   }
 
   render() {
-    const aboutWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.aboutWrapper]
-    })
+    const aboutWrapper = createEl('div', [CSS_CLASSES.aboutWrapper])
     this.container.append(aboutWrapper);
 
-    const title = this.createHeaderTitle('About Us')
-    title.className = CSS_CLASSES.pageTitle
+    const title = createEl('h1', [CSS_CLASSES.pageTitle], 'About Us')
     aboutWrapper.append(title)
 
-    const about = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.aboutPersons]
-    })
+    const about = createEl('div', [CSS_CLASSES.aboutPersons])
     aboutWrapper.append(about);
     this.createPerson(about, 'images/MG_3935.jpg', 'Siarhey Shcharbitski',
       'Workplace: Sole proprietor', 'Profession: Programmer', 'Team role: Power behind the throne',
@@ -86,10 +46,7 @@ class AboutPage extends Page {
       'Workplace: Automation Engineer.', 'Profession: Programmer', 'Team Role: Acting Team Lead',
       'https://github.com/Gladkaay');
 
-    const aboutText = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.aboutText],
-      elementHtml: `<p>Our team started working on the task without any major issues. 
+    const content = `<p>Our team started working on the task without any major issues. 
       Timur (Team Lead) set up the repository. Sergey configured the API for commercial 
       tools and created a repository. We chose the theme of luxury car rentals. 
       The purpose of the application is for the user to view the available cars on the catalog page, 
@@ -104,17 +61,14 @@ class AboutPage extends Page {
       which took time away from the fourth sprint and ultimately affected the assessment for 
       each of the three sprints. As a result, some features remained unimplemented, such as 
       a pop-up window when clicking on a photo and editing user information on the user page or writing tests.</p>`
-    })
+
+    const aboutText = createEl('div', [CSS_CLASSES.aboutText], content)
     aboutWrapper.append(aboutText);
+    
+    const rsSchoolLogo = '<img src="images/logo_rsschool3_negate.png" alt="RS School">'
+    const aboutLogo = createEl('a', [CSS_CLASSES.aboutLogo], rsSchoolLogo, ['https://rs.school'])
 
-    const aboutLogo = createHtmlElement({
-      tagName: 'a',
-      cssClass: [CSS_CLASSES.aboutLogo],
-      elementHtml: '<img src="images/logo_rsschool3_negate.png" alt="RS School">'
-    })
-    aboutLogo.setAttribute('href', 'https://rs.school');
     aboutWrapper.append(aboutLogo);
-
 
     return this.container
   }

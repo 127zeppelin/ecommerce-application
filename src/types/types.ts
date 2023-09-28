@@ -41,6 +41,7 @@ export type HTMLElementTagNameMap = {
   option: HTMLOptionElement;
   a: HTMLAnchorElement;
   img: HTMLImageElement;
+  h1: HTMLHeadingElement;
 };
 
 
