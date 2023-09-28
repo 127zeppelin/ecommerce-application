@@ -3,7 +3,6 @@ import { apiRoot } from '../../components/api'
 import { PROJECT_KEY } from '../../constants/apiConstants'
 import { CSS_CLASSES } from '../../constants/cssClases'
 import { createHtmlElement } from '../../utils/createElement'
-import { pageList } from '../pagelist'
 import { FilterValues } from '../../types/types'
 import { createCarsList } from './getProducts'
 import { getHashValue } from '../../utils/gethashvalue'
@@ -102,9 +101,9 @@ export const createCategorySelection = (
       }
       const clickedCategoryKey: string | undefined = categoryKey
       const clickedCategoryId = categoryId
-       if(clickedCategoryKey){
-        pageList.CUR_CAT = clickedCategoryKey
-       }
+      //  if(clickedCategoryKey){
+      //   pageList.CUR_CAT = clickedCategoryKey
+      //  }
       
       filterValues.queryArgs = queryArgs
       if (!filterValues.queryArgs.filter) {

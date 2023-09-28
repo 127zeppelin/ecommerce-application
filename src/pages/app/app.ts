@@ -18,8 +18,6 @@ class App {
 
   private defaultPageId: string = 'current-page'
 
-  private initialPage: MainPage
-
   private header: Header
 
   private footer: Footer
@@ -30,31 +28,37 @@ class App {
     this.header.renderPageButtons(initialHash)
   }
 
+  constructor() {
+    this.header = new Header('header', 'header')
+    this.footer = new Footer('footer', 'footer')
+  }
+
   renderNewPage(idPage: string) {
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`)
     const footer = document.querySelector('.footer')
     if (currentPageHTML) {
       currentPageHTML.remove()
     }
-    let page: Page | null = null
+    let page: Page | null = null;
 
     const pageMap = {
-      [pageList.MAIN_PAGE]: MainPage,
       [pageList.LOGIN_PAGE]: LoginPage,
       [pageList.REGISRATION_PAGE]: RegistrationPage,
       [pageList.CUSTOMER_PAGE]: CustomerPage,
+      [pageList.MAIN_PAGE]: MainPage, 
       [pageList.CARS_PAGE]: CarsPage,
       [pageList.CUR_CAR]: CarPage,
-      [pageList.CUR_CAT]: CarsPage,
       [pageList.CART_PAGE]: CartPage,
       [pageList.ERROR_PAGE]: ErrorPage,
       [pageList.ABOUT_PAGE]: AboutPage,
     };
-
-    const PageClass = pageMap[idPage];
-
-    if (PageClass) {
-      page = new PageClass(idPage);
+    const pageClass = pageMap[idPage];
+    
+    if (pageClass) {
+      console.log(pageMap)
+      console.log(pageMap[pageList.MAIN_PAGE])
+      console.log(pageMap[pageList.CARS_PAGE])
+      page = new pageClass(idPage)
       if (idPage === pageList.CARS_PAGE) {
         localStorage.removeItem('CUR_FILTER');
       }
@@ -70,7 +74,7 @@ class App {
   }
 
   private enableRouting() {
-    window.addEventListener('popstate', (event: PopStateEvent) => {
+    window.addEventListener('popstate', () => {
       const hash = getHashValue()
       if (!hash) {
         this.navigateToErrorPage();
@@ -87,14 +91,10 @@ class App {
     window.location.href = '#error';
   }
 
-  constructor() {
-    this.initialPage = new MainPage('main')
-    this.header = new Header('header', 'header')
-    this.footer = new Footer('footer', 'footer')
-  }
+  
 
   run() {
-    let hash: string = '';
+    let hash: string = 'main';
     if (window.location.hash) {
       hash = getHashValue()
     } else if (window.location.pathname === '/' || window.location.pathname === '') {
