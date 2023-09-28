@@ -25,7 +25,7 @@ class App {
   handleInitialHash() {
     const initialHash = getHashValue()
     this.renderNewPage(initialHash)
-    this.header.renderPageButtons(initialHash)
+    this.header.renderPageButtons(/*initialHash*/)
   }
 
   constructor() {
@@ -82,7 +82,7 @@ class App {
         this.navigateToErrorPage();
       } else {
         this.renderNewPage(hash);
-        this.header.renderPageButtons(hash);
+        this.header.renderPageButtons();
       }
     });
   }
@@ -90,8 +90,6 @@ class App {
   private navigateToErrorPage() {
     window.location.href = '#error';
   }
-
-  
 
   run() {
     let hash: string = 'main';

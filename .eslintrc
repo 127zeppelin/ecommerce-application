@@ -6,7 +6,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:import/recommended",
-     "airbnb-typescript/base",
+    "airbnb-typescript/base",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -19,18 +19,36 @@
   ],
   "rules": {
     "no-plusplus": "off",
-    "no-console": "warn",
-    "max-len": ["warn", { "code": 120 }],
-    "indent": ["warn", 2, {
-      "SwitchCase": 1
-    }],
-    "@typescript-eslint/indent": ["warn", 2, {
-      "SwitchCase": 1
-    }],
+    "no-console": ["error", { "allow": ["error", "warn"] }],
+    "max-len": [
+      "warn",
+      {
+        "code": 120
+      }
+    ],
+    "indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "@typescript-eslint/indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "import/prefer-default-export": "off",
-    "no-param-reassign": ["error", {
-      "props": false
-    }]
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ]
   },
-  "ignorePatterns": ["*config.js"]
+  "ignorePatterns": [
+    "*config.js"
+  ]
 }

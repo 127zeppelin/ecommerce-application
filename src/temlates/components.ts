@@ -1,3 +1,5 @@
+import { createEl } from "../utils/createElement"
+
 abstract class Component {
   protected container: HTMLElement
 
@@ -7,11 +9,9 @@ abstract class Component {
   }
 
   protected createContainer() {
-    const cont = document.createElement('div')
-    cont.className = 'container'
-    const logo = document.createElement('div')
-    logo.className = 'img_wrapper'
-    const logoImg = document.createElement('img')
+    const cont = createEl('div', ['container'])
+    const logo = createEl('div', ['img_wrapper'])
+    const logoImg = createEl('img')
     logoImg.src = './images/image (1).png'
     logoImg.alt = 'AutoCar'
     logo.append(logoImg)

@@ -4,85 +4,60 @@ import {
   logoutAndRedirect,
   isTheUserLoggedIn,
 } from '../../pages/login/isTheUserLogged'
-import { createHtmlElement } from '../../utils/createElement'
+import { createEl, createHtmlElement } from '../../utils/createElement'
 import { carInCartCounter } from './carsCounterInCart'
 import { getHashValue } from '../../utils/gethashvalue'
+import { showAndHideMobileMenu } from '../../utils/showHideMobileMenu'
+import { PageLinks } from '../../types/types'
 
 class Header extends Component {
-  private createPageLinks(href: string, text: string, html: string | undefined) {
-    const pageButton = document.createElement('div')
-    const menuLink = document.createElement('a')
-    pageButton.className = CSS_CLASSES.menuLink
-    menuLink.setAttribute('href', href)
-
-    if (text !== '') { menuLink.innerText = text }
-    if (html) { menuLink.innerHTML = `<img src="${html}">` }
+  private createPageLinks(href: string, text?: string | undefined) {
+    const menuButton = createEl('div', [CSS_CLASSES.menuBtn]);
+    const linkText = text !== '' ? text : undefined;
+    const menuLink = createEl('a', undefined, linkText, href);
     menuLink.setAttribute('id', `btn-${href.slice(1)}`)
-    pageButton.append(menuLink)
-    return pageButton
+    if (text === 'Cart') { menuLink.innerHTML = `<img src="./images/cart-full.svg" alt="cart-icon">` }
+    if (text === 'Logout') { menuLink.addEventListener('click', logoutAndRedirect) }
+    menuButton.append(menuLink)
+    return menuButton
   }
-  // eslint-disable-next-line
-  async renderPageButtons(hash: string) {
+
+  async renderPageButtons() {
     const currentHeader = document.querySelector('.header .container')
     if (currentHeader) {
       currentHeader.remove()
     }
 
     const title = this.createContainer()
-    const pageLinks = document.createElement('div')
-    pageLinks.className = 'menu_wrapper'
+    const pageLinksContainer = createEl('div', [CSS_CLASSES.menuWrapper]);
 
-    const mainPageButton: HTMLElement = this.createPageLinks('#main', 'Main', undefined)
-    pageLinks.append(mainPageButton)
-
-    const carsButton = this.createPageLinks('#cars', 'Cars', undefined)
-    pageLinks.append(carsButton)
-
-    const aboutButton = this.createPageLinks('#about', 'About us', undefined)
-    pageLinks.append(aboutButton);
-
-    const loginPageButton = this.createPageLinks('#login', 'Log in', undefined)
-    if (!isTheUserLoggedIn()) {
-      pageLinks.append(loginPageButton)
+    const pageLinks: PageLinks = {
+      'Main': { url: '#main', login: undefined },
+      'Cars': { url: '#cars', login: undefined },
+      'About us': { url: '#about', login: undefined },
+      'Log in': { url: '#login', login: false },
+      'Sign up': { url: '#registration', login: false },
+      'User Page': { url: '#user', login: true },
+      'Logout': { url: '#main', login: true },
+      'Cart': { url: '#cart', login: undefined },
     }
-
-    const registrPageButton = this.createPageLinks('#registration', 'Sign up', undefined)
-    if (!isTheUserLoggedIn()) {
-      pageLinks.append(registrPageButton)
+    const UserLoggedIn: boolean = isTheUserLoggedIn()
+    for (const pageLink in pageLinks) {
+      console.log(pageLink, pageLinks[pageLink].url);
+      const loginOption: boolean | undefined = pageLinks[pageLink].login
+      const pageButton: HTMLElement = this.createPageLinks(pageLinks[pageLink].url, pageLink)
+      if (loginOption === undefined) { pageLinksContainer.append(pageButton) }
+      else if (loginOption === true && UserLoggedIn) { pageLinksContainer.append(pageButton) }
+      else if (loginOption === false && !UserLoggedIn) { pageLinksContainer.append(pageButton) }
     }
-
-    const userPageButton = this.createPageLinks('#user', 'User Page', undefined)
-    if (isTheUserLoggedIn()) {
-      pageLinks.append(userPageButton)
-    }
-
-    const logautButton = this.createPageLinks('#main', 'Logout', undefined)
-    if (isTheUserLoggedIn()) {
-      logautButton.addEventListener('click', logoutAndRedirect)
-      pageLinks.append(logautButton)
-    }
-    const CartButton = this.createPageLinks('#cart', '', './images/cart-full.svg')
-    pageLinks.append(CartButton)
-
     carInCartCounter();
 
-    const burgerBtn = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.burgerBtn]
-    })
+    const burgerBtn = createEl('div', [CSS_CLASSES.burgerBtn], undefined, undefined, showAndHideMobileMenu);
     title.append(burgerBtn)
 
-    burgerBtn.addEventListener('click', () => {
-      pageLinks.classList.toggle('active');
-      if (document.body.style.overflow === 'hidden') {
-        document.body.style.overflow = 'auto';
-      } else {
-        document.body.style.overflow = 'hidden';
-      }
-    })
-    pageLinks.addEventListener('click', (event) => {
-      const clickedElement = event.target as HTMLElement;
-      if (clickedElement && clickedElement.tagName === 'A') {
+    pageLinksContainer.addEventListener('click', (event) => {
+      const clickedElement = event.target;
+      if (clickedElement instanceof HTMLElement && clickedElement.tagName === 'A') {
         if (document.body.style.overflow === 'hidden') {
           document.body.style.overflow = 'auto';
         }
@@ -93,18 +68,19 @@ class Header extends Component {
       cssClass: [CSS_CLASSES.burgerLine]
     })
     burgerBtn.append(burgerLine)
-
-    title.append(pageLinks)
-
-    title.append(pageLinks)
+    title.append(pageLinksContainer)
+    title.append(pageLinksContainer)
     this.container.append(title)
   }
 
   render() {
     const hash = getHashValue()
-    this.renderPageButtons(hash)
+    this.renderPageButtons()
     return this.container
   }
 }
 
 export default Header
+
+
+

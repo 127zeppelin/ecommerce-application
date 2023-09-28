@@ -1,4 +1,4 @@
-import { ElementOptions } from '../types/types'
+import { ElementOptions, HTMLElementTagNameMap } from '../types/types'
 export const createHtmlElement = ({
   tagName,
   cssClass,
@@ -68,3 +68,29 @@ export const createHtmlElement = ({
   }
   return element
 }
+
+
+export function createEl<K extends keyof HTMLElementTagNameMap>(
+  elementName: K,
+  className?: string[],
+  content?: string,
+  hrefAtribute?: string,
+  callback?: (event: Event) => void
+): HTMLElementTagNameMap[K] {
+  const element = document.createElement(elementName);
+  if (className && className.length > 0) {
+    element.classList.add(...className); 
+  }
+  if (content) {
+      element.textContent = content;
+  }
+  if (hrefAtribute) {
+    element.setAttribute('href', hrefAtribute)
+  }
+  if (callback) {
+      element.addEventListener('click', callback);
+  }
+  return element;
+}
+
+

@@ -29,3 +29,22 @@ export interface FilterValues {
     sort?: string
   }
 }
+
+
+
+export type HTMLElementTagNameMap = {
+  div: HTMLDivElement;
+  span: HTMLSpanElement;
+  input: HTMLInputElement;
+  button: HTMLButtonElement;
+  select: HTMLSelectElement;
+  option: HTMLOptionElement;
+  a: HTMLAnchorElement;
+  img: HTMLImageElement;
+};
+
+
+export type PageLinks = {
+  [key: string]: ObjectLink;
+};
+type ObjectLink = {url: string; login: boolean | undefined}
