@@ -1,7 +1,7 @@
 import Page from '../../temlates/page'
 import { customerRegistr, setAddressOptions } from './customerRegistration'
 import { tokenStore } from '../../components/api'
-import { addShowHidePaswordBtn } from '../../utils/showHidePasword' 
+import { addShowHidePaswordBtn } from '../../utils/showHidePasword'
 import { CSS_CLASSES } from '../../constants/cssClases'
 import {
   checkResultValidation,
@@ -9,13 +9,14 @@ import {
   handlePasswordInputChange,
   checkResultValidationRestration,
 } from '../../utils/validationInput'
-import { createHtmlElement } from '../../utils/createElement'
+import { createEl } from '../../utils/createElement'
 import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
 import { isTheUserLoggedIn } from '../login/isTheUserLogged'
 import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
+import { createSelectionCountryList } from '../../utils/createSelectionCountryList'
 
 class RegistrationPage extends Page {
   TextObject = {
@@ -23,13 +24,10 @@ class RegistrationPage extends Page {
   }
 
   private createPageButtons(href: string, text: string) {
-    const pageButton = document.createElement('div')
-    const loginBtn = document.createElement('a')
-    pageButton.className = 'login__btn'
-    loginBtn.href = href
-    loginBtn.innerText = text
-    pageButton.append(loginBtn)
-    return pageButton
+    const btnLoginOrRegistr = createEl('div', [CSS_CLASSES.pageBtn]);
+    const btnLoginOrRegistrLink = createEl('a', undefined, text, [href]);
+    btnLoginOrRegistr.append(btnLoginOrRegistrLink)
+    return btnLoginOrRegistr
   }
 
   private renderLogin(
@@ -38,8 +36,7 @@ class RegistrationPage extends Page {
     id: string,
     placeholder: string
   ) {
-    const input = document.createElement('input')
-    input.className = className
+    const input = createEl('input', [className])
     input.type = type
     input.id = id
     input.placeholder = placeholder
@@ -58,9 +55,8 @@ class RegistrationPage extends Page {
     inputCountry: HTMLDataListElement,
     elemText: string
   ) {
-    const country = document.createElement('option')
+    const country = createEl('option', undefined, elemText)
     country.value = value
-    country.innerText = elemText
     inputCountry.append(country)
   }
 
@@ -68,19 +64,14 @@ class RegistrationPage extends Page {
     id: string,
     AdressWrapper: HTMLElement
   ): HTMLElement {
-    const defaultAdressWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.defaultAddrWrapper],
-    })
-    let defaultAdress = document.createElement('input')
+    const defaultAdressWrapper = createEl('div', [CSS_CLASSES.defaultAddrWrapper])
+    const defaultAdress = createEl('input', undefined, 'value')
     defaultAdress.type = 'checkbox'
     defaultAdress.name = 'default-adress'
-    defaultAdress.value = 'value'
     defaultAdress.id = id
 
-    var label = document.createElement('label')
+    var label = createEl('label', [CSS_CLASSES.inputOneAdressCheck])
     label.htmlFor = id
-    label.className = 'label__adress'
     label.appendChild(document.createTextNode('Set as a default address'))
 
     defaultAdressWrapper.appendChild(defaultAdress)
@@ -133,17 +124,11 @@ class RegistrationPage extends Page {
       `.${CSS_CLASSES.registrSubmitBtn}`
     )
 
-    const invalidInputMessageEmail: HTMLElement = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.validationMsg],
-    })
+    const invalidInputMessageEmail = createEl('div', [CSS_CLASSES.validationMsg])
     registrLogin?.insertAdjacentElement('afterend', invalidInputMessageEmail)
     let resultEmail: boolean = false
 
-    const invalidInputMessagePass: HTMLElement = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.validationMsg],
-    })
+    const invalidInputMessagePass = createEl('div', [CSS_CLASSES.validationMsg])
     registrPass?.insertAdjacentElement('afterend', invalidInputMessagePass)
     let resultPassword: boolean = false
     if (!registrSubmit) {
@@ -325,25 +310,13 @@ class RegistrationPage extends Page {
 
   render() {
     this.redirectIfCustomerWithLogin()
-    const cont = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cont],
-    })
-    const formWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.formWrap],
-    })
-    const registrationForm = createHtmlElement({
-      tagName: 'form',
-      cssClass: [CSS_CLASSES.registrationForm],
-    })
+    const cont = createEl('div', [CSS_CLASSES.cont])
+    const formWrapper = createEl('div', [CSS_CLASSES.formWrap])
+    const registrationForm = createEl('form', [CSS_CLASSES.registrationForm])
     formWrapper.append(registrationForm)
     cont.append(formWrapper)
 
-    const pageButtons = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.pageBtns],
-    })
+    const pageButtons = createEl('div', [CSS_CLASSES.pageBtns])
     let pageButton = this.createPageButtons('#login', 'Log in')
     pageButtons.append(pageButton)
     pageButton = this.createPageButtons('#registration', 'Sign up')
@@ -351,22 +324,12 @@ class RegistrationPage extends Page {
     pageButton.classList.add('login__btn_active')
     registrationForm.append(pageButtons)
 
-    const pageText = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.registrationPageText],
-    })
-    const pageTextParagraph = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.registrationPageTextParagraph],
-      elementText: 'Create an account',
-    })
+    const pageText = createEl('div', [CSS_CLASSES.registrationPageText])
+    const pageTextParagraph = createEl('div', [CSS_CLASSES.registrationPageTextParagraph], 'Create an account')
     pageText.append(pageTextParagraph)
     registrationForm.append(pageText)
 
-    const loginEmailContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const loginEmailContainer = createEl('div', [CSS_CLASSES.inputContainer])
     registrationForm.append(loginEmailContainer)
 
     const inputLogin = this.renderLogin(
@@ -377,10 +340,7 @@ class RegistrationPage extends Page {
     )
     loginEmailContainer.append(inputLogin)
 
-    const paswordInputContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const paswordInputContainer = createEl('div', [CSS_CLASSES.inputContainer]);
     registrationForm.append(paswordInputContainer)
 
     const inputPass = this.renderLogin(
@@ -392,10 +352,7 @@ class RegistrationPage extends Page {
     paswordInputContainer.append(inputPass)
     addShowHidePaswordBtn(inputPass)
 
-    const inputNameContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputNameContainer = createEl('div', [CSS_CLASSES.inputContainer])
     registrationForm.append(inputNameContainer)
 
     const inputName = this.renderLogin(
@@ -406,10 +363,7 @@ class RegistrationPage extends Page {
     )
     inputNameContainer.append(inputName)
 
-    const surnameInputContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const surnameInputContainer = createEl('div', [CSS_CLASSES.inputContainer])
     registrationForm.append(surnameInputContainer)
 
     const inputSurname = this.renderLogin(
@@ -420,17 +374,10 @@ class RegistrationPage extends Page {
     )
     surnameInputContainer.append(inputSurname)
 
-    const inputDateOfBirthContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputDateOfBirthContainer = createEl('div', [CSS_CLASSES.inputContainer])
     registrationForm.append(inputDateOfBirthContainer)
 
-    const inputDateOfBirthLabel = createHtmlElement({
-      tagName: 'p',
-      cssClass: [CSS_CLASSES.dateText],
-      elementText: 'Date of birth:',
-    })
+    const inputDateOfBirthLabel = createEl('p', [CSS_CLASSES.dateText], 'Date of birth:')
     inputDateOfBirthContainer.append(inputDateOfBirthLabel)
 
     const inputDateOfBirth = this.renderLogin(
@@ -441,23 +388,13 @@ class RegistrationPage extends Page {
     )
     inputDateOfBirthContainer.append(inputDateOfBirth)
 
-    const shippingAdressWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.shipingAddrWrapper],
-    })
+    const shippingAdressWrapper = createEl('div', [CSS_CLASSES.shipingAddrWrapper])
     registrationForm.append(shippingAdressWrapper)
 
-    const shipingAdressTitle = createHtmlElement({
-      tagName: 'p',
-      cssClass: [CSS_CLASSES.registrationPageTextParagraph],
-      elementText: 'Shipping address',
-    })
+    const shipingAdressTitle = createEl('p', [CSS_CLASSES.registrationPageTextParagraph], 'Shipping address')
     shippingAdressWrapper.append(shipingAdressTitle)
 
-    const inputShipingStreetContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputShipingStreetContainer = createEl('div', [CSS_CLASSES.inputContainer])
     shippingAdressWrapper.append(inputShipingStreetContainer)
 
     const inputShipingStreet = this.renderLogin(
@@ -468,10 +405,7 @@ class RegistrationPage extends Page {
     )
     inputShipingStreetContainer.append(inputShipingStreet)
 
-    const inputCityShippingContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputCityShippingContainer = createEl('div', [CSS_CLASSES.inputContainer])
     shippingAdressWrapper.append(inputCityShippingContainer)
 
     const inputShippingCity = this.renderLogin(
@@ -482,10 +416,7 @@ class RegistrationPage extends Page {
     )
     inputCityShippingContainer.append(inputShippingCity)
 
-    const inputShippingCodeContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputShippingCodeContainer = createEl('div', [CSS_CLASSES.inputContainer])
     shippingAdressWrapper.append(inputShippingCodeContainer)
 
     const inputShipingCode = this.renderLogin(
@@ -496,79 +427,44 @@ class RegistrationPage extends Page {
     )
     inputShippingCodeContainer.append(inputShipingCode)
 
-    const inputCountryShippingContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputCountryShippingContainer = createEl('div', [CSS_CLASSES.inputContainer])
     shippingAdressWrapper.append(inputCountryShippingContainer)
 
-    const inputShippingCountry = document.createElement('input')
-    inputShippingCountry.className = CSS_CLASSES.inputCountryShip
-    inputShippingCountry.setAttribute('list', 'country')
+    const inputShippingCountry = createEl('input', [CSS_CLASSES.inputCountryShip])
+    inputShippingCountry.setAttribute('list', 'shipping-country-options')
     inputShippingCountry.id = 'shipping-country'
     inputShippingCountry.placeholder = 'Country'
 
     inputCountryShippingContainer.append(inputShippingCountry)
-
-    const inputCountryShip: HTMLDataListElement =
-      document.createElement('datalist')
-    inputCountryShip.id = 'country'
-
-    this.createCountry('DE', inputCountryShip, 'Germany')
-    this.createCountry('PL', inputCountryShip, 'Poland')
-    this.createCountry('BY', inputCountryShip, 'Belarus')
-    this.createCountry('AT', inputCountryShip, 'Austria')
-    this.createCountry('CA', inputCountryShip, 'Canada')
-
-    inputCountryShippingContainer.append(inputCountryShip)
+    createSelectionCountryList(inputCountryShippingContainer, 'shipping-country-options')
 
     this.createDefaultAdress(
       CSS_CLASSES.checkDefaultShipAddr,
       shippingAdressWrapper
     )
 
-    const sameAdressWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.addrWrapp],
-    })
+    const sameAdressWrapper = createEl('div', [CSS_CLASSES.addrWrapp])
     sameAdressWrapper.className = 'same-adress_wrapper'
 
-    const sameAdress = document.createElement('input')
-    sameAdress.className = 'same'
+    const sameAdress = createEl('input', [CSS_CLASSES.sameAdress], 'value')
     sameAdress.type = 'checkbox'
-    sameAdress.name = 'same-adress'
-    sameAdress.value = 'value'
     sameAdress.id = 'same-adress'
 
-    const labelOnlyAdres = document.createElement('label')
+    const labelOnlyAdres = createEl('label', [CSS_CLASSES.inputOneAdressCheck])
     labelOnlyAdres.htmlFor = 'same-adress'
-    labelOnlyAdres.className = CSS_CLASSES.inputOneAdressCheck
-    labelOnlyAdres.appendChild(
-      document.createTextNode('Use the same address for billing and shipping')
-    )
-
+    labelOnlyAdres.appendChild(document.createTextNode('Use the same address for billing and shipping'));
     sameAdressWrapper.appendChild(sameAdress)
     sameAdressWrapper.appendChild(labelOnlyAdres)
 
     registrationForm.appendChild(sameAdressWrapper)
 
-    const billingAdressWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.billlingAddrWrapper],
-    })
+    const billingAdressWrapper = createEl('div', [CSS_CLASSES.billlingAddrWrapper])
     registrationForm.append(billingAdressWrapper)
 
-    const billingAdressTitle = createHtmlElement({
-      tagName: 'p',
-      cssClass: [CSS_CLASSES.registrationPageTextParagraph],
-      elementText: 'Billing address',
-    })
+    const billingAdressTitle = createEl('p', [CSS_CLASSES.registrationPageTextParagraph], 'Billing address')
     billingAdressWrapper.append(billingAdressTitle)
 
-    const inputBillingStreetContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputBillingStreetContainer = createEl('div', [CSS_CLASSES.inputContainer])
     billingAdressWrapper.append(inputBillingStreetContainer)
 
     const inputBillingStreet = this.renderLogin(
@@ -579,10 +475,7 @@ class RegistrationPage extends Page {
     )
     inputBillingStreetContainer.append(inputBillingStreet)
 
-    const inputBillingCityContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputBillingCityContainer = createEl('div', [CSS_CLASSES.inputContainer])
     billingAdressWrapper.append(inputBillingCityContainer)
 
     const inputBillingCity = this.renderLogin(
@@ -593,46 +486,22 @@ class RegistrationPage extends Page {
     )
     inputBillingCityContainer.append(inputBillingCity)
 
-    const inputBillingZipContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputBillingZipContainer = createEl('div', [CSS_CLASSES.inputContainer])
     billingAdressWrapper.append(inputBillingZipContainer)
 
-    const inputBillingCode = this.renderLogin(
-      CSS_CLASSES.inputBillCode,
-      'text',
-      'billing-code',
-      'Postal code'
-    )
+    const inputBillingCode = this.renderLogin(CSS_CLASSES.inputBillCode, 'text', 'billing-code','Postal code')
     inputBillingZipContainer.append(inputBillingCode)
 
-    const inputBillingCountryContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const inputBillingCountryContainer = createEl('div', [CSS_CLASSES.inputContainer])
     billingAdressWrapper.append(inputBillingCountryContainer)
 
-    const inputBillingCountry = document.createElement('input')
-    inputBillingCountry.className = CSS_CLASSES.inputBillCountry
-    inputBillingCountry.setAttribute('list', 'country')
+    const inputBillingCountry = createEl('input', [CSS_CLASSES.inputBillCountry])
+    inputBillingCountry.setAttribute('list', 'billing-country-options')
     inputBillingCountry.id = 'billing-country'
     inputBillingCountry.placeholder = 'Country'
-
     inputBillingCountryContainer.append(inputBillingCountry)
 
-    const inputCountryBil: HTMLDataListElement =
-      document.createElement('datalist')
-    inputCountryBil.id = 'country'
-
-    this.createCountry('BY', inputCountryBil, 'Belarus')
-    this.createCountry('DE', inputCountryBil, 'Germany')
-    this.createCountry('PL', inputCountryBil, 'Poland')
-    this.createCountry('AT', inputCountryBil, 'Austria')
-    this.createCountry('CA', inputCountryBil, 'Canada')
-
-    inputBillingCountryContainer.append(inputCountryBil)
-
+    createSelectionCountryList(inputBillingCountryContainer, 'billing-country-options')
     billingAdressWrapper.append(inputBillingCountryContainer)
 
     this.createDefaultAdress(
@@ -640,17 +509,12 @@ class RegistrationPage extends Page {
       billingAdressWrapper
     )
 
-    const submitRegistrationWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.submitFormWrapper],
-    })
+    const submitRegistrationWrapper = createEl('div', [CSS_CLASSES.submitFormWrapper])
     registrationForm.append(submitRegistrationWrapper)
-    const registrSubmit = document.createElement('button')
-    registrSubmit.classList.add('login__submit')
+    const registrSubmit = createEl('button', [CSS_CLASSES.submitBtn], 'Sign up')
     registrSubmit.type = 'button'
     registrSubmit.id = 'login-submit'
     registrSubmit.disabled = true
-    registrSubmit.textContent = 'Sign up'
 
     submitRegistrationWrapper.append(registrSubmit)
     this.submitRegistrForm(registrationForm)

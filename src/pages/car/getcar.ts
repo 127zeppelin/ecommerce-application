@@ -1,7 +1,7 @@
 import { PROJECT_KEY } from "../../constants/apiConstants"
 import { apiRoot } from "../../components/api"
 import { CSS_CLASSES } from "../../constants/cssClases"
-import { createEl, createHtmlElement } from "../../utils/createElement"
+import { createEl } from "../../utils/createElement"
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
 import { carCharacterBlock } from "../cars/getProducts"

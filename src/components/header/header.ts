@@ -4,7 +4,7 @@ import {
   logoutAndRedirect,
   isTheUserLoggedIn,
 } from '../../pages/login/isTheUserLogged'
-import { createEl, createHtmlElement } from '../../utils/createElement'
+import { createEl } from '../../utils/createElement'
 import { carInCartCounter } from './carsCounterInCart'
 import { getHashValue } from '../../utils/gethashvalue'
 import { showAndHideMobileMenu } from '../../utils/showHideMobileMenu'
@@ -63,10 +63,7 @@ class Header extends Component {
         }
       }
     });
-    const burgerLine = createHtmlElement({
-      tagName: 'span',
-      cssClass: [CSS_CLASSES.burgerLine]
-    })
+    const burgerLine = createEl('span', [CSS_CLASSES.burgerLine])
     burgerBtn.append(burgerLine)
     title.append(pageLinksContainer)
     title.append(pageLinksContainer)

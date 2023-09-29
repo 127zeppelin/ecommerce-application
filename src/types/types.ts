@@ -7,30 +7,12 @@ export interface RequestBody {
   }
 }
 
-export interface ElementOptions {
-  tagName: string
-  cssClass: string[]
-  elementText?: string
-  elementHtml?: string
-  elementId?: string
-  typeElement?: string
-  nameElement?: string
-  valueElement?: string
-  srcAtribute?: string
-  altAtribute?: string
-  dataCarAtribute?: string
-  forElement?: string
-  appendInElement?: HTMLElement
-}
-
 export interface FilterValues {
   queryArgs?: {
     filter?: string[] | null | undefined
     sort?: string
   }
 }
-
-
 
 export type HTMLElementTagNameMap = {
   div: HTMLDivElement;
@@ -45,8 +27,10 @@ export type HTMLElementTagNameMap = {
   h2: HTMLHeadingElement;
   main: HTMLElement;
   p: HTMLElement;
+  label: HTMLLabelElement;
+  form: HTMLFormElement;
+  datalist:  HTMLDataListElement;
 };
-
 
 export type PageLinks = {
   [key: string]: ObjectLink;

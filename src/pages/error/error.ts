@@ -1,25 +1,17 @@
-//import { ErrorTypes } from "../../Enums/ErrorTypes";
+import { CSS_CLASSES } from '../../constants/cssClases'
 import Page from '../../temlates/page'
+import { createEl } from '../../utils/createElement'
 
 class ErrorPage extends Page {
-  //private errorType: ErrorTypes | string;
 
   TextObject: { [prop: string]: string } = {
     '404': 'Error! The page was not found.',
   }
 
-  /*
-  constructor(id: string, errorType: ErrorTypes | string) {
-    super(id);
-    this.errorType = errorType;
-  }
-*/
   render() {
-    const containerOuter = document.createElement('div')
-    containerOuter.className = 'container'
+    const containerOuter = createEl('div', [CSS_CLASSES.cont])
     this.container.append(containerOuter)
-    const title = this.createHeaderTitle('404')
-    title.className = 'pade-title'
+    const title = createEl('h1', [CSS_CLASSES.pageTitle], '404')
     containerOuter.append(title)
     return this.container
   }

@@ -1,5 +1,5 @@
 import { CSS_CLASSES } from "../../constants/cssClases";
-import { createHtmlElement } from "../../utils/createElement";
+import { createEl } from "../../utils/createElement";
 import { CartDeletionAndPageRefresh, addDiscountCode, getCartById } from "./cartActions";
 import { resolveMessageAddAndRemove } from "../../utils/resolveMsg";
 import { pageIsEmpty } from "../../utils/cartIsemptyMsg";
@@ -25,30 +25,16 @@ export function createCartPage(container: HTMLElement) {
           style: 'currency',
           currency: 'USD',
         })
-        const totalPrice = createHtmlElement({
-          tagName: 'div',
-          cssClass: [CSS_CLASSES.totalPrice],
-          elementText: formatedPrice
-        })
+        const totalPrice = createEl('div', [CSS_CLASSES.totalPrice], formatedPrice)
         container.append(totalPrice)
-        const discountCodeContainer = createHtmlElement({
-          tagName: 'div',
-          cssClass: [CSS_CLASSES.discountCodeContainer],
-        })
-        container.append(discountCodeContainer)
-        const inputDiscountCode: HTMLInputElement = createHtmlElement({
-          tagName: 'input',
-          cssClass: [CSS_CLASSES.inputDiscountCode],
-          typeElement: 'text',
-        }) as HTMLInputElement
+
+        const discountCodeContainer = createEl('div', [CSS_CLASSES.discountCodeContainer]);
+        container.append(discountCodeContainer);
+        const inputDiscountCode: HTMLInputElement = createEl('input', [CSS_CLASSES.inputDiscountCode]);
+        inputDiscountCode.setAttribute('type', 'text');
         discountCodeContainer.append(inputDiscountCode)
-        const submitDiscount = createHtmlElement({
-          tagName: 'button',
-          cssClass: [CSS_CLASSES.submitDiscountCode],
-          elementText: 'Add the code'
-        })
-        discountCodeContainer.append(submitDiscount)
-        submitDiscount.addEventListener('click', async () => {
+
+        const discountCodeSubmit = async () => {
           const discountCodeValue: string = inputDiscountCode.value
           const shoppingCartVersionNumber = parseInt(cartVersion)
           try {
@@ -61,24 +47,20 @@ export function createCartPage(container: HTMLElement) {
             const resolveMessage: string = `${error}`
             resolveMessageAddAndRemove(resolveMessage, false)
           }
-        })
+        }
+        const submitDiscount = createEl('button', [CSS_CLASSES.submitDiscountCode], 'Add the code', undefined, discountCodeSubmit)
+        discountCodeContainer.append(submitDiscount)
+
         const totalLineItemQuantityIs: number | undefined = data.body.totalLineItemQuantity;
         if (totalLineItemQuantityIs === undefined) {
           pageIsEmpty(container, pageIsEmptyMsq);
           totalPrice.remove();
           discountCodeContainer.remove();
         }
-        const clearCartBtnContainer = createHtmlElement({
-          tagName: 'div',
-          cssClass: [CSS_CLASSES.clearCartBtnContainer],
-        })
+        const clearCartBtnContainer = createEl('div', [CSS_CLASSES.clearCartBtnContainer])
         container.append(clearCartBtnContainer)
 
-        const cleatCartBtn = createHtmlElement({
-          tagName: 'button',
-          cssClass: [CSS_CLASSES.submitDiscountCode],
-          elementText: 'Clear cart'
-        })
+        const cleatCartBtn = createEl('button', [CSS_CLASSES.submitDiscountCode], 'Clear cart')
         clearCartBtnContainer.append(cleatCartBtn)
         cleatCartBtn.addEventListener('click',
           async () => {

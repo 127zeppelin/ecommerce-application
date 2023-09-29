@@ -1,16 +1,17 @@
+import { createEl } from "../utils/createElement"
+
 abstract class Registrations {
   protected container: HTMLElement
 
   public TextObject = {}
 
   constructor(id: string) {
-    this.container = document.createElement('div')
+    this.container = createEl('div')
     this.container.id = id
   }
 
   protected createRegistration(text: string) {
-    const headerTitle = document.createElement('h1')
-    headerTitle.innerText = text
+    const headerTitle = createEl('h1', undefined, text)
     return headerTitle
   }
 

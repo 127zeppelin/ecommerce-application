@@ -1,4 +1,4 @@
-import { createHtmlElement } from '../../utils/createElement'
+import { createEl } from '../../utils/createElement'
 import { CSS_CLASSES } from '../../constants/cssClases'
 import { pageList } from '../pagelist'
 import { installOfTheCurrentPrice } from '../../utils/price'
@@ -26,41 +26,17 @@ export const carCharacterBlock = (
         attributeName === 'engine-power' ||
         attributeName === 'max-speed'
       ) {
-        const atributeContainer = createHtmlElement({
-          tagName: 'div',
-          cssClass: [CSS_CLASSES.carAtributeContainer],
-        })
-        const atributeImg = createHtmlElement({
-          tagName: 'img',
-          cssClass: [CSS_CLASSES.carAtributeImg],
-          srcAtribute: `./images/${attributeName}.svg`,
-        })
+        const atributeContainer = createEl('div', [CSS_CLASSES.carAtributeContainer])
+        const atributeImg = createEl('img', [CSS_CLASSES.carAtributeImg], undefined, [`./images/${attributeName}.svg`])
         atributeContainer.append(atributeImg)
-        const atributeName = createHtmlElement({
-          tagName: 'span',
-          cssClass: [CSS_CLASSES.carCharacterCont],
-          elementText:
-            attributeName.charAt(0).toUpperCase() +
-            attributeName.slice(1).replace(/-/g, ' '),
-        })
+        const elementText = attributeName.charAt(0).toUpperCase() + attributeName.slice(1).replace(/-/g, ' ');
+        const atributeName = createEl('span', [CSS_CLASSES.carCharacterCont], elementText)
         atributeContainer.append(atributeName)
-        const atributeValue = createHtmlElement({
-          tagName: 'span',
-          cssClass: [CSS_CLASSES.carCharacterCont],
-          elementText: String(attributeValue),
-        })
+        const atributeValue = createEl('span', [CSS_CLASSES.carCharacterCont], String(attributeValue))
         atributeContainer.append(atributeValue)
-
-        const atributeValueAfter = createHtmlElement({
-          tagName: 'span',
-          cssClass: [CSS_CLASSES.carCharacterCont],
-          elementText:
-            attributeName === 'engine-power'
-              ? 'HP'
-              : attributeName === 'max-speed'
-                ? 'Km/h'
-                : '',
-        })
+        
+        const atributeText = attributeName === 'engine-power' ? 'HP' : attributeName === 'max-speed' ? 'Km/h' : '';
+        const atributeValueAfter = createEl('span', [CSS_CLASSES.carCharacterCont], atributeText)
         atributeContainer.append(atributeValueAfter)
         atributesContainer.append(atributeContainer)
       }
@@ -74,44 +50,25 @@ export const createCarsList = (
 ): HTMLElement => {
   for (const carData of carsArr) {
     const childElementsCarCard = []
-    const oneCarCardContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.carCard],
-    })
+    const oneCarCardContainer = createEl('div', [CSS_CLASSES.carCard]);
     carsCardContainer.append(oneCarCardContainer)
 
     const productImages: Image[] | undefined = carData.masterVariant.images
     if (productImages !== undefined) {
-      const carTbImg = createHtmlElement({
-        tagName: 'img',
-        cssClass: [CSS_CLASSES.carCardTb],
-        srcAtribute: productImages[0].url,
-        altAtribute: carData.name['en-US'],
-      })
+      const carTbImg = createEl('img', [CSS_CLASSES.carCardTb], undefined, [productImages[0].url, carData.name['en-US']])
       childElementsCarCard.push(carTbImg)
     }
     const carPriceBlock = installOfTheCurrentPrice(carData)
     childElementsCarCard.push(carPriceBlock)
 
-    const carTitle = createHtmlElement({
-      tagName: 'h2',
-      cssClass: [CSS_CLASSES.carCardTitle],
-      elementText: carData.name['en-US'],
-    })
+    const carTitle = createEl('h2', [CSS_CLASSES.carCardTitle], carData.name['en-US'])
     childElementsCarCard.push(carTitle)
 
-    const сarСharacteristicsCont = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.carCharacterCont],
-    })
+    const сarСharacteristicsCont = createEl('div', [CSS_CLASSES.carCharacterCont])
 
     childElementsCarCard.push(сarСharacteristicsCont)
-    const moreInfoLink = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.moreInfoBtn],
-      elementText: 'Details',
-      dataCarAtribute: carData.key,
-    })
+    const moreInfoLink = createEl('button', [CSS_CLASSES.moreInfoBtn], 'Details');
+    if(carData.key){moreInfoLink.setAttribute('data', carData.key)}
     if (carData.key !== undefined && pageList.CUR_CAR !== undefined) {
       moreInfoLink.addEventListener('click', () => {
         pageList.CUR_CAR = carData.key as string

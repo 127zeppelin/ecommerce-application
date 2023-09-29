@@ -1,52 +1,35 @@
 import { CSS_CLASSES } from '../../constants/cssClases'
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createElement'
+import { createEl } from '../../utils/createElement'
 import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class MainPage extends Page {
 
   render() {
-    const containerOuter = document.createElement('div')
-    containerOuter.className = CSS_CLASSES.mainContainer
+    const containerOuter = createEl('div', [CSS_CLASSES.mainContainer])
     this.container.append(containerOuter)
-    const mainContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.mainPageContent]
-    })
+
+    const mainContainer = createEl('div', [CSS_CLASSES.mainPageContent])
     containerOuter.append(mainContainer);
-    const title = this.createHeaderTitle('Premium car rental')
-    title.className = 'pade-title'
+
+    const title = createEl('h1', [CSS_CLASSES.pageTitle], 'Premium car rental')
     mainContainer.append(title)
 
-    const mainDiscription = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.mainPageDiscription],
-      elementText: `In our club, we have an impressive collection of sports cars — from fairly 
-                  common production models to true racing exclusives. Take advantage of this 
-                  unique opportunity to get behind the wheel of a real legend and find out what 
-                  it's capable of beyond the racetrack!`
-    })
+    const elementText = `In our club, we have an impressive collection of sports cars — from fairly 
+    common production models to true racing exclusives. Take advantage of this 
+    unique opportunity to get behind the wheel of a real legend and find out what 
+    it's capable of beyond the racetrack!`;
+
+    const mainDiscription = createEl('div', [CSS_CLASSES.mainPageDiscription])
     mainContainer.append(mainDiscription);
 
-    const discountCodeContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.discountCodeContainer],
-    })
+    const discountCodeContainer = createEl('div', [CSS_CLASSES.discountCodeContainer])
     mainContainer.append(discountCodeContainer);
 
-    const discountCode = createHtmlElement({
-      tagName: 'span',
-      cssClass: [CSS_CLASSES.discountCode],
-      elementText: 'FIRSTORDERDISCOUNT',
-      valueElement: 'FIRSTORDERDISCOUNT'
-    })
+    const discountCode = createEl('span', [CSS_CLASSES.discountCode], 'FIRSTORDERDISCOUNT');
     discountCodeContainer.append(discountCode);
 
-    const discountCodeCopy = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.submitDiscountCode],
-      elementText: 'Copy code'
-    })
+    const discountCodeCopy = createEl('button', [CSS_CLASSES.submitDiscountCode], 'Copy code')
     discountCodeContainer.append(discountCodeCopy);
     discountCodeCopy.addEventListener('click', () => {
       const textToCopy = discountCode.innerText;

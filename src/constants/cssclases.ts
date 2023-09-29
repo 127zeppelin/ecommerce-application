@@ -9,12 +9,14 @@ export const CSS_CLASSES: Record<string, string> = {
   formWrap: 'login__wrapper',
   registrationForm: 'login',
   pageBtns: 'login__btns',
+  pageBtn: 'login__btn',
   registrationPageText: 'login__text',
   registrationPageTextParagraph: 'text_bold',
   inputContainer: 'input',
   dateText: 'input__text_date',
   shipingAddrWrapper: 'shipping-adress_wrapper',
   addrWrapp: 'same-adress_wrapper',
+  sameAdress: 'same',
   billlingAddrWrapper: 'billing-adress_wrapper',
   submitFormWrapper: 'login__submit_wrapper',
   resolveMsg: 'resolve',
@@ -127,5 +129,6 @@ export const CSS_CLASSES: Record<string, string> = {
   burgerBtn: 'burger-btn',
   burgerLine: 'burger-line',
   clearCartBtnContainer: 'clear-cart-btn-container',
-  carsInCartCounter: 'cars-in-cart-counter'
+  carsInCartCounter: 'cars-in-cart-counter',
+  btnShowPass: 'btn-show-pass'
 }

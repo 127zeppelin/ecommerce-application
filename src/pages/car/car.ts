@@ -1,6 +1,6 @@
 import Page from '../../temlates/page'
 import { CSS_CLASSES } from '../../constants/cssClases'
-import { createEl, createHtmlElement } from '../../utils/createElement'
+import { createEl } from '../../utils/createElement'
 import { getCar, createCarPage } from './getCar'
 import { ClientResponse, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { getHashValue } from '../../utils/gethashvalue'

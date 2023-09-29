@@ -1,5 +1,5 @@
 import { CSS_CLASSES } from "../../constants/cssClases"
-import { createHtmlElement } from "../../utils/createElement"
+import { createEl } from "../../utils/createElement"
 import { Address, ClientResponse, Customer } from "@commercetools/platform-sdk"
 
 
@@ -16,11 +16,7 @@ const addressOptions = (adressId: string, body: Customer, inputContainer: HTMLEl
         adressesOptionArr === body.defaultBillingAddressId ? 'Default Billing Address' :
           'Default Shipping Address';
     if (adressesOptionArr?.includes(adressId)) {
-      const userDataInput = createHtmlElement({
-        tagName: 'span',
-        cssClass: [CSS_CLASSES.inputArea, CSS_CLASSES.addressOption],
-        elementText: elementText
-      })
+      const userDataInput = createEl('span', [CSS_CLASSES.inputArea, CSS_CLASSES.addressOption], elementText)
       inputContainer.append(userDataInput);
     }
   }
@@ -36,26 +32,14 @@ const сreatingUserInformationBlock = (userData: ClientResponse<Customer>, userP
     'Password': userData.body?.password
   }
   for (const dataKey in userBody) {
-    const inputContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.userInputContainer],
-      elementHtml: `<span class="${CSS_CLASSES.inputLabel}">${dataKey}:</span>`,
-    })
-    userProfileContainer.append(inputContainer)
+    const inputContainer = createEl('div', [CSS_CLASSES.userInputContainer], 
+    `<span class="${CSS_CLASSES.inputLabel}">${dataKey}:</span>`);
+    userProfileContainer.append(inputContainer);
 
-    const userDataInput = createHtmlElement({
-      tagName: 'span',
-      cssClass: [CSS_CLASSES.inputArea],
-      elementText: userBody[dataKey] !== undefined ? userBody[dataKey] : 'Not filled in',
-      elementId: dataKey.replace(/ /g, '_').toLocaleLowerCase()
-    })
+    const userDataInput = createEl('span', [CSS_CLASSES.inputArea], userBody[dataKey] !== undefined ? userBody[dataKey] : 'Not filled in');
+    userDataInput.id = dataKey.replace(/ /g, '_').toLocaleLowerCase();
     inputContainer.append(userDataInput)
-    const userDataEdit = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.userDataEditBtn],
-      elementHtml: `<img src="./images/pencil.svg">`
-
-    })
+    const userDataEdit = createEl('button', [CSS_CLASSES.userDataEditBtn], `<img src="./images/pencil.svg">`)
     inputContainer.append(userDataEdit)
   }
 }
@@ -72,36 +56,22 @@ const сreatingUserAddressesBlock = (userData: ClientResponse<Customer>, userAdr
       'Postal Code': adress?.postalCode,
       'Street Name': adress?.streetName
     }
-    const oneAddressContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.oneAddressContainer],
-    })
+    const oneAddressContainer = createEl('div',  [CSS_CLASSES.oneAddressContainer])
     const adressId = adress.id as string
     userAdressesContainer.append(oneAddressContainer)
     for (const adressItem in customerAdressesData) {
       if (adressItem !== 'id') {
-        const inputContainer = createHtmlElement({
-          tagName: 'div',
-          cssClass: [CSS_CLASSES.userInputContainer],
-          elementHtml: `<span class="${CSS_CLASSES.inputLabel}">${adressItem}:</span>`,
-        })
+        const inputContainer = createEl('div', [CSS_CLASSES.userInputContainer],
+          `<span class="${CSS_CLASSES.inputLabel}">${adressItem}:</span>`);
         oneAddressContainer.append(inputContainer)
 
-        const userDataInput = createHtmlElement({
-          tagName: 'span',
-          cssClass: [CSS_CLASSES.inputArea],
-          elementText: customerAdressesData[adressItem],
-          elementId: adressItem.replace(/ /g, '_').toLocaleLowerCase()
-        })
+        const userDataInput = createEl('span', [CSS_CLASSES.inputArea], customerAdressesData[adressItem]);
+        userDataInput.id = adressItem.replace(/ /g, '_').toLocaleLowerCase();
         inputContainer.append(userDataInput);
       } else {
-        const inputContainer = createHtmlElement({
-          tagName: 'div',
-          cssClass: [CSS_CLASSES.userInputContainer],
-          elementHtml: `<span class="${CSS_CLASSES.inputLabel}">This address is:</span>`,
-        })
+        const inputContainer = createEl('div', [CSS_CLASSES.userInputContainer],
+          `<span class="${CSS_CLASSES.inputLabel}">This address is:</span>`)
         oneAddressContainer.append(inputContainer)
-
         addressOptions(adressId, userData.body, inputContainer)
       }
     }
@@ -109,34 +79,17 @@ const сreatingUserAddressesBlock = (userData: ClientResponse<Customer>, userAdr
 }
 
 export const createUserPage = (userData: ClientResponse<Customer>) => {
-  const userPageContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.containerUserPage]
-  })
-  const userProfileContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.containerUserProfile]
-  })
+  const userPageContainer = createEl('div', [CSS_CLASSES.containerUserPage])
+  const userProfileContainer = createEl('div', [CSS_CLASSES.containerUserProfile])
   userPageContainer.append(userProfileContainer)
 
-  const userProfileTitle = createHtmlElement({
-    tagName: 'h2',
-    cssClass: [CSS_CLASSES.containerUserProfile],
-    elementText: 'Customer Info'
-  })
+  const userProfileTitle = createEl('h2', [CSS_CLASSES.containerUserProfile], 'Customer Info')
   userProfileContainer.append(userProfileTitle)
 
-  const userAdressesContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.containerUserAddresses]
-  })
+  const userAdressesContainer = createEl('div', [CSS_CLASSES.containerUserAddresses])
   userPageContainer.append(userAdressesContainer)
 
-  const userAddressesTitle = createHtmlElement({
-    tagName: 'h2',
-    cssClass: [CSS_CLASSES.containerUserProfile],
-    elementText: 'Customer Addresses'
-  })
+  const userAddressesTitle = createEl('h2', [CSS_CLASSES.containerUserProfile], 'Customer Addresses')
   userAdressesContainer.append(userAddressesTitle)
 
   сreatingUserInformationBlock(userData, userProfileContainer)

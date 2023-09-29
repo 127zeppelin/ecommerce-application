@@ -1,7 +1,7 @@
 import { LineItem } from "@commercetools/platform-sdk";
 import { CSS_CLASSES } from "../../constants/cssClases";
 import { chageQuantityItemInCart } from "../../utils/carChangeuQantiti";
-import { createHtmlElement } from "../../utils/createElement";
+import { createEl } from "../../utils/createElement";
 import { updateCartAddAuto, updateCartRemoveAuto } from "./cartActions";
 import { resolveMessageAddAndRemove } from "../../utils/resolveMsg";
 import { createCartPage } from "./cartPageCreate";
@@ -11,65 +11,34 @@ import { carInCartCounter } from "../../components/header/carsCounterInCart";
 export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement) => {
   let i = 0;
   while (i < arrCartItems.length) {
-    const cartItem = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItem],
-    })
+    const cartItem = createEl('div', [CSS_CLASSES.cartItem])
     container.append(cartItem);
 
-    const cartItemNumber = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemNumber],
-      elementText: `#${i + 1}`
-    })
+    const cartItemNumber = createEl('div', [CSS_CLASSES.cartItemNumber], `#${i + 1}`)
     cartItem.append(cartItemNumber);
     const thumbImg = arrCartItems[i].variant.images;
     const thumbUrlImg: string | undefined = thumbImg ? thumbImg[0].url : undefined;
 
     if (thumbUrlImg) {
-      const cartItemImage = createHtmlElement({
-        tagName: 'img',
-        cssClass: [CSS_CLASSES.cartItemImage],
-        srcAtribute: thumbUrlImg
-      })
+      const cartItemImage = createEl('img', [CSS_CLASSES.cartItemImage], undefined, [thumbUrlImg]);
       cartItem.append(cartItemImage);
     }
 
-    const cartItemName = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemName],
-      elementText: arrCartItems[i].name["en-US"]
-
-    })
+    const cartItemName = createEl('div', [CSS_CLASSES.cartItemName], arrCartItems[i].name["en-US"])
     cartItem.append(cartItemName);
 
-    const cartItemQuantity = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemQuantity],
-    })
+    const cartItemQuantity = createEl('div', [CSS_CLASSES.cartItemQuantity])
     cartItem.append(cartItemQuantity);
 
-    const smallerBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.quantityBtn],
-      elementText: '-'
-    })
+    const smallerBtn = createEl('button', [CSS_CLASSES.quantityBtn], '-')
     cartItemQuantity.append(smallerBtn)
 
-    const quantityInput: HTMLInputElement = createHtmlElement({
-      tagName: 'input',
-      cssClass: [CSS_CLASSES.quantityInput],
-      valueElement: `${arrCartItems[i].quantity}`
-    }) as HTMLInputElement
+    const quantityInput: HTMLInputElement = createEl('input', [CSS_CLASSES.quantityInput], `${arrCartItems[i].quantity}`);
     cartItemQuantity.append(quantityInput);
     quantityInput.setAttribute('readOnly', 'true');
     const quantityStart: number = parseInt(quantityInput.value, 10);
 
-    const moreBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.quantityBtn],
-      elementText: '+'
-    })
+    const moreBtn = createEl('button',[CSS_CLASSES.quantityBtn],'+')
     cartItemQuantity.append(moreBtn)
 
     const priceItem = arrCartItems[i].totalPrice.centAmount / 100;
@@ -77,24 +46,13 @@ export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement
       style: 'currency',
       currency: 'USD',
     })
-    const cartItemPrice = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemPrice],
-      elementText: formatedPrice
-    })
+    const cartItemPrice = createEl('div', [CSS_CLASSES.cartItemPrice], formatedPrice)
     cartItem.append(cartItemPrice);
 
-    const cartItemBtnsContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cartItemBtnsContainer],
-    })
+    const cartItemBtnsContainer = createEl('div', [CSS_CLASSES.cartItemBtnsContainer])
     cartItem.append(cartItemBtnsContainer)
 
-    const cartItemRecalculateBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.cartItemRecalculateBtn],
-      elementText: 'Recalculate'
-    })
+    const cartItemRecalculateBtn = createEl('button', [CSS_CLASSES.cartItemRecalculateBtn], 'Recalculate')
     cartItemBtnsContainer.append(cartItemRecalculateBtn);
     cartItemRecalculateBtn.setAttribute('disabled', 'disabled');
 
@@ -141,11 +99,7 @@ export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement
         }
       }
     })
-    const cartItemDeleteBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.cartItemDeleteBtn],
-      elementText: 'Delete'
-    })
+    const cartItemDeleteBtn = createEl('button', [CSS_CLASSES.cartItemDeleteBtn], 'Delete')
 
     const carQuantity = arrCartItems[i].quantity;
     cartItemBtnsContainer.append(cartItemDeleteBtn);
