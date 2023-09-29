@@ -37,14 +37,15 @@ export const createCategorySelection = (
   btnArr.push(allCarsBtn)
 
   allCarsBtn.addEventListener('click', async (event: Event) => {
-    event.preventDefault()
-    for (const btn of btnArr) {
+    event.preventDefault();
+    btnArr.forEach((btn) => {
       if (btn !== event.target) {
         btn.classList.remove(CSS_CLASSES.activeBtn)
       } else {
         btn.classList.add(CSS_CLASSES.activeBtn)
       }
-    }
+    })
+
     localStorage.removeItem('CUR_FILTER')
     localStorage.removeItem('CUR_CATEGORY')
     filterValues.queryArgs = queryArgs
@@ -64,11 +65,11 @@ export const createCategorySelection = (
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
       const errorMessage: string = error.message;
-      resolveMessageAddAndRemove( errorMessage, false)
+      resolveMessageAddAndRemove(errorMessage, false)
     }
   })
   parentElement.append(allCarsBtn)
-  for (const category of categories) {
+  categories.forEach((category) => {
     const categoryName = category.name['en-US']
     const categoryKey = category.key
     const categoryId = category.id
@@ -80,19 +81,19 @@ export const createCategorySelection = (
         ? [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn]
         : [CSS_CLASSES.categoryBtn]
     const categoryBtn = createEl('button', curClass, categoryName)
-    categoryBtn.setAttribute('id',`${categoryKey}-btn`)
+    categoryBtn.setAttribute('id', `${categoryKey}-btn`)
     btnArr.push(categoryBtn)
     categoryBtn.addEventListener('click', async (event: Event) => {
       event.preventDefault()
-      for (const btn of btnArr) {
+      btnArr.forEach((btn) => {
         if (btn !== event.target) {
           btn.classList.remove(CSS_CLASSES.activeBtn)
         } else {
           btn.classList.add(CSS_CLASSES.activeBtn)
         }
-      }
+      })
       const clickedCategoryId = categoryId
-      
+
       filterValues.queryArgs = queryArgs
       if (!filterValues.queryArgs.filter) {
         filterValues.queryArgs.filter = []
@@ -113,11 +114,11 @@ export const createCategorySelection = (
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
         const errorMessage: string = error.message;
-        resolveMessageAddAndRemove( errorMessage, false)
+        resolveMessageAddAndRemove(errorMessage, false)
       }
     })
     parentElement.append(categoryBtn)
-  }
+  })
 }
 
 export const filterCarsFromCategory = async (
@@ -146,13 +147,13 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
   const sortSelection = createEl('select', [CSS_CLASSES.sortSelection])
   sortSelection.setAttribute('id', 'sort')
   blockSortCars.append(sortSelection)
-  
+
 
   const sortPlaceholder = createEl('option', [CSS_CLASSES.sortItem], 'Select option');
   sortPlaceholder.setAttribute('value', 'createdAt asc');
   options.push(sortPlaceholder)
 
-  const sortNameUp = createEl('option', [CSS_CLASSES.sortItem], 'Sort by name A-Z'); 
+  const sortNameUp = createEl('option', [CSS_CLASSES.sortItem], 'Sort by name A-Z');
   sortNameUp.setAttribute('value', 'name.EN-US asc');
   options.push(sortNameUp);
 
@@ -182,7 +183,7 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
       const errorMessage: string = error.message;
-      resolveMessageAddAndRemove( errorMessage, false)
+      resolveMessageAddAndRemove(errorMessage, false)
     }
   })
   return blockSortCars
@@ -192,8 +193,7 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
   const filterAtrbutesBtns = createEl('div', [CSS_CLASSES.atributesBtns])
   const colorsAuto = ['Transparent', 'White', 'Red', 'Blue', 'Gray', 'Black']
   const btnArr: HTMLElement[] = []
-
-  for (const color of colorsAuto) {
+  colorsAuto.forEach((color) => {
     const colorBtn = createEl('button', [CSS_CLASSES.colorBtn])
     colorBtn.setAttribute('id', color)
     colorBtn.style.backgroundColor = color;
@@ -211,14 +211,14 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
           `variants.attributes.color-auto: "${color}"`
         )
       }
-      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
-      for (const btn of btnArr) {
+      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues));
+      btnArr.forEach((btn) => {
         if (btn !== event.target) {
           btn.classList.remove(CSS_CLASSES.activeBtn)
         } else {
           btn.classList.add(CSS_CLASSES.activeBtn)
         }
-      }
+      })
       carsCardContainer.innerHTML = ''
       try {
         const loadCarsResult = await getCarsWithFilter()
@@ -226,11 +226,11 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
         const errorMessage: string = error.message;
-        resolveMessageAddAndRemove( errorMessage, false)
+        resolveMessageAddAndRemove(errorMessage, false)
       }
     })
     btnArr.push(colorBtn)
-  }
+  })
   filterAtrbutesBtns.append(...btnArr)
   return filterAtrbutesBtns
 }

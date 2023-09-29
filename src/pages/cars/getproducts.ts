@@ -18,7 +18,7 @@ export const carCharacterBlock = (
   const arrayAtributs: Attribute[] | undefined =
     carData.masterVariant.attributes
   if (arrayAtributs !== undefined) {
-    for (const attribute of arrayAtributs) {
+    arrayAtributs.forEach((attribute)=>{
       const attributeName = attribute.name
       const attributeValue = attribute.value
       if (
@@ -40,7 +40,7 @@ export const carCharacterBlock = (
         atributeContainer.append(atributeValueAfter)
         atributesContainer.append(atributeContainer)
       }
-    }
+    })
   }
 }
 
@@ -48,7 +48,7 @@ export const createCarsList = (
   carsArr: ProductProjection[],
   carsCardContainer: HTMLElement
 ): HTMLElement => {
-  for (const carData of carsArr) {
+  carsArr.forEach((carData)=>{
     const childElementsCarCard = []
     const oneCarCardContainer = createEl('div', [CSS_CLASSES.carCard]);
     carsCardContainer.append(oneCarCardContainer)
@@ -79,7 +79,7 @@ export const createCarsList = (
     childElementsCarCard.push(moreInfoLink)
     oneCarCardContainer.append(...childElementsCarCard)
     carCharacterBlock(carData, сarСharacteristicsCont)
-  }
+  })
   if(carsArr.length === 0){
     const pageIsEmptyMsq: string = `No cars match your<br/>filtering settings :(`
     pageIsEmpty(carsCardContainer, pageIsEmptyMsq)

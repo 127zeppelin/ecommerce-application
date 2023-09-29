@@ -10,7 +10,7 @@ const addressOptions = (adressId: string, body: Customer, inputContainer: HTMLEl
     body.billingAddressIds,
     body.defaultBillingAddressId,
   ]
-  for (const adressesOptionArr of adressesArrays) {
+  adressesArrays.forEach((adressesOptionArr)=>{
     const elementText = adressesOptionArr === body.shippingAddressIds ? 'Shipping Address' :
       adressesOptionArr === body.billingAddressIds ? 'Billing Address' :
         adressesOptionArr === body.defaultBillingAddressId ? 'Default Billing Address' :
@@ -19,7 +19,7 @@ const addressOptions = (adressId: string, body: Customer, inputContainer: HTMLEl
       const userDataInput = createEl('span', [CSS_CLASSES.inputArea, CSS_CLASSES.addressOption], elementText)
       inputContainer.append(userDataInput);
     }
-  }
+  })
 }
 
 const сreatingUserInformationBlock = (userData: ClientResponse<Customer>, userProfileContainer: HTMLElement) => {
@@ -46,7 +46,7 @@ const сreatingUserInformationBlock = (userData: ClientResponse<Customer>, userP
 
 const сreatingUserAddressesBlock = (userData: ClientResponse<Customer>, userAdressesContainer: HTMLElement) => {
   const customerAdresses: Address[] = userData.body.addresses;
-  for (const adress of customerAdresses) {
+  customerAdresses.forEach((adress)=>{
     const customerAdressesData: Record<string, string | undefined> = {
       'id': adress.id,
       'Apartment': adress?.apartment,
@@ -75,7 +75,7 @@ const сreatingUserAddressesBlock = (userData: ClientResponse<Customer>, userAdr
         addressOptions(adressId, userData.body, inputContainer)
       }
     }
-  }
+  })
 }
 
 export const createUserPage = (userData: ClientResponse<Customer>) => {
