@@ -1,11 +1,12 @@
 import { CSS_CLASSES } from '../constants/cssClases'
+import { fieldsForValidationIfMultipleAddresses, fieldsForValidationIfSingleAddress } from '../constants/magicNumbers'
 
 export const validationFunctions = {
   email: function (email: string) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailPattern.test(email)
   },
-  password: function (password: string):  string  {
+  password: function (password: string): string {
     let message = ''
 
     if (password.length < 8) {
@@ -35,7 +36,7 @@ export const validationFunctions = {
 
     if (password.trim() !== password) {
       message = 'Password should not have spaces at the beginning or end'
-      return message 
+      return message
     }
 
     return message
@@ -91,55 +92,47 @@ export const checkResultValidation = (
 }
 
 export const checkResultValidationRestration = (
-  email: HTMLInputElement,
-  password: HTMLInputElement,
-  name: HTMLInputElement,
-  surname: HTMLInputElement,
-  dateOfBirth: HTMLInputElement,
-  streetShiping: HTMLInputElement,
-  cityShiping: HTMLInputElement,
-  codeShiping: HTMLInputElement,
-  countryShiping: HTMLInputElement,
-  oneAdress: boolean,
-  streetBilling: HTMLInputElement,
-  cityBilling: HTMLInputElement,
-  codeBilling: HTMLInputElement,
-  countryBilling: HTMLInputElement,
-  button: HTMLButtonElement
+  form: HTMLFormElement,
+  oneAdress: boolean
 ): boolean => {
-  const requiredFields: HTMLInputElement[] = [
-    email,
-    password,
-    name,
-    surname,
-    dateOfBirth,
-    streetShiping,
-    cityShiping,
-    codeShiping,
-    countryShiping,
-    streetBilling,
-    cityBilling,
-    codeBilling,
-    countryBilling,
-  ]
+  const registrSubmit: HTMLButtonElement | null = form.querySelector(`.${CSS_CLASSES.registrSubmitBtn}`);
+  const inputFieldsArray: (HTMLInputElement | null) [] = [
+    form.querySelector(`.${CSS_CLASSES.inputEmail}`),
+    form.querySelector(`.${CSS_CLASSES.inputPass}`),
+    form.querySelector(`.${CSS_CLASSES.inputName}`),
+    form.querySelector(`.${CSS_CLASSES.inputSurname}`),
+    form.querySelector(`.${CSS_CLASSES.inputDate}`),
+    form.querySelector(`.${CSS_CLASSES.inputShipStreet}`),
+    form.querySelector(`.${CSS_CLASSES.inputShipCity}`),
+    form.querySelector(`.${CSS_CLASSES.inputShipCode}`),
+    form.querySelector(`.${CSS_CLASSES.inputCountryShip}`),
+    form.querySelector(`.${CSS_CLASSES.inputBillStreet}`),
+    form.querySelector(`.${CSS_CLASSES.inputBillCity}`),
+    form.querySelector(`.${CSS_CLASSES.inputBillCode}`),
+    form.querySelector(`.${CSS_CLASSES.inputBillCountry}`)
+  ];
+
   let testPassed: boolean = true
-  const numberOfFieldsToCheck: number = oneAdress ? 9 : 13
+  const numberOfFieldsToCheck: number = oneAdress ? fieldsForValidationIfSingleAddress
+    : fieldsForValidationIfMultipleAddresses;
   let counter: number = 0
 
-  requiredFields.forEach((element) => {
+  inputFieldsArray.forEach((element) => {
     if (counter < numberOfFieldsToCheck) {
-      const fieldValue = element.value
-      if (fieldValue === '') {
-        element.classList.add(CSS_CLASSES.emptyField)
-        element.addEventListener('input', () => {
-          element.classList.remove(CSS_CLASSES.emptyField)
-        })
-        testPassed = false
+      if (element) {
+        const fieldValue = element.value;
+        if (fieldValue === '') {
+          element.classList.add(CSS_CLASSES.emptyField)
+          element.addEventListener('input', () => {
+            element.classList.remove(CSS_CLASSES.emptyField)
+          })
+          testPassed = false
+        }
       }
       counter++
     }
-    if (email && password) {
-      button.disabled = false
+    if (inputFieldsArray[0] && inputFieldsArray[1] && registrSubmit) {
+      registrSubmit.disabled = false
     }
   })
   return testPassed

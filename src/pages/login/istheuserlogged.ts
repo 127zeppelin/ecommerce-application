@@ -1,7 +1,7 @@
 export const logoutAndRedirect = () => {
   localStorage.clear()
   window.location.href = '#main'
- location.reload()
+  location.reload()
 }
 
 export const isTheUserLoggedIn = (): boolean => {

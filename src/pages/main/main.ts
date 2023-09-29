@@ -20,7 +20,7 @@ class MainPage extends Page {
     unique opportunity to get behind the wheel of a real legend and find out what 
     it's capable of beyond the racetrack!`;
 
-    const mainDiscription = createEl('div', [CSS_CLASSES.mainPageDiscription])
+    const mainDiscription = createEl('div', [CSS_CLASSES.mainPageDiscription], elementText)
     mainContainer.append(mainDiscription);
 
     const discountCodeContainer = createEl('div', [CSS_CLASSES.discountCodeContainer])

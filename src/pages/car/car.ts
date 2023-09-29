@@ -7,7 +7,7 @@ import { getHashValue } from '../../utils/gethashvalue'
 import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class CarPage extends Page {
- 
+
 
   async getcarquery(containerMain: HTMLElement) {
     const hash = getHashValue()
@@ -17,7 +17,7 @@ class CarPage extends Page {
       createCarPage(carData, containerMain)
     } catch (error: any) {
       const errorMessage: string = error.message;
-        resolveMessageAddAndRemove( errorMessage, false)
+      resolveMessageAddAndRemove(errorMessage, false)
     }
   }
 
@@ -28,14 +28,14 @@ class CarPage extends Page {
     const titleContainer: HTMLElement = createEl('div', [CSS_CLASSES.titleCont])
     containerMain.append(titleContainer)
 
-    const title: HTMLHeadingElement =  createEl('h1', [CSS_CLASSES.pageTitle], 'Rent one of our cool cars.')
+    const title: HTMLHeadingElement = createEl('h1', [CSS_CLASSES.pageTitle], 'Rent one of our cool cars.')
     titleContainer.append(title)
 
-    const backBtnContainer = createEl('div',[CSS_CLASSES.backBtnContainer])
+    const backBtnContainer = createEl('div', [CSS_CLASSES.backBtnContainer])
     containerMain.append(backBtnContainer)
 
-    const backBtn: HTMLElement = createEl('button', [CSS_CLASSES.backBtn], '< Back', undefined, 
-    ()=>{window.history.back();})
+    const backBtn: HTMLElement = createEl('button', [CSS_CLASSES.backBtn], '< Back', undefined,
+      () => { window.history.back(); })
     backBtnContainer.append(backBtn);
     this.getcarquery(containerMain)
     return this.container

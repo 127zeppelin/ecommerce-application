@@ -50,22 +50,13 @@ class RegistrationPage extends Page {
     }
   }
 
-  private createCountry(
-    value: string,
-    inputCountry: HTMLDataListElement,
-    elemText: string
-  ) {
-    const country = createEl('option', undefined, elemText)
-    country.value = value
-    inputCountry.append(country)
-  }
-
   private createDefaultAdress(
     id: string,
+    className: string, 
     AdressWrapper: HTMLElement
   ): HTMLElement {
     const defaultAdressWrapper = createEl('div', [CSS_CLASSES.defaultAddrWrapper])
-    const defaultAdress = createEl('input', undefined, 'value')
+    const defaultAdress = createEl('input', [className], 'value')
     defaultAdress.type = 'checkbox'
     defaultAdress.name = 'default-adress'
     defaultAdress.id = id
@@ -81,48 +72,11 @@ class RegistrationPage extends Page {
     return label
   }
 
-  submitRegistrForm(form: HTMLElement) {
-    const registrLogin: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputEmail}`
-    )
-    const registrPass: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputPass}`
-    )
-    const registrName: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputName}`
-    )
-    const registrSurname: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputSurname}`
-    )
-    const registrDateOfBirth: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputDate}`
-    )
-    const registrShipingStreet: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputShipStreet}`
-    )
-    const registrShipingCity: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputShipCity}`
-    )
-    const registrShipingPostalCode: HTMLInputElement | null =
-      form.querySelector(`.${CSS_CLASSES.inputShipCode}`)
-    const registrShipingCountry: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputCountryShip}`
-    )
-    const onlyOneAdress: HTMLInputElement | null = form.querySelector('.same')
-    const registrBillingStreet: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputBillStreet}`
-    )
-    const registrBillingCity: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputBillCity}`
-    )
-    const registrBillingPostalCode: HTMLInputElement | null =
-      form.querySelector(`.${CSS_CLASSES.inputBillCode}`)
-    const registrBillingCountry: HTMLInputElement | null = form.querySelector(
-      `.${CSS_CLASSES.inputBillCountry}`
-    )
-    const registrSubmit: HTMLButtonElement | null = form.querySelector(
-      `.${CSS_CLASSES.registrSubmitBtn}`
-    )
+  submitRegistrForm(form: HTMLFormElement) {
+    const registrLogin: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputEmail}`);
+    const registrPass: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputPass}`);
+    const onlyOneAdress: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.sameAdress}`);
+    const registrSubmit: HTMLButtonElement | null = form.querySelector(`.${CSS_CLASSES.registrSubmitBtn}`);
 
     const invalidInputMessageEmail = createEl('div', [CSS_CLASSES.validationMsg])
     registrLogin?.insertAdjacentElement('afterend', invalidInputMessageEmail)
@@ -155,18 +109,14 @@ class RegistrationPage extends Page {
     })
 
     let onlyOneAdressValue: boolean = false
-    const billingAdressWrapper: HTMLElement | null = form.querySelector(
-      `.${CSS_CLASSES.billlingAddrWrapper}`
-    )
+    const billingAdressWrapper: HTMLElement | null = form.querySelector(`.${CSS_CLASSES.billlingAddrWrapper}`)
     onlyOneAdress?.addEventListener('click', function () {
       billingAdressWrapper?.classList.toggle('hidden')
       onlyOneAdressValue = !onlyOneAdressValue
     })
 
     let defaultShipingAddressValue: boolean = false
-    const addDefaultShipAddresOrNo: HTMLElement | null = form.querySelector(
-      `.${CSS_CLASSES.checkDefaultShipAddr}`
-    )
+    const addDefaultShipAddresOrNo: HTMLElement | null = form.querySelector(`.${CSS_CLASSES.checkDefaultShipAddr}`);
     addDefaultShipAddresOrNo?.addEventListener('click', function () {
       defaultShipingAddressValue = !defaultShipingAddressValue
     })
@@ -179,99 +129,26 @@ class RegistrationPage extends Page {
       defaultBillingAddressValue = !defaultBillingAddressValue
     })
 
-    if (
-      registrLogin &&
-      registrPass &&
-      registrName &&
-      registrSurname &&
-      registrDateOfBirth &&
-      registrShipingCountry &&
-      registrShipingStreet &&
-      registrShipingCity &&
-      registrShipingPostalCode &&
-      registrBillingCountry &&
-      registrBillingStreet &&
-      registrBillingCity &&
-      registrBillingPostalCode &&
-      registrSubmit
-    ) {
+    if (registrSubmit) {
       registrSubmit.addEventListener('click', async (event) => {
-        event.preventDefault()
-
-        const registrLoginValue: string = registrLogin.value
-        const registrPassValue: string = registrPass.value
-        const registrNameValue: string = registrName.value
-        const registrSurnameValue: string = registrSurname.value
-        const registrDateOfBirthValue: Date = new Date(registrDateOfBirth.value)
-        const registrShipingCountryValue: string = registrShipingCountry.value
-        const registrShipingStreetValue: string = registrShipingStreet.value
-        const registrShipingCityValue: string = registrShipingCity.value
-        const registrShipingPostalCodeValue: string =
-          registrShipingPostalCode.value
-        const registrBillingCountryValue: string = registrBillingCountry.value
-        const registrBillingStreetValue: string = registrBillingStreet.value
-        const registrBillingCityValue: string = registrBillingCity.value
-        const registrBillingPostalCodeValue: string =
-          registrBillingPostalCode.value
-        function formatDateToISODateOnly(date: Date): string {
-          const year = date.getFullYear()
-          const month = (date.getMonth() + 1).toString().padStart(2, '0')
-          const day = date.getDate().toString().padStart(2, '0')
-
-          return `${year}-${month}-${day}`
-        }
-        const isoFormattedDate: string = formatDateToISODateOnly(
-          registrDateOfBirthValue
-        )
-
+        event.preventDefault();
         const resultValidation = checkResultValidationRestration(
-          registrLogin,
-          registrPass,
-          registrName,
-          registrSurname,
-          registrDateOfBirth,
-          registrShipingStreet,
-          registrShipingCity,
-          registrShipingPostalCode,
-          registrShipingCountry,
-          onlyOneAdressValue,
-          registrBillingStreet,
-          registrBillingCity,
-          registrBillingPostalCode,
-          registrBillingCountry,
-          registrSubmit
-        )
-
-        if (!resultValidation) {
-          const resolveMessage: string = 'All fields must be filled'
-          resolveMessageAddAndRemove(resolveMessage, false)
+          form,
+          onlyOneAdressValue
+        );
+        const validate = await resultValidation;
+        if (validate === false) {
+          const resolveMessage: string = 'All fields must be filled';
+          resolveMessageAddAndRemove(resolveMessage, false);
           return
         }
 
         try {
-          const resultRegistr = await customerRegistr(
-            registrLoginValue,
-            registrPassValue,
-            registrNameValue,
-            registrSurnameValue,
-            isoFormattedDate,
-            registrShipingStreetValue,
-            registrShipingPostalCodeValue,
-            registrShipingCityValue,
-            registrShipingCountryValue,
-            registrBillingStreetValue,
-            registrBillingPostalCodeValue,
-            registrBillingCityValue,
-            registrBillingCountryValue,
-            onlyOneAdressValue
-          )
-
-          const apiResponse: ClientResponse<CustomerSignInResult> =
-            resultRegistr
+          const resultRegistr = await customerRegistr(form, onlyOneAdressValue)
+          const apiResponse: ClientResponse<CustomerSignInResult> = resultRegistr;
           const customerId: string = apiResponse.body.customer.id
           const customerIdVersion: number = apiResponse.body.customer.version
-          const shipingAddressId: string | undefined =
-            apiResponse.body.customer.addresses[0].id
+          const shipingAddressId: string | undefined = apiResponse.body.customer.addresses[0].id
           const billingAddressId: string | undefined = onlyOneAdressValue
             ? apiResponse.body.customer.addresses[0].id
             : apiResponse.body.customer.addresses[1].id
@@ -333,22 +210,14 @@ class RegistrationPage extends Page {
     registrationForm.append(loginEmailContainer)
 
     const inputLogin = this.renderLogin(
-      'input__email',
-      'email',
-      'username',
-      'Email'
-    )
+      'input__email', 'email', 'username', 'Email');
     loginEmailContainer.append(inputLogin)
 
     const paswordInputContainer = createEl('div', [CSS_CLASSES.inputContainer]);
     registrationForm.append(paswordInputContainer)
 
     const inputPass = this.renderLogin(
-      'input__password',
-      'password',
-      'password',
-      'Password'
-    )
+      'input__password', 'password', 'password', 'Password');
     paswordInputContainer.append(inputPass)
     addShowHidePaswordBtn(inputPass)
 
@@ -380,11 +249,7 @@ class RegistrationPage extends Page {
     const inputDateOfBirthLabel = createEl('p', [CSS_CLASSES.dateText], 'Date of birth:')
     inputDateOfBirthContainer.append(inputDateOfBirthLabel)
 
-    const inputDateOfBirth = this.renderLogin(
-      CSS_CLASSES.inputDate,
-      'date',
-      'date',
-      '01.01.1970'
+    const inputDateOfBirth = this.renderLogin(CSS_CLASSES.inputDate, 'date', 'date', '01.01.1970'
     )
     inputDateOfBirthContainer.append(inputDateOfBirth)
 
@@ -397,12 +262,7 @@ class RegistrationPage extends Page {
     const inputShipingStreetContainer = createEl('div', [CSS_CLASSES.inputContainer])
     shippingAdressWrapper.append(inputShipingStreetContainer)
 
-    const inputShipingStreet = this.renderLogin(
-      CSS_CLASSES.inputShipStreet,
-      'text',
-      'shipping-street',
-      'Street'
-    )
+    const inputShipingStreet = this.renderLogin(CSS_CLASSES.inputShipStreet, 'text', 'shipping-street', 'Street')
     inputShipingStreetContainer.append(inputShipingStreet)
 
     const inputCityShippingContainer = createEl('div', [CSS_CLASSES.inputContainer])
@@ -439,6 +299,7 @@ class RegistrationPage extends Page {
     createSelectionCountryList(inputCountryShippingContainer, 'shipping-country-options')
 
     this.createDefaultAdress(
+      CSS_CLASSES.checkDefaultShipAddr,
       CSS_CLASSES.checkDefaultShipAddr,
       shippingAdressWrapper
     )
@@ -489,7 +350,7 @@ class RegistrationPage extends Page {
     const inputBillingZipContainer = createEl('div', [CSS_CLASSES.inputContainer])
     billingAdressWrapper.append(inputBillingZipContainer)
 
-    const inputBillingCode = this.renderLogin(CSS_CLASSES.inputBillCode, 'text', 'billing-code','Postal code')
+    const inputBillingCode = this.renderLogin(CSS_CLASSES.inputBillCode, 'text', 'billing-code', 'Postal code')
     inputBillingZipContainer.append(inputBillingCode)
 
     const inputBillingCountryContainer = createEl('div', [CSS_CLASSES.inputContainer])
@@ -505,6 +366,7 @@ class RegistrationPage extends Page {
     billingAdressWrapper.append(inputBillingCountryContainer)
 
     this.createDefaultAdress(
+      CSS_CLASSES.checkDefaultBillAddr,
       CSS_CLASSES.checkDefaultBillAddr,
       billingAdressWrapper
     )

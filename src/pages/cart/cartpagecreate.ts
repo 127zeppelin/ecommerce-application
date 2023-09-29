@@ -48,7 +48,8 @@ export function createCartPage(container: HTMLElement) {
             resolveMessageAddAndRemove(resolveMessage, false)
           }
         }
-        const submitDiscount = createEl('button', [CSS_CLASSES.submitDiscountCode], 'Add the code', undefined, discountCodeSubmit)
+        const submitDiscount = createEl('button', [CSS_CLASSES.submitDiscountCode], 
+          'Add the code', undefined, discountCodeSubmit)
         discountCodeContainer.append(submitDiscount)
 
         const totalLineItemQuantityIs: number | undefined = data.body.totalLineItemQuantity;

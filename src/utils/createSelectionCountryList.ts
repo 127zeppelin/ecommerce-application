@@ -6,12 +6,12 @@ export const createSelectionCountryList = (container: HTMLElement, id: string) =
 
   const createCountry = (
     value: string,
-    inputCountry: HTMLDataListElement,
+    inputCountryDataList: HTMLDataListElement,
     elemText: string
   ) => {
     const country = createEl('option', undefined, elemText)
     country.value = value
-    inputCountry.append(country)
+    inputCountryDataList.append(country)
   }
 
   createCountry('DE', inputCountry, 'Germany')

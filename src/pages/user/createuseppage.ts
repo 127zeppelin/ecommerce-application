@@ -32,11 +32,11 @@ const сreatingUserInformationBlock = (userData: ClientResponse<Customer>, userP
     'Password': userData.body?.password
   }
   for (const dataKey in userBody) {
-    const inputContainer = createEl('div', [CSS_CLASSES.userInputContainer], 
-    `<span class="${CSS_CLASSES.inputLabel}">${dataKey}:</span>`);
+    const inputContainer = createEl('div', [CSS_CLASSES.userInputContainer],
+      `<span class="${CSS_CLASSES.inputLabel}">${dataKey}:</span>`);
     userProfileContainer.append(inputContainer);
-
-    const userDataInput = createEl('span', [CSS_CLASSES.inputArea], userBody[dataKey] !== undefined ? userBody[dataKey] : 'Not filled in');
+    const fieldData = userBody[dataKey] !== undefined ? userBody[dataKey] : 'Not filled in';
+    const userDataInput = createEl('span', [CSS_CLASSES.inputArea], fieldData);
     userDataInput.id = dataKey.replace(/ /g, '_').toLocaleLowerCase();
     inputContainer.append(userDataInput)
     const userDataEdit = createEl('button', [CSS_CLASSES.userDataEditBtn], `<img src="./images/pencil.svg">`)
@@ -56,7 +56,7 @@ const сreatingUserAddressesBlock = (userData: ClientResponse<Customer>, userAdr
       'Postal Code': adress?.postalCode,
       'Street Name': adress?.streetName
     }
-    const oneAddressContainer = createEl('div',  [CSS_CLASSES.oneAddressContainer])
+    const oneAddressContainer = createEl('div', [CSS_CLASSES.oneAddressContainer])
     const adressId = adress.id as string
     userAdressesContainer.append(oneAddressContainer)
     for (const adressItem in customerAdressesData) {

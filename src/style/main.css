@@ -17,6 +17,7 @@
   margin-top: 100px;
   line-height: 1.6;
   letter-spacing: 0.012em;
+  max-width: 600px;
 }
 
 .main-page-content .discount-code-container {

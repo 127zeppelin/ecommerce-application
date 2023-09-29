@@ -30,27 +30,27 @@ export const createCarPage = (
   carContainer.append(carDetailsWrapper);
 
   if (productImages && productImages.length > 1) {
-    const carSliderWrapper = createEl('div',[CSS_CLASSES.carSliderWrapper])
+    const carSliderWrapper = createEl('div', [CSS_CLASSES.carSliderWrapper])
     carDetailsWrapper.append(carSliderWrapper);
 
-    const carSlider = createEl('div',[CSS_CLASSES.carSlider])
+    const carSlider = createEl('div', [CSS_CLASSES.carSlider])
     carSliderWrapper.append(carSlider);
 
     const sliderBtnPrev = createEl('button', [CSS_CLASSES.prevBtn], "<")
     carSlider.append(sliderBtnPrev);
 
-    const sliderBtnNext = createEl('button',[CSS_CLASSES.nextBtn],">")
+    const sliderBtnNext = createEl('button', [CSS_CLASSES.nextBtn], ">")
     carSlider.append(sliderBtnNext);
 
     createSlider(carData, productImages);
-  } else if (productImages && productImages.length  === 1) {
-    const carImageWraper = createEl('div',[CSS_CLASSES.carImgWrapper])
+  } else if (productImages && productImages.length === 1) {
+    const carImageWraper = createEl('div', [CSS_CLASSES.carImgWrapper])
     carDetailsWrapper.append(carImageWraper);
 
-    const carImg = createEl('img',[CSS_CLASSES.carCardTb], undefined, [productImages[0].url, carData.name['en-US']])
+    const carImg = createEl('img', [CSS_CLASSES.carCardTb], undefined, [productImages[0].url, carData.name['en-US']])
     carImageWraper.append(carImg);
   }
-  const carDetailsContainer = createEl('div',[CSS_CLASSES.carDetails])
+  const carDetailsContainer = createEl('div', [CSS_CLASSES.carDetails])
   carDetailsWrapper.append(carDetailsContainer)
 
   const carTitle = createEl('h2', [CSS_CLASSES.carPageTitle], carData.name['en-US'])
@@ -80,7 +80,7 @@ export const createCarPage = (
 
   chageQuantity(smallerBtn, quantityInput, moreBtn)
 
-   const addInCartHendler = async () => {
+  const addInCartHendler = async () => {
     await addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US'])
   }
   const rentCarBtn = createEl('button', [CSS_CLASSES.rentCarBtn], 'Rent a Car', undefined, addInCartHendler)

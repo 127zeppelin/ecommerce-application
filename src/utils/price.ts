@@ -15,8 +15,8 @@ export const installOfTheCurrentPrice = (carData: ProductProjection) => {
       style: 'currency',
       currency: 'USD',
     })
-    const carPriceDefaultBlock = createEl('div', [CSS_CLASSES.carCardPrice], 
-    `<span>${formattedPrice} </span><span class="${CSS_CLASSES.carCardPriceLabel}">per day</span>`);
+    const carPriceDefaultBlock = createEl('div', [CSS_CLASSES.carCardPrice],
+      `<span>${formattedPrice} </span><span class="${CSS_CLASSES.carCardPriceLabel}">per day</span>`);
     carPriceBlock.append(carPriceDefaultBlock)
 
     const carPriceDiscountCents: number | undefined =
@@ -28,7 +28,7 @@ export const installOfTheCurrentPrice = (carData: ProductProjection) => {
         currency: 'USD',
       })
       const carPriceDiscountBlock = createEl('div', [CSS_CLASSES.carCardPrice],
-      `<span>${formattedPriceDiscount} </span><span class="${CSS_CLASSES.carCardPriceLabel}">per day</span>`);
+        `<span>${formattedPriceDiscount} </span><span class="${CSS_CLASSES.carCardPriceLabel}">per day</span>`);
       carPriceDefaultBlock.classList.add(CSS_CLASSES.notAnActivePrice)
       carPriceBlock.append(carPriceDiscountBlock)
     }

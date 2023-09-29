@@ -5,7 +5,7 @@ import { createEl } from '../../utils/createElement'
 class AboutPage extends Page {
 
   private createPerson(about: HTMLElement, img: string, name: string, profession:
-    string, bio: string, role: string, git: string) {
+  string, bio: string, role: string, git: string) {
     const aboutPersonWrapper = createEl('div', [CSS_CLASSES.aboutPersonWrapper])
     about.append(aboutPersonWrapper);
     const aboutPerson = createEl('div', [CSS_CLASSES.aboutPerson])

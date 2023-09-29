@@ -55,7 +55,8 @@ export const createCarsList = (
 
     const productImages: Image[] | undefined = carData.masterVariant.images
     if (productImages !== undefined) {
-      const carTbImg = createEl('img', [CSS_CLASSES.carCardTb], undefined, [productImages[0].url, carData.name['en-US']])
+      const carTbImg = createEl('img', [CSS_CLASSES.carCardTb], undefined, 
+        [productImages[0].url, carData.name['en-US']])
       childElementsCarCard.push(carTbImg)
     }
     const carPriceBlock = installOfTheCurrentPrice(carData)

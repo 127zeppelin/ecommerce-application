@@ -9,29 +9,56 @@ import {
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
 import { encodePasswordAndUsername } from '../../utils/encodePass'
+import { CSS_CLASSES } from '../../constants/cssClases'
+
+function formatDateToISODateOnly(date: Date): string {
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 
 export const customerRegistr = async (
-  email: string,
-  password: string,
-  firstName: string,
-  lastName: string,
-  dateOfBirth: string,
-  streetName: string,
-  postalCode: string,
-  city: string,
-  country: string,
-  streetNameBill: string,
-  postalCodeBill: string,
-  cityBill: string,
-  countryBill: string,
-  oneAdress: boolean
+  form: HTMLFormElement, oneAdress: boolean
 ): Promise<ClientResponse<CustomerSignInResult>> => {
-  userAuthOptions.username = email;
-  userAuthOptions.password = password;
-  encodePasswordAndUsername(email, password)
-  initializeClient(false);
-  const request = oneAdress
-    ? apiRoot
+  const registrLogin: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputEmail}`);
+  const email = registrLogin?.value;
+  const registrPass: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputPass}`);
+  const password = registrPass?.value;
+  const registrName: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputName}`);
+  const firstName = registrName?.value;
+  const registrSurname: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputSurname}`);
+  const lastName = registrSurname?.value;
+  const registrDateOfBirth: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputDate}`);
+  const dateOfBirth: Date | undefined = registrDateOfBirth ? new Date(registrDateOfBirth.value) : undefined;
+  const registrShipingStreet: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputShipStreet}`);
+  const streetName = registrShipingStreet?.value;
+  const registrShipingCity: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputShipCity}`);
+  const city = registrShipingCity?.value;
+  const registrShipingPostalCode: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputShipCode}`);
+  const postalCode = registrShipingPostalCode?.value;
+  const registrShipingCountry: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputCountryShip}`);
+  const country = registrShipingCountry?.value;
+  const registrBillingStreet: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputBillStreet}`);
+  const streetNameBill = registrBillingStreet?.value;
+  const registrBillingCity: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputBillCity}`);
+  const cityBill = registrBillingCity?.value;
+  const registrBillingPostalCode: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputBillCode}`);
+  const postalCodeBill = registrBillingPostalCode?.value;
+  const registrBillingCountry: HTMLInputElement | null = form.querySelector(`.${CSS_CLASSES.inputBillCountry}`);
+  const countryBill = registrBillingCountry?.value;
+
+  if (email && password && firstName && lastName && dateOfBirth
+    && streetName && postalCode && city && country && oneAdress) {
+    const isoFormattedDate: string = formatDateToISODateOnly(dateOfBirth);
+    userAuthOptions.username = email;
+    userAuthOptions.password = password;
+    localStorage.setItem('username', email);
+    localStorage.setItem('password', password)
+    encodePasswordAndUsername(email, password)
+    initializeClient(false);
+    const request = apiRoot
       .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
@@ -41,7 +68,7 @@ export const customerRegistr = async (
           password: password,
           firstName: firstName,
           lastName: lastName,
-          dateOfBirth: dateOfBirth,
+          dateOfBirth: isoFormattedDate,
           addresses: [
             {
               streetName: streetName,
@@ -53,7 +80,22 @@ export const customerRegistr = async (
 
         },
       })
-    : apiRoot
+    const response = await request.execute()
+    const cartId = response.body.cart?.id
+    const cartState = response.body.cart?.cartState;
+    if (cartId && cartState === 'Active') {
+      localStorage.setItem('curent_cart_id', cartId)
+    } else {
+      localStorage.removeItem('curent_cart_id')
+    };
+    return response
+  } else if (email && password && firstName && lastName && dateOfBirth
+    && streetName && postalCode && city && country && !oneAdress
+    && streetNameBill && cityBill && postalCodeBill && countryBill) {
+    userAuthOptions.username = email;
+    userAuthOptions.password = password;
+    const isoFormattedDate: string = formatDateToISODateOnly(dateOfBirth);
+    const request = apiRoot
       .withProjectKey({ projectKey: PROJECT_KEY })
       .me()
       .signup()
@@ -63,7 +105,7 @@ export const customerRegistr = async (
           password: password,
           firstName: firstName,
           lastName: lastName,
-          dateOfBirth: dateOfBirth,
+          dateOfBirth: isoFormattedDate,
           addresses: [
             {
               streetName: streetName,
@@ -80,16 +122,18 @@ export const customerRegistr = async (
           ],
         },
       })
-
-  const response = await request.execute()
-  const cartId = response.body.cart?.id
-  const cartState = response.body.cart?.cartState;
-  if (cartId && cartState === 'Active') {
-    localStorage.setItem('curent_cart_id', cartId)
+    const response = await request.execute()
+    const cartId = response.body.cart?.id
+    const cartState = response.body.cart?.cartState;
+    if (cartId && cartState === 'Active') {
+      localStorage.setItem('curent_cart_id', cartId)
+    } else {
+      localStorage.removeItem('curent_cart_id')
+    };
+    return response
   } else {
-    localStorage.removeItem('curent_cart_id')
-  };
-  return response
+    throw new Error("Some required fields are missing");
+  }
 }
 
 export const setAddressOptions = (

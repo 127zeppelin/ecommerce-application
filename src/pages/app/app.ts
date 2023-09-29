@@ -55,9 +55,6 @@ class App {
     const pageClass = pageMap[idPage];
     
     if (pageClass) {
-      console.log(pageMap)
-      console.log(pageMap[pageList.MAIN_PAGE])
-      console.log(pageMap[pageList.CARS_PAGE])
       page = new pageClass(idPage)
       if (idPage === pageList.CARS_PAGE) {
         localStorage.removeItem('CUR_FILTER');

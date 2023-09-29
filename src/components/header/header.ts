@@ -6,7 +6,6 @@ import {
 } from '../../pages/login/isTheUserLogged'
 import { createEl } from '../../utils/createElement'
 import { carInCartCounter } from './carsCounterInCart'
-import { getHashValue } from '../../utils/gethashvalue'
 import { showAndHideMobileMenu } from '../../utils/showHideMobileMenu'
 import { PageLinks } from '../../types/types'
 
@@ -43,7 +42,6 @@ class Header extends Component {
     }
     const UserLoggedIn: boolean = isTheUserLoggedIn()
     for (const pageLink in pageLinks) {
-      console.log(pageLink, pageLinks[pageLink].url);
       const loginOption: boolean | undefined = pageLinks[pageLink].login
       const pageButton: HTMLElement = this.createPageLinks(pageLinks[pageLink].url, pageLink)
       if (loginOption === undefined) { pageLinksContainer.append(pageButton) }
@@ -71,7 +69,6 @@ class Header extends Component {
   }
 
   render() {
-    const hash = getHashValue()
     this.renderPageButtons()
     return this.container
   }

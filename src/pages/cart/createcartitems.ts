@@ -33,7 +33,8 @@ export const createCartItems = (arrCartItems: LineItem[], container: HTMLElement
     const smallerBtn = createEl('button', [CSS_CLASSES.quantityBtn], '-')
     cartItemQuantity.append(smallerBtn)
 
-    const quantityInput: HTMLInputElement = createEl('input', [CSS_CLASSES.quantityInput], `${arrCartItems[i].quantity}`);
+    const quantityInput: HTMLInputElement = createEl('input', [CSS_CLASSES.quantityInput], 
+      `${arrCartItems[i].quantity}`);
     cartItemQuantity.append(quantityInput);
     quantityInput.setAttribute('readOnly', 'true');
     const quantityStart: number = parseInt(quantityInput.value, 10);
