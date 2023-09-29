@@ -73,7 +73,7 @@ export const createHtmlElement = ({
 export function createEl<K extends keyof HTMLElementTagNameMap>(
   elementName: K,
   className?: string[],
-  content?: string  | HTMLElement,
+  content?: string,
   hrefOrSrcAtribute?: string[],
   callback?: (event: Event) => void
 ): HTMLElementTagNameMap[K] {
@@ -82,10 +82,10 @@ export function createEl<K extends keyof HTMLElementTagNameMap>(
     element.classList.add(...className);
   }
   if (content) {
-    if (typeof content === 'string') {
+    if (elementName !== 'input' ) {
       element.innerHTML = content; 
-    } else {
-      element.appendChild(content);
+    } else if (elementName === 'input' ) {
+      element.setAttribute('value', content);
     }
   }
   if (elementName === 'img' && hrefOrSrcAtribute) {

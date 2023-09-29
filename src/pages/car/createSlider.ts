@@ -1,16 +1,11 @@
 import { CSS_CLASSES } from "../../constants/cssClases";
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
-import { createHtmlElement } from "../../utils/createElement";
+import { createEl } from "../../utils/createElement";
 
 const addImg = (carData: ProductProjection, productImages: Image[] | undefined, carSlider: HTMLElement, i: number) => {
   let carImg;
   if (productImages) {
-    carImg = createHtmlElement({
-      tagName: 'img',
-      cssClass: [CSS_CLASSES.carCardTb],
-      srcAtribute: productImages[i].url,
-      altAtribute: carData.name['en-US'],
-    })
+    carImg = createEl('img', [CSS_CLASSES.carCardTb], undefined, [productImages[i].url, carData.name['en-US']])
     carImg.classList.add("car__slider__img");
     carSlider.append(carImg);
   }

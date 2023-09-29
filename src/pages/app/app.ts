@@ -25,7 +25,7 @@ class App {
   handleInitialHash() {
     const initialHash = getHashValue()
     this.renderNewPage(initialHash)
-    this.header.renderPageButtons(/*initialHash*/)
+    this.header.renderPageButtons()
   }
 
   constructor() {

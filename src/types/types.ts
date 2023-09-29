@@ -42,10 +42,13 @@ export type HTMLElementTagNameMap = {
   a: HTMLAnchorElement;
   img: HTMLImageElement;
   h1: HTMLHeadingElement;
+  h2: HTMLHeadingElement;
+  main: HTMLElement;
+  p: HTMLElement;
 };
 
 
 export type PageLinks = {
   [key: string]: ObjectLink;
 };
-type ObjectLink = {url: string; login: boolean | undefined}
+type ObjectLink = { url: string; login: boolean | undefined }
