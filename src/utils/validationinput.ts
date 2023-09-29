@@ -1,53 +1,50 @@
 import { CSS_CLASSES } from '../constants/cssClases'
 import { fieldsForValidationIfMultipleAddresses, fieldsForValidationIfSingleAddress } from '../constants/magicNumbers'
 
-export const validationFunctions = {
-  email: function (email: string) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailPattern.test(email)
-  },
-  password: function (password: string): string {
-    let message = ''
+export const validationEmail = (email: string) => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailPattern.test(email)
+}
+export const validationPass = (password: string): string => {
+  let message = ''
 
-    if (password.length < 8) {
-      message = 'Password must be more than 8 characters'
-      return message
-    }
-
-    if (!/[A-Z]/.test(password)) {
-      message = 'Password must contain uppercase letters'
-      return message
-    }
-
-    if (!/[a-z]/.test(password)) {
-      message = 'Password must contain lowercase letters'
-      return message
-    }
-
-    if (!/\d/.test(password)) {
-      message = 'Password must contain at least one digit'
-      return message
-    }
-
-    if (!/[!@#$%^&*]/.test(password)) {
-      message = 'Password must contain at least one special character'
-      return message
-    }
-
-    if (password.trim() !== password) {
-      message = 'Password should not have spaces at the beginning or end'
-      return message
-    }
-
+  if (password.length < 8) {
+    message = 'Password must be more than 8 characters'
     return message
-  },
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    message = 'Password must contain uppercase letters'
+    return message
+  }
+
+  if (!/[a-z]/.test(password)) {
+    message = 'Password must contain lowercase letters'
+    return message
+  }
+
+  if (!/\d/.test(password)) {
+    message = 'Password must contain at least one digit'
+    return message
+  }
+
+  if (!/[!@#$%^&*]/.test(password)) {
+    message = 'Password must contain at least one special character'
+    return message
+  }
+
+  if (password.trim() !== password) {
+    message = 'Password should not have spaces at the beginning or end'
+    return message
+  }
+  return message
 }
 
 export function handleEmailInputChange(
   targetInputElement: HTMLInputElement,
   invalidInputMessageEmail: HTMLElement
 ): boolean {
-  const isValid = validationFunctions.email(targetInputElement.value)
+  const isValid = validationEmail(targetInputElement.value)
   if (isValid) {
     targetInputElement.classList.remove(CSS_CLASSES.invalidInput)
     targetInputElement.classList.add(CSS_CLASSES.validInput)
@@ -65,7 +62,7 @@ export function handlePasswordInputChange(
   targetInputElement: HTMLInputElement,
   invalidInputMessagePass: HTMLElement
 ): boolean {
-  const result = validationFunctions.password(targetInputElement.value)
+  const result = validationPass(targetInputElement.value)
 
   if (result === '') {
     targetInputElement.classList.remove(CSS_CLASSES.invalidInput)
@@ -96,7 +93,7 @@ export const checkResultValidationRestration = (
   oneAdress: boolean
 ): boolean => {
   const registrSubmit: HTMLButtonElement | null = form.querySelector(`.${CSS_CLASSES.registrSubmitBtn}`);
-  const inputFieldsArray: (HTMLInputElement | null) [] = [
+  const inputFieldsArray: (HTMLInputElement | null)[] = [
     form.querySelector(`.${CSS_CLASSES.inputEmail}`),
     form.querySelector(`.${CSS_CLASSES.inputPass}`),
     form.querySelector(`.${CSS_CLASSES.inputName}`),
