@@ -1,13 +1,14 @@
 import Page from '../../temlates/page'
-import { createHtmlElement } from '../../utils/createelement'
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createCarsList, getCarsWithoutFilter } from './getproducts'
+import { createEl } from '../../utils/createElement'
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createCarsList, getCarsWithoutFilter } from './getProducts'
 import { ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import {
   filerFromAtribute,
   filterCarsFromCategory,
   sortCars,
-} from './carfilter'
+} from './carFilter'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class CarsPage extends Page {
   async loadCarsWithoutFilter(carsCardContainer: HTMLElement) {
@@ -16,8 +17,8 @@ class CarsPage extends Page {
       const carsArr: ProductProjection[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+      resolveMessageAddAndRemove( errorMessage, false)
     }
   }
 
@@ -26,10 +27,7 @@ class CarsPage extends Page {
     btnContainer: HTMLElement
   ) {
     //carsCardContainer.innerHTML = '';
-    const categoryBtnsContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.filerContainer],
-    })
+    const categoryBtnsContainer = createEl('div', [CSS_CLASSES.filerContainer])
     btnContainer.append(categoryBtnsContainer)
 
     async function appendCategoryBtnContainer(container: HTMLElement) {
@@ -38,18 +36,12 @@ class CarsPage extends Page {
     }
     appendCategoryBtnContainer(categoryBtnsContainer)
 
-    const atributeBtnsContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.filerContainer],
-    })
+    const atributeBtnsContainer = createEl('div', [CSS_CLASSES.filerContainer])
     btnContainer.append(atributeBtnsContainer)
     const atributesBtns = filerFromAtribute(carsCardContainer)
     atributeBtnsContainer.append(atributesBtns)
 
-    const sortBtnsContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.filerContainer],
-    })
+    const sortBtnsContainer = createEl('div',[CSS_CLASSES.filerContainer])
     btnContainer.append(sortBtnsContainer)
 
     const sortContainer = sortCars(carsCardContainer)
@@ -57,31 +49,19 @@ class CarsPage extends Page {
   }
 
   render() {
-    const containerMain = createHtmlElement({
-      tagName: 'main',
-      cssClass: [CSS_CLASSES.mainContainer],
-    })
+    const containerMain = createEl('main',[CSS_CLASSES.mainContainer])
     this.container.append(containerMain)
-    const titleContainer: HTMLElement = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.titleCont],
-    })
+
+    const titleContainer: HTMLElement = createEl('div', [CSS_CLASSES.titleCont])
     containerMain.append(titleContainer)
 
-    const title = this.createHeaderTitle('Rent Our Cars')
-    title.className = CSS_CLASSES.pageTitle
+    const title = createEl('h1', [CSS_CLASSES.pageTitle], 'Rent Our Cars')
     titleContainer.append(title)
 
-    const optionsContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.optionsContainer],
-    })
+    const optionsContainer = createEl('div', [CSS_CLASSES.optionsContainer])
     containerMain.append(optionsContainer)
 
-    const cardsContainer = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cardsContainer],
-    })
+    const cardsContainer = createEl('div', [CSS_CLASSES.cardsContainer])
 
     this.loadCarsWithoutFilter(cardsContainer)
     containerMain.append(cardsContainer)

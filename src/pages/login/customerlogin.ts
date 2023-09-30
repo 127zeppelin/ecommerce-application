@@ -1,10 +1,10 @@
 import { apiRoot, initializeClient, userAuthOptions } from '../../components/api'
-import { PROJECT_KEY } from '../../constants/api-constants'
+import { PROJECT_KEY } from '../../constants/apiConstants'
 import {
   ClientResponse,
   CustomerSignInResult,
 } from '@commercetools/platform-sdk/dist/declarations/src'
-import { encodePasswordAndUsername } from '../../utils/encodepass'
+import { encodePasswordAndUsername } from '../../utils/encodePass'
 
 
 export const customerLogin = async (email: string, password: string):

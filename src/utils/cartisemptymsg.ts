@@ -1,22 +1,11 @@
-import { CSS_CLASSES } from "../constants/cssclases";
-import { createHtmlElement } from "./createelement";
+import { CSS_CLASSES } from "../constants/cssClases";
+import { createEl } from "./createElement";
 
 export function pageIsEmpty(cartcontainer: HTMLElement, msg: string) {
-  const cardAlertContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.cardAlertContainer],
-  })
+  const cardAlertContainer = createEl('div', [CSS_CLASSES.cardAlertContainer])
   cartcontainer.append(cardAlertContainer);
-  const cardAlertImg = createHtmlElement({
-    tagName: 'img',
-    cssClass: [CSS_CLASSES.cartAlertImg],
-    srcAtribute: './images/ferrari-daytona.png'
-  })
+  const cardAlertImg = createEl('img', [CSS_CLASSES.cartAlertImg], undefined, ['./images/ferrari-daytona.png'])
   cardAlertContainer.append(cardAlertImg);
-  const cardAlert = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.cartalert],
-    elementHtml: msg
-  })
+  const cardAlert = createEl('div', [CSS_CLASSES.cartalert], msg)
   cardAlertContainer.append(cardAlert);
 }

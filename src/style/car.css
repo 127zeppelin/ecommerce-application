@@ -54,6 +54,12 @@
   display: flex;
   align-items: center;
 }
+.car__img__wrapper {
+  position: relative;
+  width: 600px;
+  display: flex;
+  align-items: center;
+}
 
 .car__slider {
   display: flex;
@@ -181,7 +187,7 @@
 
 
 @media(max-width:1200px) {
-  .car__slider__wrapper {
+  .car__slider__wrapper, .car__img__wrapper {
     position: relative;
     width: 50%;
     display: flex;
@@ -210,12 +216,12 @@
     flex-direction: column;
   }
 
-  .car__slider__wrapper {
+  .car__slider__wrapper, .car__img__wrapper {
     max-width: 100%;
     width: 100%;
   }
 
-  .car__slider__wrapper img {
+  .car__slider__wrapper, .car__img__wrapper img {
     max-width: 100%;
   }
 

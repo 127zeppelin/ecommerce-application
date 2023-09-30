@@ -1,13 +1,13 @@
-import { PROJECT_KEY } from "../../constants/api-constants"
+import { PROJECT_KEY } from "../../constants/apiConstants"
 import { apiRoot } from "../../components/api"
-import { CSS_CLASSES } from "../../constants/cssclases"
-import { createHtmlElement } from "../../utils/createelement"
+import { CSS_CLASSES } from "../../constants/cssClases"
+import { createEl } from "../../utils/createElement"
 import { Image, ProductProjection } from '@commercetools/platform-sdk/dist/declarations/src'
 import { createSlider } from "./createSlider"
-import { carCharacterBlock } from "../cars/getproducts"
-import { addInCart } from "./addincart"
+import { carCharacterBlock } from "../cars/getProducts"
+import { addInCart } from "./addInnCart"
 import { installOfTheCurrentPrice } from "../../utils/price"
-import { chageQuantity } from "../../utils/carchangequantiti"
+import { chageQuantity } from "../../utils/carChangeuQantiti"
 
 
 export const getCar = (carKey: string) => {
@@ -25,121 +25,69 @@ export const createCarPage = (
 ): HTMLElement => {
   const carId: string = carData.id;
   const productImages: Image[] | undefined = carData.masterVariant.images;
-  const carDetailsWrapper = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carDetailsWrapper],
-  })
+
+  const carDetailsWrapper = createEl('div', [CSS_CLASSES.carDetailsWrapper])
   carContainer.append(carDetailsWrapper);
-  const carSliderWrapper = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carSliderWrapper],
-  })
-  carDetailsWrapper.append(carSliderWrapper);
-  const carSlider = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carSlider],
-  })
 
-  if (productImages !== undefined && productImages.length > 1) {
+  if (productImages && productImages.length > 1) {
+    const carSliderWrapper = createEl('div', [CSS_CLASSES.carSliderWrapper])
+    carDetailsWrapper.append(carSliderWrapper);
+
+    const carSlider = createEl('div', [CSS_CLASSES.carSlider])
     carSliderWrapper.append(carSlider);
-    let sliderBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.prevBtn],
-    })
-    sliderBtn.innerText = "<";
-    carSlider.append(sliderBtn);
-    sliderBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.nextBtn],
-    })
-    sliderBtn.innerText = ">";
-    carSlider.append(sliderBtn);
-    createSlider(carData, productImages);
-  } else if (productImages !== undefined && productImages.length === 1) {
-    const carImg = createHtmlElement({
-      tagName: 'img',
-      cssClass: [CSS_CLASSES.carCardTb],
-      srcAtribute: productImages[0].url,
-      altAtribute: carData.name['en-US'],
-    })
-    carSliderWrapper.append(carImg);
-  }
-  const carDetailsContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carDetails],
-  })
 
+    const sliderBtnPrev = createEl('button', [CSS_CLASSES.prevBtn], "<")
+    carSlider.append(sliderBtnPrev);
+
+    const sliderBtnNext = createEl('button', [CSS_CLASSES.nextBtn], ">")
+    carSlider.append(sliderBtnNext);
+
+    createSlider(carData, productImages);
+  } else if (productImages && productImages.length === 1) {
+    const carImageWraper = createEl('div', [CSS_CLASSES.carImgWrapper])
+    carDetailsWrapper.append(carImageWraper);
+
+    const carImg = createEl('img', [CSS_CLASSES.carCardTb], undefined, [productImages[0].url, carData.name['en-US']])
+    carImageWraper.append(carImg);
+  }
+  const carDetailsContainer = createEl('div', [CSS_CLASSES.carDetails])
   carDetailsWrapper.append(carDetailsContainer)
 
-  const carTitle = createHtmlElement({
-    tagName: 'h2',
-    cssClass: [CSS_CLASSES.carPageTitle],
-    elementText: carData.name['en-US'],
-  })
+  const carTitle = createEl('h2', [CSS_CLASSES.carPageTitle], carData.name['en-US'])
   carDetailsContainer.append(carTitle)
-  const carCharactersContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carCharactersContainer],
-  })
+
+  const carCharactersContainer = createEl('div', [CSS_CLASSES.carCharactersContainer])
   carDetailsContainer.append(carCharactersContainer)
   carCharacterBlock(carData, carCharactersContainer)
 
-  const carPriceContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.carPriceContainer]
-  })
+  const carPriceContainer = createEl('div', [CSS_CLASSES.carPriceContainer])
   carDetailsContainer.append(carPriceContainer)
 
   const priceCar = installOfTheCurrentPrice(carData)
   carPriceContainer.append(priceCar)
 
-  const rentCarBtnContainer = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.rentCarBtnContainer]
-  })
+  const rentCarBtnContainer = createEl('div', [CSS_CLASSES.rentCarBtnContainer])
   carDetailsContainer.append(rentCarBtnContainer)
 
-  const smallerBtn = createHtmlElement({
-    tagName: 'button',
-    cssClass: [CSS_CLASSES.quantityBtn],
-    elementText: '-'
-  })
+  const smallerBtn = createEl('button', [CSS_CLASSES.quantityBtn], '-')
   rentCarBtnContainer.append(smallerBtn)
 
-  const quantityInput: HTMLInputElement = createHtmlElement({
-    tagName: 'input',
-    cssClass: [CSS_CLASSES.quantityInput],
-    valueElement: '1'
-  }) as HTMLInputElement
+  const quantityInput: HTMLInputElement = createEl('input', [CSS_CLASSES.quantityInput], '1')
   rentCarBtnContainer.append(quantityInput)
 
-  const moreBtn = createHtmlElement({
-    tagName: 'button',
-    cssClass: [CSS_CLASSES.quantityBtn],
-    elementText: '+'
-  })
-
+  const moreBtn = createEl('button', [CSS_CLASSES.quantityBtn], '+')
   rentCarBtnContainer.append(moreBtn)
 
   chageQuantity(smallerBtn, quantityInput, moreBtn)
 
-  const rentCarBtn = createHtmlElement({
-    tagName: 'button',
-    cssClass: [CSS_CLASSES.rentCarBtn],
-    elementText: 'Rent a Car'
-  })
-  rentCarBtn.addEventListener('click', async () => {
+  const addInCartHendler = async () => {
     await addInCart(carId, parseInt(quantityInput.value, 10), carData.name['en-US'])
-  })
-
+  }
+  const rentCarBtn = createEl('button', [CSS_CLASSES.rentCarBtn], 'Rent a Car', undefined, addInCartHendler)
   rentCarBtnContainer.append(rentCarBtn)
 
   if (carData.description) {
-    const carDiscription = createHtmlElement({
-      tagName: 'p',
-      cssClass: [CSS_CLASSES.carArticle],
-      elementHtml: carData.description['en-US']
-    })
+    const carDiscription = createEl('p', [CSS_CLASSES.carArticle], carData.description['en-US'])
     carContainer.append(carDiscription)
   }
 

@@ -6,14 +6,13 @@ import {
   ClientBuilder,
   UserAuthOptions,
   AnonymousAuthMiddlewareOptions,
-  RefreshAuthMiddlewareOptions,
   Client,
   TokenCacheOptions,
 } from '@commercetools/sdk-client-v2'
-import { PROJECT_KEY } from '../constants/api-constants'
+import { PROJECT_KEY } from '../constants/apiConstants'
 import { ApiRoot } from '@commercetools/platform-sdk'
-import { isTheUserLoggedIn } from '../pages/login/istheuserlogged'
-import { decodePassword } from '../utils/encodepass'
+import { isTheUserLoggedIn } from '../pages/login/isTheUserLogged'
+import { decodePassword } from '../utils/encodePass'
 
 const fetch = require('node-fetch')
 const {
@@ -103,18 +102,6 @@ const httpMiddleware: HttpMiddlewareOptions = createHttpClient({
 })
 
 
-export const refreshAuthMiddlewareOptions: RefreshAuthMiddlewareOptions = {
-  host: process.env.CTP_AUTH_URL || '',
-  projectKey: PROJECT_KEY,
-  credentials: {
-    clientId: process.env.CTP_CLIENT_ID || '',
-    clientSecret: process.env.CTP_CLIENT_SECRET || '',
-  },
-  refreshToken: 'foobar123',
-  oauthUri: process.env.CTP_AUTH_URL || '',
-  fetch
-}
-
 const userLogin = isTheUserLoggedIn()
 
 let client: Client; // Глобальная переменная для хранения клиента
@@ -135,7 +122,7 @@ export const initializeClient = (userIsLogin: boolean) => {
   }
 
   client = clientBuilder.build();
-  updateApiRoot(); // Обновляем apiRoot при изменении клиента
+  updateApiRoot(); 
 };
 
 initializeClient(userLogin);

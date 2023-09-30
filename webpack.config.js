@@ -12,6 +12,7 @@ const devServer = (isDev) => !isDev ? {} : {
     open: true,
     hot: true,
     port: 3000,
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, 'public'),
     },
@@ -30,6 +31,7 @@ module.exports = ({ development }) => ({
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'images /[hash][ext]',
+    publicPath: '/',
   },
   module: {
     rules: [

@@ -1,7 +1,7 @@
 import { apiRoot } from "../../components/api"
-import { PROJECT_KEY } from "../../constants/api-constants"
-import { resolveMessageAddAndRemove } from "../../utils/resolvemsg"
-import { createCartPage } from "./cartpagecreate"
+import { PROJECT_KEY } from "../../constants/apiConstants"
+import { resolveMessageAddAndRemove } from "../../utils/resolveMsg"
+import { createCartPage } from "./cartPageCreate"
 
 
 

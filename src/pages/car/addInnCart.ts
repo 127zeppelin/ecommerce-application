@@ -1,6 +1,6 @@
-import { carInCartCounter } from "../../components/header/carscounterincart";
-import { resolveMessageAddAndRemove } from "../../utils/resolvemsg";
-import { createCart, getCartById, updateCartAddAuto } from "../cart/cartactions";
+import { carInCartCounter } from "../../components/header/carsCounterInCart";
+import { resolveMessageAddAndRemove } from "../../utils/resolveMsg";
+import { createCart, getCartById, updateCartAddAuto } from "../cart/cartActions";
 
 
 export const addInCart = async (idProduct: string, quantityCar: number, carName: string) => {

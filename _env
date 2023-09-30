@@ -1,6 +1,0 @@
-CTP_PROJECT_KEY="rs-school-project"
-CTP_CLIENT_SECRET="mcvm1UxDfWioQdwtB3E4vysmzcBdLKhV"
-CTP_CLIENT_ID="p7DHGpoZFDtV4FGQBjB6uP47"
-CTP_AUTH_URL="https://auth.europe-west1.gcp.commercetools.com"
-CTP_API_URL="https://api.europe-west1.gcp.commercetools.com"
-CTP_SCOPES="manage_project:rs-school-project"

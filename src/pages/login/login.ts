@@ -1,15 +1,15 @@
 import Page from '../../temlates/page'
-import { customerLogin } from './customerlogin'
+import { customerLogin } from './customerLogin'
 import { tokenStore } from '../../components/api'
 import {
   handleEmailInputChange,
-  handlePasswordInputChange,
-} from '../../utils/validationinput'
-import { showHidePasword } from '../../utils/showhidepasword' 
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createHtmlElement } from '../../utils/createelement'
-import { isTheUserLoggedIn } from './istheuserlogged'
-import { resolveMessageAddAndRemove } from '../../utils/resolvemsg'
+  handlePasswordInputChange
+} from '../../utils/validationInput'
+import { addShowHidePaswordBtn } from '../../utils/showHidePasword' 
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createEl } from '../../utils/createElement'
+import { isTheUserLoggedIn } from './isTheUserLogged'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 class LoginPage extends Page {
   TextObject = {
@@ -17,13 +17,10 @@ class LoginPage extends Page {
   }
 
   private createPageButtons(href: string, text: string) {
-    const pageButton = document.createElement('div')
-    const loginBtn = document.createElement('a')
-    pageButton.className = 'login__btn'
-    loginBtn.href = href
-    loginBtn.innerText = text
-    pageButton.append(loginBtn)
-    return pageButton
+    const btnLoginOrRegistr = createEl('div', [CSS_CLASSES.pageBtn]);
+    const btnLoginOrRegistrLink = createEl('a', undefined, text, [href]);
+    btnLoginOrRegistr.append(btnLoginOrRegistrLink)
+    return btnLoginOrRegistr
   }
 
   redirectIfCustomerWithLogin() {
@@ -39,8 +36,7 @@ class LoginPage extends Page {
     id: string,
     placeholder: string
   ) {
-    const input = document.createElement('input')
-    input.className = className
+    const input = createEl('input', [className]);
     input.type = type
     input.id = id
     input.placeholder = placeholder
@@ -52,17 +48,11 @@ class LoginPage extends Page {
     inputPass: HTMLInputElement,
     loginSubmit: HTMLButtonElement
   ) {
-    const invalidInputMessageEmail = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.validationMsg],
-    })
+    const invalidInputMessageEmail = createEl('div', [CSS_CLASSES.validationMsg])
     inputLogin.insertAdjacentElement('afterend', invalidInputMessageEmail)
     let resultEmail = false
 
-    const invalidInputMessagePass = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.validationMsg],
-    })
+    const invalidInputMessagePass = createEl('div', [CSS_CLASSES.validationMsg])
     inputPass.insertAdjacentElement('afterend', invalidInputMessagePass)
     let resultPassword = false
     const checkResultValidation = (email: boolean, password: boolean) => {
@@ -120,24 +110,12 @@ class LoginPage extends Page {
 
   render() {
     this.redirectIfCustomerWithLogin()
-    const cont = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.cont],
-    })
-    const loginWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.formWrap],
-    })
-    const loginForm = createHtmlElement({
-      tagName: 'form',
-      cssClass: [CSS_CLASSES.loginForm],
-    })
+    const cont = createEl('div', [CSS_CLASSES.cont])
+    const loginWrapper = createEl('div', [CSS_CLASSES.formWrap])
+    const loginForm = createEl('form', [CSS_CLASSES.loginForm])
     loginWrapper.append(loginForm)
 
-    const pageButtons = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.pageBtns],
-    })
+    const pageButtons = createEl('div', [CSS_CLASSES.pageBtns])
     let pageButton = this.createPageButtons('#login', 'Log in')
     pageButtons.append(pageButton)
     pageButton.classList.add('login__btn_active')
@@ -145,28 +123,14 @@ class LoginPage extends Page {
     pageButtons.append(pageButton)
     loginForm.append(pageButtons)
 
-    const pageText = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.registrationPageText],
-    })
-    const textLineOne = createHtmlElement({
-      tagName: 'p',
-      cssClass: [CSS_CLASSES.registrationPageTextParagraph],
-      elementText: 'Welcome back',
-    })
+    const pageText = createEl('div', [CSS_CLASSES.registrationPageText]);
+    const textLineOne = createEl('p', [CSS_CLASSES.registrationPageTextParagraph], 'Welcome back');
     pageText.append(textLineOne)
-    const textLineTwo = createHtmlElement({
-      tagName: 'p',
-      cssClass: [CSS_CLASSES.textParagraph],
-      elementText: "We're so exited to see you again!",
-    })
+    const textLineTwo = createEl('p', [CSS_CLASSES.textParagraph], "We're so exited to see you again!")
     pageText.append(textLineTwo)
     loginForm.append(pageText)
 
-    const loginEmail = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const loginEmail = createEl('div', [CSS_CLASSES.inputContainer])
     loginForm.append(loginEmail)
 
     const inputLogin = this.renderLogin(
@@ -177,10 +141,7 @@ class LoginPage extends Page {
     )
     loginEmail.append(inputLogin)
 
-    const loginPassword = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.inputContainer],
-    })
+    const loginPassword = createEl('div', [CSS_CLASSES.inputContainer])
     loginForm.append(loginPassword)
 
     const inputPassword = this.renderLogin(
@@ -190,22 +151,16 @@ class LoginPage extends Page {
       'Password'
     )
     loginPassword.append(inputPassword)
-    showHidePasword(inputPassword)
+    addShowHidePaswordBtn(inputPassword)
 
     cont.append(loginWrapper)
 
-    const loginSubmitWrapper = createHtmlElement({
-      tagName: 'div',
-      cssClass: [CSS_CLASSES.submitFormWrapper],
-    })
-    loginForm.append(loginSubmitWrapper)
-    const loginSubmit = document.createElement('button')
-    loginSubmit.className = CSS_CLASSES.submitBtn
-    loginSubmit.type = 'submit'
-    loginSubmit.id = 'login-submit'
-    loginSubmit.disabled = true
-    loginSubmit.textContent = 'Log in'
-
+    const loginSubmitWrapper = createEl('div', [CSS_CLASSES.submitFormWrapper])
+    loginForm.append(loginSubmitWrapper);
+    const loginSubmit = createEl('button', [CSS_CLASSES.submitBtn], 'Log in');
+    loginSubmit.type = 'submit';
+    loginSubmit.id = 'login-submit';
+    loginSubmit.disabled = true;
     loginSubmitWrapper.append(loginSubmit)
 
     this.container.append(cont)

@@ -11,22 +11,26 @@ import CarsPage from '../cars/cars'
 import CarPage from '../car/car'
 import CartPage from '../cart/cart'
 import AboutPage from '../about/about'
+import { getHashValue } from '../../utils/gethashvalue'
 
 class App {
   private container: HTMLElement = document.body
 
   private defaultPageId: string = 'current-page'
 
-  private initialPage: MainPage
-
   private header: Header
 
   private footer: Footer
 
   handleInitialHash() {
-    const initialHash = window.location.hash.slice(1) // Извлекаем хэш из URL
-    this.renderNewPage(initialHash) // Вызываем метод для перерисовки страницы
-    this.header.renderPageButtons(initialHash) // Обновляем кнопки в хедере
+    const initialHash = getHashValue()
+    this.renderNewPage(initialHash)
+    this.header.renderPageButtons()
+  }
+
+  constructor() {
+    this.header = new Header('header', 'header')
+    this.footer = new Footer('footer', 'footer')
   }
 
   renderNewPage(idPage: string) {
@@ -35,29 +39,28 @@ class App {
     if (currentPageHTML) {
       currentPageHTML.remove()
     }
-    let page: Page | null = null
+    let page: Page | null = null;
 
-    if (idPage === pageList.MAIN_PAGE) {
-      page = new MainPage(idPage)
-    } else if (idPage === pageList.LOGIN_PAGE) {
-      page = new LoginPage(idPage)
-    } else if (idPage === pageList.REGISRATION_PAGE) {
-      page = new RegistrationPage(idPage)
-    } else if (idPage === pageList.CUSTOMER_PAGE) {
-      page = new CustomerPage(idPage)
-    } else if (idPage === pageList.CARS_PAGE) {
-      page = new CarsPage(idPage)
-      localStorage.removeItem('CUR_FILTER')
-    } else if (idPage === pageList.CUR_CAR) {
-      page = new CarPage(idPage)
-    } else if (idPage === pageList.CUR_CAT) {
-      page = new CarsPage(idPage)
-    } else if (idPage === pageList.CART_PAGE) {
-      page = new CartPage(idPage)
-    } else if (idPage === pageList.ERROR_PAGE) {
-      page = new ErrorPage(idPage)
-    } else if (idPage === pageList.ABOUT_PAGE) {
-      page = new AboutPage(idPage)
+    const pageMap = {
+      [pageList.LOGIN_PAGE]: LoginPage,
+      [pageList.REGISRATION_PAGE]: RegistrationPage,
+      [pageList.CUSTOMER_PAGE]: CustomerPage,
+      [pageList.MAIN_PAGE]: MainPage, 
+      [pageList.CARS_PAGE]: CarsPage,
+      [pageList.CUR_CAR]: CarPage,
+      [pageList.CART_PAGE]: CartPage,
+      [pageList.ERROR_PAGE]: ErrorPage,
+      [pageList.ABOUT_PAGE]: AboutPage,
+    };
+    const pageClass = pageMap[idPage];
+    
+    if (pageClass) {
+      page = new pageClass(idPage)
+      if (idPage === pageList.CARS_PAGE) {
+        localStorage.removeItem('CUR_FILTER');
+      }
+    } else {
+      this.navigateToErrorPage();
     }
 
     if (page) {
@@ -68,30 +71,28 @@ class App {
   }
 
   private enableRouting() {
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1)
-      this.renderNewPage(hash)
-      this.header.renderPageButtons(hash)
+    window.addEventListener('popstate', () => {
+      const hash = getHashValue()
       if (!hash) {
-        window.location.href = '#main'
+        this.navigateToErrorPage();
+      } else if (!window.location.pathname.startsWith('/#') && window.location.pathname !== '/') {
+        this.navigateToErrorPage();
+      } else {
+        this.renderNewPage(hash);
+        this.header.renderPageButtons();
       }
-      if (!Object.values(pageList).includes(hash)) {
-        window.location.href = `/#${pageList.ERROR_PAGE}`
-      }
-    })
+    });
   }
 
-  constructor() {
-    this.initialPage = new MainPage('main')
-    this.header = new Header('header', 'header')
-    this.footer = new Footer('footer', 'footer')
+  private navigateToErrorPage() {
+    window.location.href = '#error';
   }
 
   run() {
-    let hash: string
+    let hash: string = 'main';
     if (window.location.hash) {
-      hash = window.location.hash.slice(1)
-    } else {
+      hash = getHashValue()
+    } else if (window.location.pathname === '/' || window.location.pathname === '') {
       hash = 'main'
     }
     this.container.append(this.header.render())

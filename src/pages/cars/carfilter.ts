@@ -1,11 +1,12 @@
 import { Category, ProductProjection } from '@commercetools/platform-sdk'
 import { apiRoot } from '../../components/api'
-import { PROJECT_KEY } from '../../constants/api-constants'
-import { CSS_CLASSES } from '../../constants/cssclases'
-import { createHtmlElement } from '../../utils/createelement'
-import { pageList } from '../pagelist'
+import { PROJECT_KEY } from '../../constants/apiConstants'
+import { CSS_CLASSES } from '../../constants/cssClases'
+import { createEl } from '../../utils/createElement'
 import { FilterValues } from '../../types/types'
-import { createCarsList } from './getproducts'
+import { createCarsList } from './getProducts'
+import { getHashValue } from '../../utils/gethashvalue'
+import { resolveMessageAddAndRemove } from '../../utils/resolveMsg'
 
 let filterValues: FilterValues = {}
 let queryArgs = {}
@@ -23,38 +24,33 @@ export const getCarsWithFilter = () => {
     .execute()
 }
 
+
 export const createCategorySelection = (
   categories: Category[],
   parentElement: HTMLElement,
   carsCardContainer: HTMLElement
 ) => {
-  const currentHash = window.location.hash.slice(1)
+  const currentHash = getHashValue()
   const btnArr: HTMLElement[] = []
-  const allCarsBtn = createHtmlElement({
-    tagName: 'button',
-    cssClass: [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn],
-    elementText: 'All cars',
-    elementId: `allcars-btn`,
-  })
+  const allCarsBtn = createEl('button', [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn], 'All cars')
+  allCarsBtn.setAttribute('id', 'allcars-btn');
   btnArr.push(allCarsBtn)
 
   allCarsBtn.addEventListener('click', async (event: Event) => {
-    event.preventDefault()
-    for (const btn of btnArr) {
+    event.preventDefault();
+    btnArr.forEach((btn) => {
       if (btn !== event.target) {
         btn.classList.remove(CSS_CLASSES.activeBtn)
       } else {
         btn.classList.add(CSS_CLASSES.activeBtn)
       }
-    }
+    })
+
     localStorage.removeItem('CUR_FILTER')
     localStorage.removeItem('CUR_CATEGORY')
     filterValues.queryArgs = queryArgs
 
-    if (
-      filterValues.queryArgs.filter === null ||
-      filterValues.queryArgs.filter === undefined
-    ) {
+    if (!filterValues.queryArgs.filter) {
       filterValues.queryArgs.filter = []
     }
     const filteredArray = filterValues.queryArgs.filter.filter(
@@ -68,12 +64,12 @@ export const createCategorySelection = (
       const carsArr: ProductProjection[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+      resolveMessageAddAndRemove(errorMessage, false)
     }
   })
   parentElement.append(allCarsBtn)
-  for (const category of categories) {
+  categories.forEach((category) => {
     const categoryName = category.name['en-US']
     const categoryKey = category.key
     const categoryId = category.id
@@ -84,31 +80,22 @@ export const createCategorySelection = (
       currentHash === categoryKey
         ? [CSS_CLASSES.categoryBtn, CSS_CLASSES.activeBtn]
         : [CSS_CLASSES.categoryBtn]
-    const categoryBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: curClass,
-      elementText: `${categoryName}`,
-      elementId: `${categoryKey}-btn`,
-    })
+    const categoryBtn = createEl('button', curClass, categoryName)
+    categoryBtn.setAttribute('id', `${categoryKey}-btn`)
     btnArr.push(categoryBtn)
     categoryBtn.addEventListener('click', async (event: Event) => {
       event.preventDefault()
-      for (const btn of btnArr) {
+      btnArr.forEach((btn) => {
         if (btn !== event.target) {
           btn.classList.remove(CSS_CLASSES.activeBtn)
         } else {
           btn.classList.add(CSS_CLASSES.activeBtn)
         }
-      }
-      const clickedCategoryKey = categoryKey as string
+      })
       const clickedCategoryId = categoryId
 
-      pageList.CUR_CAT = clickedCategoryKey
       filterValues.queryArgs = queryArgs
-      if (
-        filterValues.queryArgs.filter === null ||
-        filterValues.queryArgs.filter === undefined
-      ) {
+      if (!filterValues.queryArgs.filter) {
         filterValues.queryArgs.filter = []
       }
       const filteredArray = filterValues.queryArgs.filter.filter(
@@ -120,28 +107,24 @@ export const createCategorySelection = (
       )
       localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
       localStorage.setItem('CUR_CATEGORY', JSON.stringify(clickedCategoryId))
-      localStorage.setItem('CUR_HASH', clickedCategoryKey)
       carsCardContainer.innerHTML = ''
       try {
         const loadCarsResult = await getCarsWithFilter()
         const carsArr: ProductProjection[] = loadCarsResult.body.results
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
-        // eslint-disable-next-line
-        console.log(error)
+        const errorMessage: string = error.message;
+        resolveMessageAddAndRemove(errorMessage, false)
       }
     })
     parentElement.append(categoryBtn)
-  }
+  })
 }
 
 export const filterCarsFromCategory = async (
   carsCardContainer: HTMLElement
 ) => {
-  const blockCategoryCar = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.сategoryBtns],
-  })
+  const blockCategoryCar = createEl('div', [CSS_CLASSES.сategoryBtns])
   const apiRequestCategories = await apiRoot
     .withProjectKey({ projectKey: PROJECT_KEY })
     .categories()
@@ -155,71 +138,42 @@ export const filterCarsFromCategory = async (
 
 export const sortCars = (carsCardContainer: HTMLElement) => {
   const options = []
-  const blockSortCars = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.sortContainer],
-  })
+  const blockSortCars = createEl('div', [CSS_CLASSES.sortContainer])
 
-  const sortLabel = createHtmlElement({
-    tagName: 'label',
-    cssClass: [CSS_CLASSES.sortSelection],
-    elementText: 'Sort cars:',
-    forElement: 'sort',
-  })
+  const sortLabel = createEl('label', [CSS_CLASSES.sortSelection], 'Sort cars:')
+  sortLabel.setAttribute('for', 'sort');
   blockSortCars.append(sortLabel)
 
-  const sortSelection = createHtmlElement({
-    tagName: 'select',
-    cssClass: [CSS_CLASSES.sortSelection],
-    nameElement: 'sort',
-    elementId: 'sort',
-  }) as HTMLSelectElement
+  const sortSelection = createEl('select', [CSS_CLASSES.sortSelection])
+  sortSelection.setAttribute('id', 'sort')
   blockSortCars.append(sortSelection)
 
-  const sortPlaceholder = createHtmlElement({
-    tagName: 'option',
-    cssClass: [CSS_CLASSES.sortItem],
-    valueElement: 'createdAt asc',
-    elementText: 'Select option',
-  })
 
+  const sortPlaceholder = createEl('option', [CSS_CLASSES.sortItem], 'Select option');
+  sortPlaceholder.setAttribute('value', 'createdAt asc');
   options.push(sortPlaceholder)
 
-  const sortNameUp = createHtmlElement({
-    tagName: 'option',
-    cssClass: [CSS_CLASSES.sortItem],
-    elementText: 'Sort by name A-Z ',
-    valueElement: 'name.EN-US asc',
-  })
-  options.push(sortNameUp)
-  const sortNameDown = createHtmlElement({
-    tagName: 'option',
-    cssClass: [CSS_CLASSES.sortItem],
-    elementText: 'Sort by name Z-A',
-    valueElement: 'name.EN-US desc',
-  })
-  options.push(sortNameDown)
-  const sortPriceUp = createHtmlElement({
-    tagName: 'option',
-    cssClass: [CSS_CLASSES.sortItem],
-    elementText: 'Sort by price from high to low',
-    valueElement: 'price desc',
-  })
-  options.push(sortPriceUp)
+  const sortNameUp = createEl('option', [CSS_CLASSES.sortItem], 'Sort by name A-Z');
+  sortNameUp.setAttribute('value', 'name.EN-US asc');
+  options.push(sortNameUp);
 
-  const sortPriceDown = createHtmlElement({
-    tagName: 'option',
-    cssClass: [CSS_CLASSES.sortItem],
-    elementText: 'Sort by price from low to high',
-    valueElement: 'price asc',
-  })
+  const sortNameDown = createEl('option', [CSS_CLASSES.sortItem], 'Sort by name Z-A');
+  sortNameDown.setAttribute('value', 'name.EN-US desc');
+  options.push(sortNameDown)
+
+  const sortPriceUp = createEl('option', [CSS_CLASSES.sortItem], 'Sort by price from high to low');
+  sortPriceUp.setAttribute('value', 'price desc');
+  options.push(sortPriceUp);
+
+  const sortPriceDown = createEl('option', [CSS_CLASSES.sortItem], 'Sort by price from low to high')
+  sortPriceDown.setAttribute('value', 'price asc');
   options.push(sortPriceDown)
   sortSelection.append(...options)
   sortSelection.addEventListener('change', async (event: Event) => {
     const selectedOption = (event.target as HTMLSelectElement)?.value
     localStorage.getItem('CUR_CATEGORY')
     filterValues.queryArgs = queryArgs
-    filterValues.queryArgs.sort = `${selectedOption}`
+    filterValues.queryArgs.sort = selectedOption;
     localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
 
     carsCardContainer.innerHTML = ''
@@ -228,34 +182,24 @@ export const sortCars = (carsCardContainer: HTMLElement) => {
       const carsArr: ProductProjection[] = loadCarsResult.body.results
       createCarsList(carsArr, carsCardContainer)
     } catch (error: any) {
-      // eslint-disable-next-line
-      console.log(error)
+      const errorMessage: string = error.message;
+      resolveMessageAddAndRemove(errorMessage, false)
     }
   })
   return blockSortCars
 }
 
 export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
-  const filterAtrbutesBtns = createHtmlElement({
-    tagName: 'div',
-    cssClass: [CSS_CLASSES.atributesBtns],
-  })
+  const filterAtrbutesBtns = createEl('div', [CSS_CLASSES.atributesBtns])
   const colorsAuto = ['Transparent', 'White', 'Red', 'Blue', 'Gray', 'Black']
   const btnArr: HTMLElement[] = []
-
-  for (const color of colorsAuto) {
-    const colorBtn = createHtmlElement({
-      tagName: 'button',
-      cssClass: [CSS_CLASSES.colorBtn],
-      elementId: `${color}`,
-    })
-    colorBtn.style.backgroundColor = `${color}`
+  colorsAuto.forEach((color) => {
+    const colorBtn = createEl('button', [CSS_CLASSES.colorBtn])
+    colorBtn.setAttribute('id', color)
+    colorBtn.style.backgroundColor = color;
     colorBtn.addEventListener('click', async (event: Event) => {
       filterValues.queryArgs = queryArgs
-      if (
-        filterValues.queryArgs.filter === null ||
-        filterValues.queryArgs.filter === undefined
-      ) {
+      if (!filterValues.queryArgs.filter) {
         filterValues.queryArgs.filter = []
       }
       const filteredArray = filterValues.queryArgs.filter.filter(
@@ -267,26 +211,26 @@ export const filerFromAtribute = (carsCardContainer: HTMLElement) => {
           `variants.attributes.color-auto: "${color}"`
         )
       }
-      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues))
-      for (const btn of btnArr) {
+      localStorage.setItem('CUR_FILTER', JSON.stringify(filterValues));
+      btnArr.forEach((btn) => {
         if (btn !== event.target) {
           btn.classList.remove(CSS_CLASSES.activeBtn)
         } else {
           btn.classList.add(CSS_CLASSES.activeBtn)
         }
-      }
+      })
       carsCardContainer.innerHTML = ''
       try {
         const loadCarsResult = await getCarsWithFilter()
         const carsArr: ProductProjection[] = loadCarsResult.body.results
         createCarsList(carsArr, carsCardContainer)
       } catch (error: any) {
-        // eslint-disable-next-line
-        console.log(error)
+        const errorMessage: string = error.message;
+        resolveMessageAddAndRemove(errorMessage, false)
       }
     })
     btnArr.push(colorBtn)
-  }
+  })
   filterAtrbutesBtns.append(...btnArr)
   return filterAtrbutesBtns
 }
